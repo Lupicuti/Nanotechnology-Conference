@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapienza Conference on Quantum Technology and Nanoscale Engineering</title>
+    <style>
+        /* CSS Variables for Consistent Theming */
+        :root {
+            --primary-color: #822433; /* Sapienza Red */
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --bg-light: #f8f9fa;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=2000') center/cover;
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        header p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .btn-main {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+        .btn-main:hover {
+            background-color: #c0392b;
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+        section h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+        }
+        .bg-gray {
+            background-color: var(--bg-light);
+        }
+
+        /* Cards for Speakers & Workshops */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--secondary-color);
+        }
+        .card .institution {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .more-info {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .more-info:hover {
+            text-decoration: underline;
+        }
+
+        /* Workshop specific styling */
+        .workshop-btn {
+            display: block;
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem;
+            margin-top: 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .workshop-btn:hover {
+            background-color: #1a252f;
+        }
+
+        /* Program Table/List */
+        .program-day {
+            margin-bottom: 3rem;
+        }
+        .program-day h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+        }
+        .session {
+            background: white;
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .time {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+        }
+        footer a {
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#program">Program</a></li>
+            <li><a href="#speakers">Speakers</a></li>
+            <li><a href="#workshops">Workshops</a></li>
+            <li><a href="#register">Register</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header id="home">
+        <h1>Quantum Technology and Nanoscale Engineering</h1>
+        <p>Sapienza Conference • September 17-18, 2026 • Rome, Italy</p>
+        <p><em>Bridging fundamental research and advanced cross-disciplinary applications.</em></p>
+        <a href="#register" class="btn-main">Register Now for Free</a>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About the Conference</h2>
+        <p>This interdisciplinary conference, organized by the Sapienza School of Advanced Studies (SSAS), explores the frontiers of quantum technology, materials science, and nanoscale engineering. Taking place at Sapienza Università di Roma (Aula Amaldi), the event spans 2D materials, microscopy, superconductors, quantum optics, reticular chemistry (MOFs), nanofluidics, and nanomedicine.</p>
+        <p>Targeting Master’s students, PhD candidates, and researchers, the schedule alternates comprehensive keynote sessions by international experts with parallel, hands-on laboratory workshops.</p>
+        
+        <h3>Scientific Committee</h3>
+        <p><strong>Biophysics:</strong> Michele Ortolani, Valeria Giliberti, Roberto Di Leonardo<br>
+        <strong>Quantum Tech / Superconductors:</strong> Bernard Van Heck, Marta De Luca, Jose Lorenzana, Fabio Sciarrino<br>
+        <strong>MOF:</strong> Paola D’Angelo | <strong>Nanofluidics:</strong> Mirko Gallo<br>
+        <strong>Nanomedicine:</strong> Maria Carafa | <strong>Nanorestoration:</strong> Maria Laura Santarelli</p>
+    </section>
+
+    <!-- Program Section -->
+    <div class="bg-gray">
+        <section id="program">
+            <h2>Conference Program</h2>
+            
+            <div class="program-day">
+                <h3>DAY 1: Beyond the Limits of Matter: From the Quantum World to Nanostructures (Sept 17)</h3>
+                <div class="session">
+                    <span class="time">08:00 - 09:00</span> Registration, Welcome, and Institutional Greetings
+                </div>
+                <h4>Morning Session: 2D Materials, Optics, and Quantum Electrodynamics</h4>
+                <div class="session"><span class="time">09:00 - 09:50</span> <strong>Maximilian Haider</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">09:50 - 10:40</span> <strong>Kazu Suenaga</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">10:40 - 11:10</span> ☕ Coffee Break and Networking</div>
+                <div class="session"><span class="time">11:10 - 12:00</span> <strong>Alessandro Tredicucci</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">12:00 - 12:50</span> <strong>Carlo Beenakker</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">12:50 - 14:30</span> 🍽️ Lunch Break</div>
+                <h4>Afternoon Session: Creating and Preserving (Synthesis and Nanorestoration)</h4>
+                <div class="session"><span class="time">14:30 - 15:20</span> <strong>Camilla Coletti</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">15:20 - 16:10</span> <strong>Gabriella Di Carlo</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">16:10 - 16:30</span> Conclusions of the First Day</div>
+                <div class="session"><span class="time">16:30 - 17:30</span> 🥂 Scientific Aperitif / Poster Session</div>
+            </div>
+
+            <div class="program-day">
+                <h3>DAY 2: Reticular Chemistry, Fluid Dynamics, and Nanomedicine (Sept 18)</h3>
+                <h4>Morning Session: New Medical Frontiers and Molecular Structures</h4>
+                <div class="session"><span class="time">09:00 - 09:50</span> <strong>Francesco De Angelis</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">09:50 - 10:40</span> <strong>Giulia Serrano</strong> - Keynote Speech</div>
+                <div class="session"><span class="time">10:40 - 11:10</span> ☕ Coffee Break</div>
+                <div class="session"><span class="time">11:10 - 12:00</span> Speech 3 (TBC)</div>
+                <div class="session"><span class="time">12:00 - 12:50</span> Speech 4 (TBC)</div>
+                <div class="session"><span class="time">12:50 - 14:30</span> 🍽️ Lunch Break</div>
+                <h4>Afternoon Session: Hands-on Workshops & Lab Sessions</h4>
+                <div class="session"><span class="time">15:00 - 18:00</span> Parallel practical sessions (See Workshops section below to register)</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Speakers Section -->
+    <section id="speakers">
+        <h2>Featured Speakers</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>Maximilian Haider</h3>
+                <div class="institution">CEOS GmbH & KIT, Germany</div>
+                <p>Recipient of the Wolf Prize in Physics (2011) for the realization of aberration-corrected electron microscopy.</p>
+                <a href="#speaker-haider" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Kazu Suenaga</h3>
+                <div class="institution">Osaka University & AIST, Japan</div>
+                <p>Pioneer in single-atom imaging and spectroscopy in low-dimensional nanomaterials.</p>
+                <a href="#speaker-suenaga" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Alessandro Tredicucci</h3>
+                <div class="institution">Università di Pisa & NEST - CNR-NANO, Italy</div>
+                <p>Pioneer in terahertz photonics and polaritonics, and inventor of the first Terahertz Quantum Cascade Laser.</p>
+                <a href="#speaker-tredicucci" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Carlo Beenakker</h3>
+                <div class="institution">Leiden University, The Netherlands</div>
+                <p>Pioneer in mesoscopic physics and topological quantum computing (Majorana fermions), recipient of the Spinoza Prize (1999).</p>
+                <a href="#speaker-beenakker" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Camilla Coletti</h3>
+                <div class="institution">Istituto Italiano di Tecnologia & CNI@NEST, Italy</div>
+                <p>Pioneer in the synthesis of highly crystalline 2D materials via CVD, and coordinator of IIT Graphene Labs.</p>
+                <a href="#speaker-coletti" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Gabriella Di Carlo</h3>
+                <div class="institution">ISMN-CNR / Sapienza University of Rome, Italy</div>
+                <p>Expert in surface chemistry and eco-friendly coatings for the conservation of cultural heritage.</p>
+                <a href="#speaker-dicarlo" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Francesco De Angelis</h3>
+                <div class="institution">Istituto Italiano di Tecnologia - IIT, Italy</div>
+                <p>Internationally recognized expert in nanophotonics, plasmonics, and neural interfaces for biomedical applications.</p>
+                <a href="#speaker-deangelis" class="more-info">Read Full Description &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>Giulia Serrano</h3>
+                <div class="institution">University of Florence, Italy</div>
+                <p>Expert in surface science and molecular magnetism, driving advancements in molecular spintronics.</p>
+                <a href="#speaker-serrano" class="more-info">Read Full Description &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workshops Section -->
+    <div class="bg-gray">
+        <section id="workshops">
+            <h2>Afternoon Workshops (Day 2)</h2>
+            <p>Participants will be able to divide themselves among the following practical workshops and laboratories. <strong>Space is limited, please register for your preferred session below.</strong></p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🔬 Atomic Force Microscopy (AFM)</h3>
+                    <div class="institution">Led by: Ernesto Placidi</div>
+                    <p>Investigate the surface morphology and properties of semiconductor nanostructures and quantum dots.</p>
+                    <a href="#workshop-afm" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+                <div class="card">
+                    <h3>💊 Nanomedicine Lab Experience</h3>
+                    <div class="institution">Led by: M. Gioia Fabiano & Eleonora D’Intino</div>
+                    <p>Focuses on the design and characterization of advanced nanocarriers and targeted drug delivery systems.</p>
+                    <a href="#workshop-nano" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+                <div class="card">
+                    <h3>⚛️ Absorption in Quantum Well</h3>
+                    <div class="institution">Led by: Leonetta Baldassarre</div>
+                    <p>Exploring the optical properties, plasmonics, and light-matter interactions of low-dimensional systems.</p>
+                    <a href="#workshop-quantum" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+                <div class="card">
+                    <h3>🧵 Nanowires</h3>
+                    <div class="institution">Led by: Marta De Luca</div>
+                    <p>Focuses on the optical and vibrational properties of semiconductor nanowires using Raman spectroscopy.</p>
+                    <a href="#workshop-nanowires" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+                <div class="card">
+                    <h3>🏛️ Nanotechnologies in HERITAGE-LAB</h3>
+                    <div class="institution">Led by: Maria Laura Santarelli</div>
+                    <p>Developing innovative nanomaterials and eco-friendly coatings for preserving historical artifacts.</p>
+                    <a href="#workshop-heritage" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+                <div class="card">
+                    <h3>💡 Light and Photonics</h3>
+                    <div class="institution">Led by: Marco Felici</div>
+                    <p>Investigates electronic and optical properties of semiconductor nanostructures for optoelectronic devices.</p>
+                    <a href="#workshop-photonics" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+                <div class="card">
+                    <h3>💻 Computational Work on Plasmonics</h3>
+                    <div class="institution">Led by: Tommaso Giovannini (Tor Vergata)</div>
+                    <p>Advanced theoretical models to simulate localized surface plasmon resonances and complex interactions.</p>
+                    <a href="#workshop-plasmonics" class="more-info">More Info &rarr;</a>
+                    <a href="https://forms.gle/your-workshop-link-here" target="_blank" class="workshop-btn">Register for this Workshop</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- General Registration & Contact Section -->
+    <section id="register" style="text-align: center;">
+        <h2>General Conference Registration</h2>
+        <p>Participation is free of charge upon registration. Join 10-11 internationally renowned speakers and numerous workshops.</p>
+        <br>
+        <a href="https://forms.gle/your-general-registration-link" class="btn-main" target="_blank">Register for the Main Event</a>
+    </section>
+
+    <!-- Footer / Contacts -->
+    <footer>
+        <h2>Contact Us</h2>
+        <p>For any information regarding the conference, don't hesitate to contact the Organizing Secretary:</p>
+        <p>
+            <strong>Francesco Lupicuti:</strong> <a href="mailto:lupicuti.2141621@studenti.uniroma1.it">lupicuti.2141621@studenti.uniroma1.it</a><br>
+            <strong>Leonardo Perrini:</strong> <a href="mailto:perrini.2065029@studenti.uniroma1.it">perrini.2065029@studenti.uniroma1.it</a>
+        </p>
+        <p style="margin-top: 2rem; font-size: 0.9rem;">
+            📍 Aula Amaldi, Sapienza Università di Roma<br>
+            © 2026 Sapienza Conference. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
