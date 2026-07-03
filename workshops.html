@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapienza Conference 2026 | Workshop & Lab Registration</title>
+    <meta name="description" content="Register for parallel hands-on laboratory workshops at the Sapienza Conference. Choose from AFM, Nanomedicine, Quantum Well Spectroscopy, Semiconductor Nanowires, and more.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-deep: #070B14;
+            --bg-card: rgba(18, 26, 45, 0.65);
+            --bg-card-hover: rgba(28, 40, 68, 0.8);
+            --border-glow: rgba(0, 240, 255, 0.18);
+            --border-light: rgba(255, 255, 255, 0.08);
+            
+            --cyan: #00F0FF;
+            --indigo: #6366F1;
+            --violet: #A855F7;
+            --coral: #FF5E7E;
+            --amber: #F59E0B;
+            --emerald: #10B981;
+            
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --text-dim: #6B7280;
+            
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Grotesk', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient glowing gradient background */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+            filter: blur(60px);
+        }
+
+        /* Interactive Canvas Background */
+        #quantum-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.55;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 5%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(7, 11, 20, 0.4);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .navbar.scrolled {
+            padding: 0.75rem 5%;
+            background: rgba(7, 11, 20, 0.85);
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.7);
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #000;
+            font-weight: 800;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+        .brand-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #FFF, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: block;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cyan);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            outline: none;
+        }
+        .btn-glow {
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            color: #070B14;
+            font-weight: 700;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+            color: #000;
+        }
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
+        }
+        .btn-outline:hover {
+            background: rgba(0, 240, 255, 0.12);
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFF;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero / Header Section */
+        .header-section {
+            padding: 9rem 5% 3rem;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header-section h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.2rem;
+            letter-spacing: -1px;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #FFFFFF 20%, var(--cyan) 60%, var(--indigo) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-section p {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .section-badge {
+            display: inline-block;
+            color: var(--cyan);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Form Layout */
+        .registration-container {
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 0 5%;
+        }
+
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .form-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--cyan), transparent, var(--indigo));
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .form-subtitle {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: #FFF;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.75rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.4rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #E5E7EB;
+            margin-bottom: 0.5rem;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #FFF;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .form-control:focus {
+            border-color: var(--cyan);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.25);
+        }
+        select.form-control {
+            background-color: #121A2D;
+            cursor: pointer;
+        }
+
+        /* Workshop Cards Grid */
+        .ws-select-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .ws-select-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: left;
+        }
+        .ws-select-card:hover {
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-4px);
+            background: var(--bg-card-hover);
+        }
+        
+        /* Highlight borders matching category color */
+        .ws-select-card.selected {
+            border-color: var(--cyan);
+            background: rgba(0, 240, 255, 0.04);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+        }
+        .ws-select-card.selected::after {
+            content: '✓ Selected';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--cyan);
+            color: #070B14;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+        
+        .ws-icon {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+        }
+        .ws-select-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: #FFF;
+            margin-bottom: 0.4rem;
+        }
+        .ws-leader {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .ws-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .ws-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 0.8rem;
+            font-size: 0.8rem;
+        }
+        .ws-seats {
+            color: var(--text-muted);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .status-dot.available {
+            background: var(--emerald);
+            box-shadow: 0 0 8px var(--emerald);
+        }
+        .status-dot.low {
+            background: var(--amber);
+            box-shadow: 0 0 8px var(--amber);
+        }
+
+        /* Success Card Admission Ticket */
+        .ticket-box {
+            display: none;
+            max-width: 650px;
+            margin: 0 auto 6rem;
+            background: linear-gradient(135deg, rgba(18, 26, 45, 0.95), rgba(28, 40, 68, 0.95));
+            border: 2px solid var(--cyan);
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0, 240, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        .ticket-box::before, .ticket-box::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 30px;
+            background: var(--bg-deep);
+            border-radius: 50%;
+            z-index: 5;
+        }
+        .ticket-box::before {
+            left: -15px;
+            border-right: 2px solid var(--cyan);
+            transform: translateY(-50%);
+        }
+        .ticket-box::after {
+            right: -15px;
+            border-left: 2px solid var(--cyan);
+            transform: translateY(-50%);
+        }
+        .ticket-header {
+            background: rgba(0, 240, 255, 0.07);
+            border-bottom: 2px dashed rgba(0, 240, 255, 0.3);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+        .ticket-body {
+            padding: 2.5rem;
+        }
+        .ticket-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .ticket-label {
+            font-size: 0.75rem;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.2rem;
+        }
+        .ticket-value {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: #FFF;
+            font-size: 1.1rem;
+        }
+        .ticket-footer {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #04070D;
+            border-top: 1px solid var(--border-light);
+            padding: 5rem 5% 2rem;
+        }
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        .footer-col h4 {
+            color: #FFF;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .footer-col p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .contact-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .contact-link {
+            color: var(--cyan);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(7, 11, 20, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-glow);
+                padding: 2rem;
+                gap: 1.5rem;
+                z-index: 999;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+                text-align: center;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .form-card {
+                padding: 1.8rem;
+            }
+            .ticket-info-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient glowing lights -->
+    <div class="ambient-glow"></div>
+    
+    <!-- Animated Network Canvas -->
+    <canvas id="quantum-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">Ψ</div>
+                <div>
+                    <span class="brand-text">SAPIENZA NANO & TECH</span>
+                    <span class="brand-sub">Advanced Studies • Rome 2026</span>
+                </div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#program">Scientific Program</a></li>
+                <li><a href="index.html#speakers">Keynotes</a></li>
+                <li><a href="index.html#workshops">Workshops</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> Lab Sign-up</a></li>
+                <li><a href="index.html#secretary">Secretary</a></li>
+                <li><a href="index.html#committee">Committee</a></li>
+                <li>
+                    <a href="index.html" class="btn btn-glow" style="padding: 0.5rem 1.2rem; text-decoration: none;">
+                        <i class="fa-solid fa-arrow-left"></i> Home Page
+                    </a>
+                </li>
+            </ul>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="header-section">
+        <span class="section-badge"><i class="fa-solid fa-flask"></i> Interactive Session Reservation</span>
+        <h1 class="text-gradient">Laboratory Workshop Registration</h1>
+        <p>
+            Reserve your seat in one of our parallel hands-on laboratories on Day 2 Afternoon (Sept 18, 15:00 - 18:00). 
+            Instruments and spaces are strictly limited to ensure an optimal practical learning experience.
+        </p>
+    </header>
+
+    <!-- Form Container -->
+    <main class="registration-container">
+        
+        <!-- Registration Form Card -->
+        <div class="form-card" id="form-container">
+            <form id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
+                
+                <!-- Section 1: Attendee Info -->
+                <div class="form-subtitle">
+                    <i class="fa-solid fa-id-card" style="color: var(--cyan);"></i> 1. Attendee Verification
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" class="form-control" id="reg-name" placeholder="Name Surname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>University / Institution Email *</label>
+                        <input type="email" class="form-control" id="reg-email" placeholder="name@domain.edu / uniroma1.it" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Academic Status / Role *</label>
+                        <select class="form-control" id="reg-role" required>
+                            <option value="">Select your role...</option>
+                            <option value="Master's Student">Master's Student</option>
+                            <option value="PhD Candidate">PhD Candidate</option>
+                            <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+                            <option value="Professor / Principal Investigator">Professor / Principal Investigator</option>
+                            <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Section 2: Choose Workshop -->
+                <div class="form-subtitle">
+                    <i class="fa-solid fa-vials" style="color: var(--indigo);"></i> 2. Select Your Hands-on Laboratory (Choose One)
+                </div>
+                
+                <input type="hidden" id="selected-ws-input" required>
+                
+                <div class="ws-select-grid">
+                    <!-- Workshop 1: AFM -->
+                    <div class="ws-select-card" data-value="afm" onclick="selectWorkshop('afm')">
+                        <div>
+                            <div class="ws-icon" style="color: var(--cyan);"><i class="fa-solid fa-microscope"></i></div>
+                            <h4>Atomic Force Microscopy (AFM)</h4>
+                            <div class="ws-leader" style="color: var(--cyan);"><i class="fa-solid fa-user-tie"></i> Ernesto Placidi (Sapienza)</div>
+                            <p class="ws-desc">Hands-on scanning probe microscopy to investigate surface morphology, structural evolution, and mechanical properties of nanostructures.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>4 / 15 remaining</b></span>
+                            <span class="status-dot low"></span>
+                        </div>
+                    </div>
+
+                    <!-- Workshop 2: Nanomedicine -->
+                    <div class="ws-select-card" data-value="nanomedicine" onclick="selectWorkshop('nanomedicine')">
+                        <div>
+                            <div class="ws-icon" style="color: var(--coral);"><i class="fa-solid fa-capsules"></i></div>
+                            <h4>Nanomedicine Experience</h4>
+                            <div class="ws-leader" style="color: var(--coral);"><i class="fa-solid fa-user-group"></i> M. Gioia Fabiano & Eleonora D’Intino</div>
+                            <p class="ws-desc">Design, synthesis, and characterization of advanced lipid/polymer nanocarriers and targeted drug delivery vesicles.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>8 / 15 remaining</b></span>
+                            <span class="status-dot available"></span>
+                        </div>
+                    </div>
+
+                    <!-- Workshop 3: Quantum Well -->
+                    <div class="ws-select-card" data-value="quantum-well" onclick="selectWorkshop('quantum-well')">
+                        <div>
+                            <div class="ws-icon" style="color: var(--amber);"><i class="fa-solid fa-sun"></i></div>
+                            <h4>Absorption in Quantum Well</h4>
+                            <div class="ws-leader" style="color: var(--amber);"><i class="fa-solid fa-user-tie"></i> Leonetta Baldassarre (Sapienza)</div>
+                            <p class="ws-desc">Explore infrared and terahertz spectroscopy, characterizing plasmonics and light-matter interactions in low-dimensional structures.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>3 / 15 remaining</b></span>
+                            <span class="status-dot low"></span>
+                        </div>
+                    </div>
+
+                    <!-- Workshop 4: Nanowires -->
+                    <div class="ws-select-card" data-value="nanowires" onclick="selectWorkshop('nanowires')">
+                        <div>
+                            <div class="ws-icon" style="color: var(--emerald);"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <h4>Semiconductor Nanowires</h4>
+                            <div class="ws-leader" style="color: var(--emerald);"><i class="fa-solid fa-user-tie"></i> Marta De Luca (Sapienza)</div>
+                            <p class="ws-desc">Investigate the optical and vibrational properties of 1D semiconductor nanowires using micro-Raman and photoluminescence spectroscopy.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>6 / 15 remaining</b></span>
+                            <span class="status-dot available"></span>
+                        </div>
+                    </div>
+
+                    <!-- Workshop 5: Heritage Lab -->
+                    <div class="ws-select-card" data-value="heritage-lab" onclick="selectWorkshop('heritage-lab')">
+                        <div>
+                            <div class="ws-icon" style="color: #60A5FA;"><i class="fa-solid fa-landmark"></i></div>
+                            <h4>HERITAGE-LAB Nanotech</h4>
+                            <div class="ws-leader" style="color: #60A5FA;"><i class="fa-solid fa-user-tie"></i> Maria Laura Santarelli (Sapienza)</div>
+                            <p class="ws-desc">Practical application of materials science to historical artifacts: synthesizing and applying eco-friendly protective nanocoatings.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>9 / 15 remaining</b></span>
+                            <span class="status-dot available"></span>
+                        </div>
+                    </div>
+
+                    <!-- Workshop 6: Photonics -->
+                    <div class="ws-select-card" data-value="photonics" onclick="selectWorkshop('photonics')">
+                        <div>
+                            <div class="ws-icon" style="color: var(--violet);"><i class="fa-solid fa-lightbulb"></i></div>
+                            <h4>Light and Photonics</h4>
+                            <div class="ws-leader" style="color: var(--violet);"><i class="fa-solid fa-user-tie"></i> Marco Felici (Sapienza)</div>
+                            <p class="ws-desc">Characterizing electronic and optical behavior of custom nanostructures for next-generation optoelectronic integrated circuits.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>5 / 15 remaining</b></span>
+                            <span class="status-dot low"></span>
+                        </div>
+                    </div>
+
+                    <!-- Workshop 7: Computational Plasmonics -->
+                    <div class="ws-select-card" data-value="computational-plasmonics" onclick="selectWorkshop('computational-plasmonics')">
+                        <div>
+                            <div class="ws-icon" style="color: var(--indigo);"><i class="fa-solid fa-laptop-code"></i></div>
+                            <h4>Computational Plasmonics</h4>
+                            <div class="ws-leader" style="color: var(--indigo);"><i class="fa-solid fa-user-tie"></i> Tommaso Giovannini (Tor Vergata)</div>
+                            <p class="ws-desc">Perform theoretical simulations and molecular modeling of localized surface plasmon resonances in molecule-nanoparticle hybrids.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>11 / 15 remaining</b></span>
+                            <span class="status-dot available"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div style="text-align: center;">
+                    <button type="submit" class="btn btn-glow" style="padding: 1.2rem 3.5rem; font-size: 1.1rem; justify-content: center; width: 100%; max-width: 400px; margin: 0 auto;">
+                        <i class="fa-solid fa-circle-check"></i> Complete Lab Registration
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Ticket Pass (Hidden initially) -->
+        <div class="ticket-box" id="ticket-container">
+            <div class="ticket-header">
+                <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem;">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: #FFF; margin-bottom: 0.25rem;">Workshop Pass Confirmed</h3>
+                <span class="section-badge" style="color: var(--cyan); margin-bottom: 0;">Attendee Pass #WSP-2026-07</span>
+            </div>
+            
+            <div class="ticket-body">
+                <div class="ticket-info-grid">
+                    <div>
+                        <div class="ticket-label">Name</div>
+                        <div class="ticket-value" id="ticket-name"></div>
+                    </div>
+                    <div>
+                        <div class="ticket-label">Role</div>
+                        <div class="ticket-value" id="ticket-role"></div>
+                    </div>
+                    <div>
+                        <div class="ticket-label">Email</div>
+                        <div class="ticket-value" id="ticket-email" style="font-size: 0.95rem; word-break: break-all;"></div>
+                    </div>
+                    <div>
+                        <div class="ticket-label">Date & Time</div>
+                        <div class="ticket-value">Sept 18, 2026, 15:00 - 18:00</div>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <div class="ticket-label">Selected Laboratory</div>
+                        <div class="ticket-value" id="ticket-workshop" style="color: var(--cyan); font-size: 1.2rem;"></div>
+                    </div>
+                    <div style="grid-column: span 2;">
+                        <div class="ticket-label">Laboratory Location</div>
+                        <div class="ticket-value" id="ticket-location" style="font-size: 1rem; font-weight: 400; color: var(--text-muted);"></div>
+                    </div>
+                </div>
+                
+                <div class="ticket-footer">
+                    <div style="text-align: left;">
+                        <span style="font-size: 0.75rem; color: var(--text-dim); display: block;">Sapienza Advanced Studies</span>
+                        <strong style="font-size: 0.85rem; color: #FFF;">Rome, Aula Amaldi & Laboratories</strong>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-qrcode" style="font-size: 3.5rem; color: var(--text-main); opacity: 0.85;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="padding: 1.5rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+                <a href="index.html" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-house"></i> Return to Main Page
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="brand" style="margin-bottom: 1.2rem;">
+                    <div class="brand-logo">Ψ</div>
+                    <span class="brand-text">SAPIENZA NANO & TECH 2026</span>
+                </div>
+                <p style="max-width: 400px; margin-bottom: 1.5rem;">
+                    Interdisciplinary Conference on Quantum Technology, Materials Science, and Nanoscale Engineering organized by the Sapienza School of Advanced Studies (SSAS).
+                </p>
+                <div style="color: #FFF; font-weight: 600;">
+                    <i class="fa-solid fa-location-dot" style="color: var(--cyan);"></i> Aula Amaldi, Sapienza Università di Roma<br>
+                    <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 400;">Piazzale Aldo Moro 5, 00185 Rome, Italy</span>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Organizing Secretary</h4>
+                <div class="contact-box">
+                    <div>
+                        <strong style="color: #FFF; display: block;">Francesco Lupicuti</strong>
+                        <a href="mailto:lupicuti.2141621@studenti.uniroma1.it" class="contact-link">
+                            <i class="fa-solid fa-envelope"></i> lupicuti.2141621@studenti.uniroma1.it
+                        </a>
+                    </div>
+                    <div style="margin-top: 0.8rem;">
+                        <strong style="color: #FFF; display: block;">Leonardo Perrini</strong>
+                        <a href="mailto:perrini.2065029@studenti.uniroma1.it" class="contact-link">
+                            <i class="fa-solid fa-envelope"></i> perrini.2065029@studenti.uniroma1.it
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+                    <li><a href="index.html#about" style="color: var(--text-muted); text-decoration: none;">About the Conference</a></li>
+                    <li><a href="index.html#program" style="color: var(--text-muted); text-decoration: none;">Preliminary Schedule</a></li>
+                    <li><a href="index.html#speakers" style="color: var(--text-muted); text-decoration: none;">Keynote Speakers</a></li>
+                    <li><a href="index.html#workshops" style="color: var(--text-muted); text-decoration: none;">Hands-on Workshops</a></li>
+                    <li><a href="index.html#committee" style="color: var(--text-muted); text-decoration: none;">Scientific Committee</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Sapienza School of Advanced Studies (SSAS) • All rights reserved. Designed for optimal academic collaboration.
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 40) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when links are clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Workshop Data Map
+        const workshopsData = {
+            'afm': {
+                name: 'Atomic Force Microscopy (AFM)',
+                leader: 'Ernesto Placidi (Sapienza)',
+                location: 'AFM Laboratory, Department of Physics, Sapienza (Building Marconi)'
+            },
+            'nanomedicine': {
+                name: 'Nanomedicine Experience',
+                leader: 'M. Gioia Fabiano & Eleonora D’Intino',
+                location: 'Nanomedicine Formulation Laboratory, Department of Chemistry & Drug Technologies, Sapienza'
+            },
+            'quantum-well': {
+                name: 'Absorption in Quantum Well',
+                leader: 'Leonetta Baldassarre (Sapienza)',
+                location: 'Infrared Spectroscopy Facility, Department of Physics, Sapienza (Building Fermi)'
+            },
+            'nanowires': {
+                name: 'Semiconductor Nanowires',
+                leader: 'Marta De Luca (Sapienza)',
+                location: 'Micro-Raman Lab, Department of Physics, Sapienza'
+            },
+            'heritage-lab': {
+                name: 'HERITAGE-LAB Nanotech',
+                leader: 'Maria Laura Santarelli (Sapienza)',
+                location: 'Materials for Cultural Heritage Lab, Department of Chemical Engineering, Sapienza'
+            },
+            'photonics': {
+                name: 'Light and Photonics',
+                leader: 'Marco Felici (Sapienza)',
+                location: 'Optoelectronic Integrated Circuits Laboratory, Department of Physics, Sapienza'
+            },
+            'computational-plasmonics': {
+                name: 'Computational Plasmonics',
+                leader: 'Tommaso Giovannini (Tor Vergata)',
+                location: 'Scientific Computing Laboratory, Dept of Physics, Sapienza / Tor Vergata Remote Cluster'
+            }
+        };
+
+        // Handle workshop card selection
+        let selectedWorkshopId = '';
+        
+        function selectWorkshop(workshopId) {
+            selectedWorkshopId = workshopId;
+            document.getElementById('selected-ws-input').value = workshopId;
+            
+            // Toggle classes on cards
+            document.querySelectorAll('.ws-select-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            const selectedCard = document.querySelector(`.ws-select-card[data-value="${workshopId}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+            }
+        }
+
+        // Parse query params to auto-populate form
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('name');
+            const email = params.get('email');
+            const role = params.get('role');
+            const select = params.get('select');
+
+            if (name) document.getElementById('reg-name').value = decodeURIComponent(name);
+            if (email) document.getElementById('reg-email').value = decodeURIComponent(email);
+            if (role) {
+                const roleEl = document.getElementById('reg-role');
+                const decodedRole = decodeURIComponent(role);
+                for (let opt of roleEl.options) {
+                    if (opt.value.toLowerCase() === decodedRole.toLowerCase()) {
+                        roleEl.value = opt.value;
+                        break;
+                    }
+                }
+            }
+            if (select) {
+                const wsId = select.toLowerCase().trim();
+                if (workshopsData[wsId]) {
+                    selectWorkshop(wsId);
+                    // Smooth scroll to selection section if pre-selected
+                    document.getElementById('selected-ws-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+
+        // ==========================================================
+        // GOOGLE FORMS INTEGRATION CONFIGURATION
+        // ==========================================================
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1dOAI9pDFyXrzLxIQnvcvnDIkxlE7V4di6dNOKIdZ-bo/formResponse';
+        const GOOGLE_ENTRY_NAME = 'entry.2005620554';
+        const GOOGLE_ENTRY_EMAIL = 'entry.1045781283';
+        const GOOGLE_ENTRY_ROLE = 'entry.839337160';
+        const GOOGLE_ENTRY_WORKSHOP = 'entry.161271168';
+
+        function saveToLocalDB(name, email, role, workshop) {
+            try {
+                let list = JSON.parse(localStorage.getItem('registrations') || '[]');
+                const idx = list.findIndex(r => r.email.toLowerCase() === email.toLowerCase());
+                const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                if (idx > -1) {
+                    list[idx].name = name;
+                    list[idx].role = role;
+                    list[idx].workshop = workshop;
+                    list[idx].registered_at = now;
+                } else {
+                    list.push({ name, email, role, workshop, registered_at: now });
+                }
+                localStorage.setItem('registrations', JSON.stringify(list));
+            } catch(e) {
+                console.error('Failed to save to localStorage:', e);
+            }
+        }
+
+        // Submit registration
+        function handleWorkshopSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const role = document.getElementById('reg-role').value;
+            const wsVal = document.getElementById('selected-ws-input').value;
+
+            if (!wsVal) {
+                alert('Please select one of the hands-on laboratories from the grid.');
+                return;
+            }
+
+            const wsInfo = workshopsData[wsVal];
+            
+            // Submit to Google Forms (No-CORS)
+            const formData = new FormData();
+            formData.append(GOOGLE_ENTRY_NAME, name);
+            formData.append(GOOGLE_ENTRY_EMAIL, email);
+            formData.append(GOOGLE_ENTRY_ROLE, role);
+            formData.append(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
+
+            fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            })
+            .then(() => {
+                console.log('Submitted workshop registration to Google Forms successfully.');
+            })
+            .catch(err => {
+                console.warn('Google Forms submission failed or blocked by CORS:', err);
+            });
+
+            // Save to LocalStorage for fallback dashboard use
+            saveToLocalDB(name, email, role, wsInfo.name);
+            
+            // Populate Ticket pass elements
+            document.getElementById('ticket-name').innerText = name;
+            document.getElementById('ticket-email').innerText = email;
+            document.getElementById('ticket-role').innerText = role;
+            document.getElementById('ticket-workshop').innerText = wsInfo.name;
+            document.getElementById('ticket-location').innerText = wsInfo.location;
+
+            // Swap forms
+            document.getElementById('form-container').style.display = 'none';
+            
+            const ticket = document.getElementById('ticket-container');
+            ticket.style.display = 'block';
+            ticket.style.animation = 'fadeInUp 0.6s both';
+            
+            // Scroll to success ticket
+            ticket.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Animated Particle Network Background
+        const canvas = document.getElementById('quantum-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.radius = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? '#00F0FF' : '#6366F1';
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+            }
+        }
+
+        const particleCount = Math.min(Math.floor(window.innerWidth / 15), 80);
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        let mouseX = -1000, mouseY = -1000;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                // Connect nearby particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 140) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 140)})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+
+                // Connect to mouse cursor
+                const mdx = particles[i].x - mouseX;
+                const mdy = particles[i].y - mouseY;
+                const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+                if (mDist < 180) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.strokeStyle = `rgba(168, 85, 247, ${0.25 * (1 - mDist / 180)})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.stroke();
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>

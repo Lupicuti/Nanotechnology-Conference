@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapienza Conference 2026 | Admin Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-deep: #070B14;
+            --bg-card: rgba(18, 26, 45, 0.7);
+            --bg-card-hover: rgba(28, 40, 68, 0.85);
+            --border-glow: rgba(0, 240, 255, 0.2);
+            --border-light: rgba(255, 255, 255, 0.08);
+
+            --cyan: #00F0FF;
+            --indigo: #6366F1;
+            --violet: #A855F7;
+            --coral: #FF5E7E;
+            --amber: #F59E0B;
+            --emerald: #10B981;
+
+            --text-main: #F3F4F6;
+            --text-muted: #9CA3AF;
+            --text-dim: #6B7280;
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Grotesk', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient glowing gradient background */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 10% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.12) 0%, transparent 45%);
+            filter: blur(60px);
+        }
+
+        /* Interactive Canvas Background */
+        #quantum-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.45;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 5%;
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: #000;
+            font-weight: 800;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .brand-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #FFF, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: block;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Control Panel Header */
+        .admin-header {
+            padding: 7rem 5% 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .header-title h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            outline: none;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            color: #070B14;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.45);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+            border: 1px solid var(--border-glow);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 240, 255, 0.12);
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.15);
+            color: #FCA5A5;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.35);
+            border-color: #EF4444;
+            color: #FFF;
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            padding: 0 5% 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        .stat-icon.workshop {
+            color: var(--indigo);
+            background: rgba(99, 102, 241, 0.08);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .stat-icon.plenary {
+            color: var(--violet);
+            background: rgba(168, 85, 247, 0.08);
+            border-color: rgba(168, 85, 247, 0.2);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-number {
+            font-family: var(--font-mono);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        /* Dashboard Content Area */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto 6rem;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .data-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2.2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        /* Search input */
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            color: #FFF;
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--cyan);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Registrants Table styling */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th,
+        td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--cyan);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover td {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        td {
+            color: #E5E7EB;
+        }
+
+        .role-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            display: inline-block;
+        }
+
+        .ws-tag {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--indigo);
+        }
+
+        .date-col {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #111827;
+            border: 1px solid var(--cyan);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            padding: 2.5rem;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #FFF;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+        }
+
+        .close-modal:hover {
+            background: var(--coral);
+        }
+
+        /* Form Controls inside modal */
+        .form-group {
+            margin-bottom: 1.4rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #E5E7EB;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #FFF;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: var(--cyan);
+        }
+
+        select.form-control {
+            background-color: #1F2937;
+        }
+
+        /* Footer */
+        footer {
+            background: #04070D;
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 5% 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient glowing lights -->
+    <div class="ambient-glow"></div>
+
+    <!-- Animated Network Canvas -->
+    <canvas id="quantum-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">Ψ</div>
+                <div>
+                    <span class="brand-text">SAPIENZA NANO & TECH</span>
+                    <span class="brand-sub">Admin Dashboard Control Panel</span>
+                </div>
+            </a>
+            <a href="index.html" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                <i class="fa-solid fa-eye"></i> View Live Site
+            </a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="header-title">
+            <h1>Registrations Control Panel</h1>
+            <p>Monitor registrations, manually insert new delegates, remove participants, and export attendees
+                databases.</p>
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="exportCSVClientSide()" class="btn btn-outline">
+                <i class="fa-solid fa-file-excel" style="color: var(--emerald);"></i> Export Excel (CSV)
+            </button>
+            <button onclick="openAddModal()" class="btn btn-glow">
+                <i class="fa-solid fa-user-plus"></i> Add Attendee Manually
+            </button>
+        </div>
+    </header>
+
+    <!-- Statistics Strip -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">Total Registered</span>
+                    <span class="stat-number" id="stats-total">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon workshop"><i class="fa-solid fa-flask"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">Lab Workshop Seats</span>
+                    <span class="stat-number" id="stats-workshops">0</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon plenary"><i class="fa-solid fa-chalkboard-user"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">Plenary Only (No Lab)</span>
+                    <span class="stat-number" id="stats-plenary">0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="dashboard-container">
+        <div class="data-card">
+
+            <div class="card-header-row">
+                <h3 class="card-title">
+                    <i class="fa-solid fa-table-list" style="color: var(--cyan);"></i> Registered Delegates List
+                    <span id="source-badge"
+                        style="font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; margin-left: 1rem;">Loading...</span>
+                </h3>
+
+                <div class="search-container">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" class="search-input" id="search-box"
+                        placeholder="Search by name, email, or role..." onkeyup="filterTable()">
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table id="registrants-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">#</th>
+                            <th>Name</th>
+                            <th>Email Address</th>
+                            <th>Role / Status</th>
+                            <th>Workshop Booking</th>
+                            <th style="width: 140px;">Reg Date</th>
+                            <th style="width: 100px; text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                                <i class="fa-solid fa-spinner fa-spin"
+                                    style="font-size: 2rem; margin-bottom: 1rem; display: block; color: var(--cyan);"></i>
+                                Loading registrations from database...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Add Registrant Modal -->
+    <div class="modal-overlay" id="add-modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeAddModal()"><i class="fa-solid fa-xmark"></i></button>
+
+            <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: #FFF; margin-bottom: 1.5rem;">
+                <i class="fa-solid fa-user-plus" style="color: var(--cyan);"></i> Add Delegate Manually
+            </h3>
+
+            <form id="add-form" onsubmit="handleAddSubmit(event)">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" class="form-control" id="add-name" placeholder="Name Surname" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" class="form-control" id="add-email" placeholder="name@domain.edu" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Academic Status / Role *</label>
+                    <select class="form-control" id="add-role" required>
+                        <option value="Master's Student">Master's Student</option>
+                        <option value="PhD Candidate">PhD Candidate</option>
+                        <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+                        <option value="Professor / Principal Investigator">Professor / Principal Investigator</option>
+                        <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Workshop Booking</label>
+                    <select class="form-control" id="add-workshop">
+                        <option value="">None (Plenary Only)</option>
+                        <option value="afm">Atomic Force Microscopy (AFM)</option>
+                        <option value="nanomedicine">Nanomedicine Experience</option>
+                        <option value="quantum-well">Absorption in Quantum Well</option>
+                        <option value="nanowires">Semiconductor Nanowires</option>
+                        <option value="heritage-lab">HERITAGE-LAB Nanotech</option>
+                        <option value="photonics">Light and Photonics</option>
+                        <option value="computational-plasmonics">Computational Plasmonics</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-glow"
+                    style="width: 100%; justify-content: center; margin-top: 1rem;">
+                    <i class="fa-solid fa-circle-check"></i> Register Participant
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        © 2026 Sapienza School of Advanced Studies (SSAS) • Internal Admin Dashboard Control Panel.
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // ==========================================================
+        // GOOGLE SHEETS LIVE CSV CONFIGURATION
+        // ==========================================================
+        // 1. Link your Google Form to a Google Sheet spreadsheet.
+        // 2. In your Google Sheet, click: File > Share > Publish to web.
+        // 3. Select the sheet tab containing your form responses (e.g. "Form Responses 1").
+        // 4. Choose "Comma-separated values (.csv)" and click "Publish".
+        // 5. Copy the generated URL and paste it here:
+        //
+        // NOTE: By default, this dashboard maps columns as follows:
+        // - Column 0: Submission Date/Time (Timestamp)
+        // - Column 1: Full Name
+        // - Column 2: Email Address
+        // - Column 3: Academic Role / Status
+        // - Column 4: Day 2 Laboratory Workshop
+        // If your Google Sheet uses a different column order, adjust the mapping values
+        // inside the parseCSV(text) function (located around line 720).
+        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRZRLlWIZjzf-dY5lNSc9TV4s2Hn1RPwO601lxyQpe7ZDK-b24E75nYuV8ar4_nKoDj-brChM4h9PIs/pub?gid=808331599&single=true&output=csv';
+
+        // Registrants Cache
+        let registrantsData = [];
+        let isUsingGoogleSheets = false;
+
+        // Fetch all registrations
+        function loadRegistrations() {
+            const isConfigured = GOOGLE_SHEET_CSV_URL && !GOOGLE_SHEET_CSV_URL.includes('2PACX-1vSxxxxxxxxxxxxxx');
+
+            if (isConfigured) {
+                fetch(GOOGLE_SHEET_CSV_URL)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Failed to load published CSV from Google Sheets');
+                        return res.text();
+                    })
+                    .then(csvText => {
+                        isUsingGoogleSheets = true;
+                        const parsed = parseCSV(csvText);
+                        registrantsData = parsed;
+                        renderTable(parsed);
+                        renderStats(parsed);
+                        updateSourceBadge(true);
+                    })
+                    .catch(err => {
+                        console.warn('Google Sheets loading failed. Falling back to LocalStorage:', err);
+                        loadFromLocalStorage();
+                    });
+            } else {
+                loadFromLocalStorage();
+            }
+        }
+
+        function loadFromLocalStorage() {
+            isUsingGoogleSheets = false;
+            const data = JSON.parse(localStorage.getItem('registrations') || '[]');
+            registrantsData = data;
+            renderTable(data);
+            renderStats(data);
+            updateSourceBadge(false);
+        }
+
+        function updateSourceBadge(isGoogle) {
+            const badge = document.getElementById('source-badge');
+            if (isGoogle) {
+                badge.innerText = 'Connected: Google Sheets';
+                badge.style.background = 'rgba(16, 185, 129, 0.12)';
+                badge.style.color = 'var(--emerald)';
+            } else {
+                badge.innerText = 'Demo Mode: LocalStorage';
+                badge.style.background = 'rgba(245, 158, 11, 0.12)';
+                badge.style.color = 'var(--amber)';
+            }
+        }
+
+        // CSV Parser
+        function parseCSV(text) {
+            const lines = text.split('\n');
+            if (lines.length <= 1) return [];
+
+            const list = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+
+                const cols = parseCSVLine(line);
+                if (cols.length >= 4) {
+                    list.push({
+                        registered_at: cols[0] || '',
+                        name: cols[1] || '',
+                        email: cols[2] || '',
+                        role: cols[3] || '',
+                        workshop: cols[4] || 'None (Plenary Only)'
+                    });
+                }
+            }
+            return list.reverse(); // Show recent registrations first
+        }
+
+        // Helper to parse double-quoted CSV fields with commas
+        function parseCSVLine(text) {
+            const result = [];
+            let insideQuote = false;
+            let currentField = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                if (char === '"') {
+                    insideQuote = !insideQuote;
+                } else if (char === ',' && !insideQuote) {
+                    result.push(currentField.trim());
+                    currentField = '';
+                } else {
+                    currentField += char;
+                }
+            }
+            result.push(currentField.trim());
+            return result;
+        }
+
+        // Client-side CSV Download (Serverless)
+        function exportCSVClientSide() {
+            if (registrantsData.length === 0) {
+                alert('No registered delegates found to export.');
+                return;
+            }
+
+            let csvContent = "\ufeff"; // BOM for Excel UTF-8
+            csvContent += ["Attendee ID", "Full Name", "Email Address", "Academic Status / Role", "Day 2 Workshop", "Registration Date"].join(",") + "\r\n";
+
+            registrantsData.forEach((r, idx) => {
+                const row = [
+                    idx + 1,
+                    `"${r.name.replace(/"/g, '""')}"`,
+                    `"${r.email.replace(/"/g, '""')}"`,
+                    `"${r.role.replace(/"/g, '""')}"`,
+                    `"${r.workshop.replace(/"/g, '""')}"`,
+                    `"${r.registered_at.replace(/"/g, '""')}"`
+                ];
+                csvContent += row.join(",") + "\r\n";
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", "conference_registrations_2026.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Render Table Rows
+        function renderTable(data) {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                            No registered attendees found.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const wsNames = {
+                'afm': 'Atomic Force Microscopy (AFM)',
+                'nanomedicine': 'Nanomedicine Experience',
+                'quantum-well': 'Absorption in Quantum Well',
+                'nanowires': 'Semiconductor Nanowires',
+                'heritage-lab': 'HERITAGE-LAB Nanotech',
+                'photonics': 'Light and Photonics',
+                'computational-plasmonics': 'Computational Plasmonics'
+            };
+
+            data.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+
+                const tdIndex = document.createElement('td');
+                tdIndex.innerText = idx + 1;
+                tr.appendChild(tdIndex);
+
+                const tdName = document.createElement('td');
+                tdName.innerHTML = `<strong>${escapeHtml(r.name)}</strong>`;
+                tr.appendChild(tdName);
+
+                const tdEmail = document.createElement('td');
+                tdEmail.innerText = r.email;
+                tr.appendChild(tdEmail);
+
+                const tdRole = document.createElement('td');
+                tdRole.innerHTML = `<span class="role-tag">${escapeHtml(r.role)}</span>`;
+                tr.appendChild(tdRole);
+
+                const tdWs = document.createElement('td');
+                const rawWs = (r.workshop || '').toLowerCase();
+                const displayWs = wsNames[rawWs] || r.workshop;
+                if (rawWs === 'none (plenary only)' || rawWs === 'none' || !r.workshop) {
+                    tdWs.innerHTML = `<span style="color: var(--text-dim);">Plenary Only</span>`;
+                } else {
+                    tdWs.innerHTML = `<span class="ws-tag"><i class="fa-solid fa-flask" style="font-size: 0.8rem; margin-right: 0.3rem;"></i>${escapeHtml(displayWs)}</span>`;
+                }
+                tr.appendChild(tdWs);
+
+                const tdDate = document.createElement('td');
+                tdDate.className = 'date-col';
+                tdDate.innerText = formatDate(r.registered_at);
+                tr.appendChild(tdDate);
+
+                const tdActions = document.createElement('td');
+                tdActions.style.textAlign = 'center';
+                tdActions.innerHTML = `
+                    <button onclick="deleteAttendee('${r.email}')" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i> Delete
+                    </button>
+                `;
+                tr.appendChild(tdActions);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Render Stats summaries
+        function renderStats(data) {
+            const total = data.length;
+            const workshops = data.filter(r => {
+                const ws = (r.workshop || '').toLowerCase();
+                return ws && ws !== 'none (plenary only)' && ws !== 'none' && ws !== 'null';
+            }).length;
+            const plenary = total - workshops;
+
+            document.getElementById('stats-total').innerText = total;
+            document.getElementById('stats-workshops').innerText = workshops;
+            document.getElementById('stats-plenary').innerText = plenary;
+        }
+
+        // Filter Table Rows on Search Box Keyup
+        function filterTable() {
+            const query = document.getElementById('search-box').value.toLowerCase().trim();
+            if (!query) {
+                renderTable(registrantsData);
+                return;
+            }
+
+            const filtered = registrantsData.filter(r => {
+                return r.name.toLowerCase().includes(query) ||
+                    r.email.toLowerCase().includes(query) ||
+                    r.role.toLowerCase().includes(query) ||
+                    (r.workshop || '').toLowerCase().includes(query);
+            });
+            renderTable(filtered);
+        }
+
+        // Add Registrant Modal Controls
+        function openAddModal() {
+            document.getElementById('add-form').reset();
+            document.getElementById('add-modal').classList.add('active');
+        }
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.remove('active');
+        }
+
+        // Add Submission
+        function handleAddSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('add-name').value;
+            const email = document.getElementById('add-email').value;
+            const role = document.getElementById('add-role').value;
+            const workshopInput = document.getElementById('add-workshop').value;
+            const wsNames = {
+                'afm': 'Atomic Force Microscopy (AFM)',
+                'nanomedicine': 'Nanomedicine Experience',
+                'quantum-well': 'Absorption in Quantum Well',
+                'nanowires': 'Semiconductor Nanowires',
+                'heritage-lab': 'HERITAGE-LAB Nanotech',
+                'photonics': 'Light and Photonics',
+                'computational-plasmonics': 'Computational Plasmonics'
+            };
+            const workshop = wsNames[workshopInput] || 'None (Plenary Only)';
+
+            // Always save to LocalStorage
+            try {
+                let list = JSON.parse(localStorage.getItem('registrations') || '[]');
+                const idx = list.findIndex(r => r.email.toLowerCase() === email.toLowerCase());
+                const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                if (idx > -1) {
+                    list[idx].name = name;
+                    list[idx].role = role;
+                    list[idx].workshop = workshop;
+                    list[idx].registered_at = now;
+                } else {
+                    list.push({ name, email, role, workshop, registered_at: now });
+                }
+                localStorage.setItem('registrations', JSON.stringify(list));
+            } catch (err) {
+                console.error(err);
+            }
+
+            if (isUsingGoogleSheets) {
+                // Prepend to current screen view
+                const now = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                registrantsData.unshift({
+                    name, email, role, workshop, registered_at: now
+                });
+                renderTable(registrantsData);
+                renderStats(registrantsData);
+                closeAddModal();
+                alert('Success: Registrant added to dashboard preview.\n\nNote: To add this registrant permanently to Google Sheets, please submit them through the public Google Form or edit the spreadsheet rows directly.');
+            } else {
+                closeAddModal();
+                loadRegistrations();
+            }
+        }
+
+        // Delete Attendee
+        function deleteAttendee(email) {
+            if (!confirm(`Are you sure you want to remove participant ${email} from the database?`)) {
+                return;
+            }
+
+            // Always delete from local localStorage cache
+            try {
+                let list = JSON.parse(localStorage.getItem('registrations') || '[]');
+                list = list.filter(r => r.email.toLowerCase() !== email.toLowerCase());
+                localStorage.setItem('registrations', JSON.stringify(list));
+            } catch (err) {
+                console.error(err);
+            }
+
+            if (isUsingGoogleSheets) {
+                // Filter out from local screen view cache
+                registrantsData = registrantsData.filter(r => r.email.toLowerCase() !== email.toLowerCase());
+                renderTable(registrantsData);
+                renderStats(registrantsData);
+                alert('Success: Registrant removed from dashboard preview.\n\nNote: Since your dashboard is linked to Google Sheets, to delete this registrant permanently you must open your Google Sheets spreadsheet and remove the corresponding row.');
+            } else {
+                loadRegistrations();
+            }
+        }
+
+        // Helper: Escape HTML strings to prevent XSS in admin UI
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Helper: Format Database Timestamp
+        function formatDate(timestampStr) {
+            if (!timestampStr) return '-';
+            try {
+                // Parse SQLite datetime 'YYYY-MM-DD HH:MM:SS'
+                // Or just show simplified format
+                return timestampStr.split(' ')[0];
+            } catch (e) {
+                return timestampStr;
+            }
+        }
+
+        // Load registrations on page load
+        window.addEventListener('DOMContentLoaded', loadRegistrations);
+
+        // Animated Background
+        const canvas = document.getElementById('quantum-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? '#00F0FF' : '#6366F1';
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.1 * (1 - dist / 150)})`;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+
+</html>
