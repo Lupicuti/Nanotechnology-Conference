@@ -1156,14 +1156,47 @@
 
         // Function to fetch registrations from Google Sheets and update card seat badges
         async function fetchWorkshopCountsFromSheet() {
-            // First, check localStorage so any registrations made on this browser are counted immediately!
+            // Use the exact same Published CSV link as admin.html to avoid 401 gviz authorization errors
+            const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv';
+
             try {
+                const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                if (response.ok) {
+                    const csvText = await response.text();
+                    // Reset counts to 0 before tallying live sheet
+                    for (let key in workshopSeatCounts) {
+                        workshopSeatCounts[key] = 0;
+                    }
+                    
+                    // Parse CSV lines and count workshop occurrences
+                    const lines = csvText.split('\n');
+                    lines.forEach(line => {
+                        for (let key in workshopsData) {
+                            const wsName = workshopsData[key].name;
+                            // Check if this row mentions the workshop name
+                            if (line.includes(wsName)) {
+                                workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
+                            }
+                        }
+                    });
+                    console.log('Successfully updated workshop seat counts from live Google Sheet!');
+                    updateWorkshopSeatBadges();
+                    return;
+                }
+            } catch(err) {
+                console.warn('Could not fetch live Google Sheet (using fallback/localStorage counts):', err);
+            }
+
+            // Fallback to localStorage ONLY if offline or live Google Sheet fetch failed
+            try {
+                for (let key in workshopSeatCounts) {
+                    workshopSeatCounts[key] = 0;
+                }
                 const localData = localStorage.getItem('registrations');
                 if (localData) {
                     const regs = JSON.parse(localData);
                     regs.forEach(reg => {
                         if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
-                            // Find matching workshop key by checking name
                             for (let key in workshopsData) {
                                 if (workshopsData[key].name === reg.workshop) {
                                     workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
@@ -1175,36 +1208,6 @@
                 }
             } catch(e) {
                 console.warn('Could not read local registrations:', e);
-            }
-
-            // If a live Google Sheet ID is provided, fetch real-time global counts from the published CSV!
-            if (GOOGLE_SHEET_ID) {
-                try {
-                    const csvUrl = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv`;
-                    const response = await fetch(csvUrl);
-                    if (response.ok) {
-                        const csvText = await response.text();
-                        // Reset counts to 0 before tallying live sheet
-                        for (let key in workshopSeatCounts) {
-                            workshopSeatCounts[key] = 0;
-                        }
-                        
-                        // Parse CSV lines and count workshop occurrences
-                        const lines = csvText.split('\n');
-                        lines.forEach(line => {
-                            for (let key in workshopsData) {
-                                const wsName = workshopsData[key].name;
-                                // Check if this row mentions the workshop name
-                                if (line.includes(wsName)) {
-                                    workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
-                                }
-                            }
-                        });
-                        console.log('Successfully updated workshop seat counts from live Google Sheet!');
-                    }
-                } catch(err) {
-                    console.warn('Could not fetch live Google Sheet (using fallback counts):', err);
-                }
             }
 
             // Update the HTML badges on all workshop cards
