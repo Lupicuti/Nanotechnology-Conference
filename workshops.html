@@ -962,11 +962,8 @@
             </div>
             
             <div style="padding: 1.5rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 0.8rem;">
-                <button onclick="downloadTicketTxt()" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 0.9rem;">
-                    <i class="fa-solid fa-file-arrow-down"></i> Download Official Pass (.TXT Voucher)
-                </button>
-                <button onclick="window.print()" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.9rem; border-color: var(--cyan); color: var(--cyan);">
-                    <i class="fa-solid fa-print"></i> Print / Save as PDF
+                <button onclick="downloadTicketPdf()" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 0.9rem;">
+                    <i class="fa-solid fa-file-pdf"></i> Download Official VIP Pass (.PDF)
                 </button>
                 <a href="index.html" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.9rem;">
                     <i class="fa-solid fa-house"></i> Return to Main Page
@@ -1380,11 +1377,8 @@
             ticket.style.animation = 'fadeInUp 0.6s both';
             
             // Scroll to success ticket
-            ticket.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        // Generate and Download Official Text Voucher Pass
-        function downloadTicketTxt() {
+            ticket.scrollIntoView({ behavi        // Generate and Download Official VIP Digital Pass (.PDF)
+        function downloadTicketPdf() {
             const name = document.getElementById('ticket-name').innerText || 'Attendee';
             const email = document.getElementById('ticket-email').innerText || 'N/A';
             const role = document.getElementById('ticket-role').innerText || 'N/A';
@@ -1395,49 +1389,75 @@
             const voucherCode = (orderEl && orderEl.getAttribute('data-voucher-code')) ? orderEl.getAttribute('data-voucher-code') : ('SQ-2026-' + String(globalTotalRegistrants || 1).padStart(3, '0'));
             const orderDisplay = (orderEl && orderEl.getAttribute('data-order-num')) ? (`Registration Order: #${orderEl.getAttribute('data-order-num')}`) : (`Registration Order: #${globalTotalRegistrants || 1}`);
 
-            const txtContent = `========================================================================
-SAPIENZA SCHOOL OF ADVANCED STUDIES (SSAS)
-CONFERENCE & LABORATORY REGISTRATION VOUCHER
-========================================================================
+            // Create temporary container for clean PDF rendering (no buttons or print menus)
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.left = '-9999px';
+            container.style.top = '0';
+            container.style.width = '540px';
+            container.style.backgroundColor = '#070B14';
+            container.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+            container.style.color = '#E2E8F0';
+            container.style.padding = '20px';
 
-Official Booking Confirmation: #${voucherCode}
-${orderDisplay}
-Issued On: ${new Date().toLocaleString()}
+            container.innerHTML = `
+                <div style="background: rgba(18, 26, 45, 0.95); border: 2px solid #00F0FF; border-radius: 28px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);">
+                    <div style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(99, 102, 241, 0.2)); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 2.5rem 2rem 2rem; text-align: center;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); color: #10B981; font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 2px solid rgba(16, 185, 129, 0.5);"><i class="fa-solid fa-check"></i></div>
+                        <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #FFF; margin-bottom: 0.5rem;">SSAS Conference Pass</h1>
+                        <div style="display: inline-block; background: rgba(0, 240, 255, 0.15); border: 1px solid #00F0FF; color: #00F0FF; padding: 0.4rem 1.2rem; border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">VIP Pass #${voucherCode}</div>
+                        <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.5rem; font-weight: 600;">${orderDisplay}</div>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Delegate Name</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #FFF;">${name}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Academic Status</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #FFF;">${role}</div>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Email Address</div>
+                                <div style="font-size: 0.95rem; font-weight: 500; color: #CBD5E1;">${email}</div>
+                            </div>
+                            <div style="grid-column: span 2; background: rgba(0, 240, 255, 0.07); padding: 1.2rem; border-radius: 16px; border-left: 4px solid #00F0FF;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #00F0FF; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Reserved Laboratory Session</div>
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #00F0FF; margin-bottom: 0.4rem;">${workshop}</div>
+                                <div style="font-size: 0.95rem; color: #E2E8F0;"><i class="fa-solid fa-location-dot" style="color: #00F0FF;"></i> ${location}</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.3rem;"><i class="fa-solid fa-clock" style="color: #00F0FF;"></i> Sept 18, 2026 | 15:00 - 18:00 CEST</div>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Day 1 Plenary Venue</div>
+                                <div style="font-size: 0.95rem; color: #E2E8F0;">Aula Amaldi, Department of Physics, Sapienza University (Sept 17 | 09:00 CEST)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: rgba(7, 11, 20, 0.8); border-top: 1px dashed rgba(255, 255, 255, 0.15); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span style="font-size: 0.75rem; color: #64748B; display: block; font-weight: 600;">ISSUED BY</span>
+                            <strong style="font-size: 0.95rem; color: #FFF;">Sapienza School of Advanced Studies (SSAS)</strong>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-qrcode" style="font-size: 3.5rem; color: #FFF; opacity: 0.9;"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(container);
 
-------------------------------------------------------------------------
-DELEGATE INFORMATION
-------------------------------------------------------------------------
-Full Name:        ${name}
-Email Address:    ${email}
-Academic Status:  ${role}
+            const opt = {
+                margin:       0.3,
+                filename:     `SSAS_VIP_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#070B14' },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
 
-------------------------------------------------------------------------
-RESERVED LABORATORY SESSION
-------------------------------------------------------------------------
-Selected Lab:     ${workshop}
-Lab Location:     ${location}
-Date & Time:      September 18, 2026 | 15:00 - 18:00 CEST
-
-------------------------------------------------------------------------
-CONFERENCE SCHEDULE & VENUE
-------------------------------------------------------------------------
-Day 1 (Plenary):  Sept 17, 2026 | Aula Amaldi, Department of Physics
-Day 2 (Labs):     Sept 18, 2026 | Specialized Research Facilities
-
-Please present this voucher or your digital QR pass upon arrival at the
-conference check-in desk.
-
-© 2026 Sapienza University of Rome • School of Advanced Studies (SSAS)
-========================================================================`;
-
-            const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `SSAS_Conference_Pass_${name.replace(/\s+/g, '_')}.txt`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            html2pdf().set(opt).from(container).save().then(() => {
+                document.body.removeChild(container);
+            });
         }
 
         // Animated Particle Network Background

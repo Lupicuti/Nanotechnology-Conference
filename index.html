@@ -778,6 +778,19 @@
             font-size: 2.2rem;
             color: #FFF;
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .speaker-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
         }
 
         .speaker-card h3 {
@@ -1146,9 +1159,55 @@
             }
         }
 
+        /* SSAS Logo Styling */
+        .ssas-hero-logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .ssas-hero-logo {
+            max-height: 90px;
+            width: auto;
+            filter: drop-shadow(0 0 18px rgba(0, 240, 255, 0.45));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        .ssas-hero-logo:hover {
+            transform: scale(1.06);
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.7));
+        }
+
+        /* Venue Grid */
+        .venue-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
+            max-width: 1100px;
+            margin: 3rem auto 0;
+            align-items: center;
+        }
+        .venue-info {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 2.2rem;
+        }
+        .venue-map-container {
+            border: 2px solid var(--cyan);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+            height: 380px;
+        }
+        .venue-map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         /* Responsive Design */
         @media (max-width: 900px) {
-            .about-grid {
+            .about-grid, .venue-grid {
                 grid-template-columns: 1fr;
                 gap: 2.5rem;
             }
@@ -1298,6 +1357,7 @@
                         Sign-up</span></a></li>
                 <li><a href="#secretary" data-i18n="nav_secretary">Secretary</a></li>
                 <li><a href="#committee" data-i18n="nav_committee">Committee</a></li>
+                <li><a href="#venue">Venue</a></li>
                 <!-- BEGINNER'S GUIDE TO HTML: LANGUAGE SWITCHER DROPDOWN
                      <select> creates a dropdown menu. When the user picks a language,
                      the 'onchange' event triggers our JavaScript function setLanguage(). -->
@@ -1328,6 +1388,11 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- SSAS Institutional Logo Container (Hidden until ssas-logo.png is added to images/ folder) -->
+        <div class="ssas-hero-logo-container">
+            <img src="images/ssas-logo.png" alt="Scuola Superiore di Studi Avanzati (SSAS) Logo" class="ssas-hero-logo" onerror="handleSpeakerImgError(this)">
+        </div>
+
         <div class="badge-organizer">
             <span class="pulse-dot"></span>
             <span data-i18n="hero_subtitle">Organized by the Sapienza School of Advanced Studies (SSAS)</span>
@@ -1748,7 +1813,7 @@
             <div class="speaker-card">
                 <div>
                     <span class="award-badge"><i class="fa-solid fa-trophy"></i> Wolf Prize Winner (2011)</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-microscope"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/haider.jpg" alt="Maximilian Haider" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-microscope"></i></div>
                     <h3>Maximilian Haider</h3>
                     <div class="speaker-inst">CEOS GmbH & KIT, Germany</div>
                 </div>
@@ -1764,7 +1829,7 @@
                     <span class="award-badge"
                         style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan); color: var(--cyan);"><i
                             class="fa-solid fa-star"></i> Single-Atom Imaging</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-eye"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/suenaga.jpg" alt="Kazu Suenaga" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-eye"></i></div>
                     <h3>Kazu Suenaga</h3>
                     <div class="speaker-inst">Osaka University & AIST, Japan</div>
                 </div>
@@ -1780,7 +1845,7 @@
                     <span class="award-badge"
                         style="background: rgba(99, 102, 241, 0.15); border-color: var(--indigo); color: #C7D2FE;"><i
                             class="fa-solid fa-bolt"></i> THz Laser Inventor</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-wave-square"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/tredicucci.jpg" alt="Alessandro Tredicucci" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-wave-square"></i></div>
                     <h3>Alessandro Tredicucci</h3>
                     <div class="speaker-inst">Università di Pisa & NEST - CNR-NANO, Italy</div>
                 </div>
@@ -1794,7 +1859,7 @@
             <div class="speaker-card">
                 <div>
                     <span class="award-badge"><i class="fa-solid fa-award"></i> Spinoza Prize Winner (1999)</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-atom"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/beenakker.jpg" alt="Carlo Beenakker" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-atom"></i></div>
                     <h3>Carlo Beenakker</h3>
                     <div class="speaker-inst">Leiden University, The Netherlands</div>
                 </div>
@@ -1810,7 +1875,7 @@
                     <span class="award-badge"
                         style="background: rgba(16, 185, 129, 0.15); border-color: var(--emerald); color: #6EE7B7;"><i
                             class="fa-solid fa-layer-group"></i> Graphene Pioneer</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-cube"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/coletti.jpg" alt="Camilla Coletti" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-cube"></i></div>
                     <h3>Camilla Coletti</h3>
                     <div class="speaker-inst">IIT & CNI@NEST, Italy</div>
                 </div>
@@ -1826,7 +1891,7 @@
                     <span class="award-badge"
                         style="background: rgba(245, 158, 11, 0.15); border-color: var(--amber); color: #FDE68A;"><i
                             class="fa-solid fa-shield-halved"></i> Nanorestoration</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-monument"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/dicarlo.jpg" alt="Gabriella Di Carlo" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-monument"></i></div>
                     <h3>Gabriella Di Carlo</h3>
                     <div class="speaker-inst">ISMN-CNR / Sapienza University, Italy</div>
                 </div>
@@ -1842,7 +1907,7 @@
                     <span class="award-badge"
                         style="background: rgba(0, 240, 255, 0.1); border-color: var(--cyan); color: var(--cyan);"><i
                             class="fa-solid fa-brain"></i> Neural Interfaces</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-dna"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/deangelis.jpg" alt="Francesco De Angelis" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-dna"></i></div>
                     <h3>Francesco De Angelis</h3>
                     <div class="speaker-inst">Istituto Italiano di Tecnologia (IIT), Italy</div>
                 </div>
@@ -1858,7 +1923,7 @@
                     <span class="award-badge"
                         style="background: rgba(168, 85, 247, 0.15); border-color: var(--violet); color: #D8B4FE;"><i
                             class="fa-solid fa-magnet"></i> Molecular Spintronics</span>
-                    <div class="speaker-avatar"><i class="fa-solid fa-compass"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/serrano.jpg" alt="Giulia Serrano" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-compass"></i></div>
                     <h3>Giulia Serrano</h3>
                     <div class="speaker-inst">University of Florence, Italy</div>
                 </div>
@@ -2119,6 +2184,44 @@
         </div>
     </section>
 
+    <!-- Idea C: Interactive Venue & Campus Guide -->
+    <section id="venue" style="padding: 5rem 5% 3rem;">
+        <div class="section-header">
+            <span class="section-badge"><i class="fa-solid fa-map-location-dot"></i> Navigation</span>
+            <h2>Conference Venue & Directions</h2>
+            <p>How to reach the Aula Amaldi at the main Sapienza University campus in Rome.</p>
+        </div>
+
+        <div class="venue-grid">
+            <div class="venue-info">
+                <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: #FFF; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.6rem;">
+                    <i class="fa-solid fa-location-dot" style="color: var(--cyan);"></i> Aula Amaldi, Physics Dept.
+                </h3>
+                <div style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 1.8rem;">
+                    <div>
+                        <strong style="color: #FFF; display: block; font-size: 0.95rem;"><i class="fa-solid fa-map-pin" style="color: var(--indigo); margin-right: 0.5rem;"></i> Campus Address</strong>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Piazzale Aldo Moro 5, 00185 Rome, Italy (Main Entrance / Edificio Vecchio Cimento)</span>
+                    </div>
+                    <div>
+                        <strong style="color: #FFF; display: block; font-size: 0.95rem;"><i class="fa-solid fa-train-subway" style="color: var(--emerald); margin-right: 0.5rem;"></i> Public Transit (Metro & Train)</strong>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;"><strong>Metro B:</strong> Policlinico Station (8 min walk) or Castro Pretorio.<br><strong>Termini Station:</strong> 15 min walk or Bus 310 / 492 directly to campus gate.</span>
+                    </div>
+                    <div>
+                        <strong style="color: #FFF; display: block; font-size: 0.95rem;"><i class="fa-solid fa-id-card-clip" style="color: var(--amber); margin-right: 0.5rem;"></i> Check-in & Badge Pickup</strong>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Show your digital VIP Pass (.PDF or QR Code) at the ground-floor registration secretariat desk inside the Physics Department.</span>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Dipartimento+di+Fisica+Sapienza+Universita+di+Roma" target="_blank" class="btn btn-glow" style="display: inline-flex; align-items: center; gap: 0.8rem; width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-compass"></i> Open Live GPS Navigation in Google Maps
+                </a>
+            </div>
+
+            <div class="venue-map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2969.654877395029!2d12.512686815444855!3d41.90022067922137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f619e075c3d4f%3A0x8e860bc4b9f2d011!2sDipartimento%20di%20Fisica%2C%20Sapienza%20Universit%C3%A0%20di%20Roma!5e0!3m2!1sen!2sit!4v1700000000000!5m2!1sen!2sit" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Registration Banner -->
     <section style="padding: 3rem 5%;">
         <div class="register-banner">
@@ -2280,11 +2383,8 @@
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                    <button onclick="downloadPlenaryPassTxt()" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 0.9rem;">
-                        <i class="fa-solid fa-file-arrow-down"></i> Download Official Pass (.TXT Voucher)
-                    </button>
-                    <button onclick="window.print()" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.9rem; border-color: var(--cyan); color: var(--cyan);">
-                        <i class="fa-solid fa-print"></i> Print / Save as PDF
+                    <button onclick="downloadPlenaryPassPdf()" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 0.9rem;">
+                        <i class="fa-solid fa-file-pdf"></i> Download Official VIP Pass (.PDF)
                     </button>
                     <button onclick="closeRegisterModal()" class="btn btn-outline"
                         style="width: 100%; justify-content: center;" id="modal-close-btn">Return to Conference
@@ -2294,8 +2394,21 @@
         </div>
     </div>
 
+    <!-- html2pdf Library for Direct PDF Downloads -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- JavaScript -->
     <script>
+        // Smart image fallback handler: automatically tries .jpg -> .png -> .webp before hiding
+        function handleSpeakerImgError(img) {
+            if (img.src.endsWith('.jpg')) {
+                img.src = img.src.replace('.jpg', '.png');
+            } else if (img.src.endsWith('.png')) {
+                img.src = img.src.replace('.png', '.webp');
+            } else {
+                img.style.display = 'none';
+            }
+        }
+
         // Toggle mobile menu
         function toggleMobileMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -2446,8 +2559,8 @@
             })
             .catch(e => console.warn('Could not fetch initial sheet count:', e));
 
-        // Generate and Download Official Plenary Pass Voucher
-        function downloadPlenaryPassTxt() {
+        // Generate and Download Official VIP Digital Pass (.PDF)
+        function downloadPlenaryPassPdf() {
             const name = document.getElementById('pass-name-display').innerText || 'Attendee';
             const role = document.getElementById('pass-role-display').innerText || 'N/A';
             const email = document.getElementById('reg-email').value || 'N/A';
@@ -2458,43 +2571,74 @@
             const voucherCode = (orderEl && orderEl.getAttribute('data-voucher-code')) ? orderEl.getAttribute('data-voucher-code') : ('SQ-2026-' + String(globalTotalRegistrants || 1).padStart(3, '0'));
             const orderDisplay = (orderEl && orderEl.getAttribute('data-order-num')) ? (`Registration Order: #${orderEl.getAttribute('data-order-num')}`) : (`Registration Order: #${globalTotalRegistrants || 1}`);
 
-            const txtContent = `========================================================================
-SAPIENZA SCHOOL OF ADVANCED STUDIES (SSAS)
-CONFERENCE REGISTRATION VOUCHER
-========================================================================
+            // Create temporary container for clean PDF rendering (no buttons or print menus)
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.left = '-9999px';
+            container.style.top = '0';
+            container.style.width = '540px';
+            container.style.backgroundColor = '#070B14';
+            container.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+            container.style.color = '#E2E8F0';
+            container.style.padding = '20px';
 
-Official Booking Confirmation: #${voucherCode}
-${orderDisplay}
-Issued On: ${new Date().toLocaleString()}
+            container.innerHTML = `
+                <div style="background: rgba(18, 26, 45, 0.95); border: 2px solid #00F0FF; border-radius: 28px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);">
+                    <div style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(99, 102, 241, 0.2)); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 2.5rem 2rem 2rem; text-align: center;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); color: #10B981; font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 2px solid rgba(16, 185, 129, 0.5);"><i class="fa-solid fa-check"></i></div>
+                        <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #FFF; margin-bottom: 0.5rem;">SSAS Conference Pass</h1>
+                        <div style="display: inline-block; background: rgba(0, 240, 255, 0.15); border: 1px solid #00F0FF; color: #00F0FF; padding: 0.4rem 1.2rem; border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">VIP Pass #${voucherCode}</div>
+                        <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.5rem; font-weight: 600;">${orderDisplay}</div>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Delegate Name</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #FFF;">${name}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Academic Status</div>
+                                <div style="font-size: 1.1rem; font-weight: 700; color: #FFF;">${role}</div>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Email Address</div>
+                                <div style="font-size: 0.95rem; font-weight: 500; color: #CBD5E1;">${email}</div>
+                            </div>
+                            <div style="grid-column: span 2; background: rgba(0, 240, 255, 0.07); padding: 1.2rem; border-radius: 16px; border-left: 4px solid #00F0FF;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #00F0FF; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Registration Access</div>
+                                <div style="font-size: 1.2rem; font-weight: 800; color: #00F0FF; margin-bottom: 0.4rem;">${workshopStatus}</div>
+                                <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.3rem;"><i class="fa-solid fa-clock" style="color: #00F0FF;"></i> September 17, 2026 | 09:00 - 18:00 CEST</div>
+                            </div>
+                            <div style="grid-column: span 2;">
+                                <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Day 1 Plenary Venue</div>
+                                <div style="font-size: 0.95rem; color: #E2E8F0;">Aula Amaldi, Department of Physics, Sapienza University</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background: rgba(7, 11, 20, 0.8); border-top: 1px dashed rgba(255, 255, 255, 0.15); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between;">
+                        <div>
+                            <span style="font-size: 0.75rem; color: #64748B; display: block; font-weight: 600;">ISSUED BY</span>
+                            <strong style="font-size: 0.95rem; color: #FFF;">Sapienza School of Advanced Studies (SSAS)</strong>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-qrcode" style="font-size: 3.5rem; color: #FFF; opacity: 0.9;"></i>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(container);
 
-------------------------------------------------------------------------
-DELEGATE INFORMATION
-------------------------------------------------------------------------
-Full Name:        ${name}
-Email Address:    ${email}
-Academic Status:  ${role}
+            const opt = {
+                margin:       0.3,
+                filename:     `SSAS_VIP_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#070B14' },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
 
-------------------------------------------------------------------------
-CONFERENCE PASS DETAILS
-------------------------------------------------------------------------
-Registration:     ${workshopStatus}
-Day 1 (Plenary):  September 17, 2026 | 09:00 - 18:00 CEST
-Plenary Venue:    Aula Amaldi, Department of Physics, Sapienza University
-
-Please present this voucher or your digital pass upon arrival at the
-conference check-in desk on September 17.
-
-© 2026 Sapienza University of Rome • School of Advanced Studies (SSAS)
-========================================================================`;
-
-            const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `SSAS_Plenary_Pass_${name.replace(/\s+/g, '_')}.txt`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            html2pdf().set(opt).from(container).save().then(() => {
+                document.body.removeChild(container);
+            });
         }
 
         // Live Countdown to Sept 17, 2026 08:00:00 Rome Time
