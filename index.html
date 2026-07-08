@@ -251,6 +251,24 @@
             position: relative;
         }
 
+        .ssas-hero-logo-container {
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .ssas-hero-logo {
+            max-height: 90px;
+            width: auto;
+            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.4));
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), filter 0.3s ease;
+            cursor: pointer;
+        }
+
+        .ssas-hero-logo:hover {
+            transform: scale(1.06);
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.8));
+        }
+
         .badge-organizer {
             display: inline-flex;
             align-items: center;
@@ -1327,6 +1345,26 @@
             display: none !important; /* Hides the default Google translate container */
         }
     </style>
+    <script>
+        // Smart image fallback handler defined inside <head> so it is active BEFORE any <img> tag loads
+        function handleSpeakerImgError(img) {
+            if (!img._attempts) img._attempts = 0;
+            img._attempts++;
+            if (img._attempts > 3) {
+                img.style.display = 'none';
+                return;
+            }
+            if (/\.jpg$/i.test(img.src)) {
+                img.src = img.src.replace(/\.jpg$/i, '.png');
+            } else if (/\.png$/i.test(img.src)) {
+                img.src = img.src.replace(/\.png$/i, '.webp');
+            } else if (/\.webp$/i.test(img.src)) {
+                img.src = img.src.replace(/\.webp$/i, '.jpg');
+            } else {
+                img.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -1388,9 +1426,11 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- SSAS Institutional Logo Container (Hidden until ssas-logo.png is added to images/ folder) -->
+        <!-- SSAS Institutional Logo Container -->
         <div class="ssas-hero-logo-container">
-            <img src="images/ssas-logo.png" alt="Scuola Superiore di Studi Avanzati (SSAS) Logo" class="ssas-hero-logo" onerror="handleSpeakerImgError(this)">
+            <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer" title="Scuola Superiore di Studi Avanzati (SSAS) - Sapienza Università di Roma">
+                <img src="images/ssas-logo.png" alt="Scuola Superiore di Studi Avanzati (SSAS) Logo" class="ssas-hero-logo" onerror="handleSpeakerImgError(this)">
+            </a>
         </div>
 
         <div class="badge-organizer">
@@ -1453,32 +1493,6 @@
             </a>
         </div>
     </section>
-
-    <!-- Stats Strip -->
-    <div class="stats-strip">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-num">10+</div>
-                <div class="stat-title">World-Class Speakers</div>
-                <div class="stat-desc">Wolf Prize & Spinoza Laureates</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-num">7</div>
-                <div class="stat-title">Parallel Workshops</div>
-                <div class="stat-desc">Hands-on lab training</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-num">2 Days</div>
-                <div class="stat-title">Technical Deep Dives</div>
-                <div class="stat-desc">Keynotes & networking</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-num">100%</div>
-                <div class="stat-title">Free Participation</div>
-                <div class="stat-desc">Sponsored by SSAS</div>
-            </div>
-        </div>
-    </div>
 
     <!-- About Section -->
     <section id="about">
@@ -1813,7 +1827,7 @@
             <div class="speaker-card">
                 <div>
                     <span class="award-badge"><i class="fa-solid fa-trophy"></i> Wolf Prize Winner (2011)</span>
-                    <div class="speaker-avatar"><img src="images/speakers/haider.jpg" alt="Maximilian Haider" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-microscope"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/haider.png" alt="Maximilian Haider" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-microscope"></i></div>
                     <h3>Maximilian Haider</h3>
                     <div class="speaker-inst">CEOS GmbH & KIT, Germany</div>
                 </div>
@@ -1891,7 +1905,7 @@
                     <span class="award-badge"
                         style="background: rgba(245, 158, 11, 0.15); border-color: var(--amber); color: #FDE68A;"><i
                             class="fa-solid fa-shield-halved"></i> Nanorestoration</span>
-                    <div class="speaker-avatar"><img src="images/speakers/dicarlo.jpg" alt="Gabriella Di Carlo" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-monument"></i></div>
+                    <div class="speaker-avatar"><img src="images/speakers/dicarlo.png" alt="Gabriella Di Carlo" onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-monument"></i></div>
                     <h3>Gabriella Di Carlo</h3>
                     <div class="speaker-inst">ISMN-CNR / Sapienza University, Italy</div>
                 </div>
@@ -2398,16 +2412,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- JavaScript -->
     <script>
-        // Smart image fallback handler: automatically tries .jpg -> .png -> .webp before hiding
-        function handleSpeakerImgError(img) {
-            if (img.src.endsWith('.jpg')) {
-                img.src = img.src.replace('.jpg', '.png');
-            } else if (img.src.endsWith('.png')) {
-                img.src = img.src.replace('.png', '.webp');
-            } else {
-                img.style.display = 'none';
-            }
-        }
 
         // Toggle mobile menu
         function toggleMobileMenu() {
