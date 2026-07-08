@@ -1046,6 +1046,15 @@
             cursor: pointer;
         }
 
+        /* EDUCATIONAL COMMENT: Why style <option>?
+           In Windows browsers (Chrome, Edge, Firefox), dropdown <option> lists default to a white OS background.
+           If the <select> has white text (color: #FFF), it inherits into <option> causing "white text on white background"!
+           By explicitly setting background-color: #070B14 !important and color: #FFF !important, we guarantee high-contrast readability! */
+        select.form-control option, select option {
+            background-color: #070B14 !important;
+            color: #FFF !important;
+        }
+
         /* Footer */
         footer {
             background: #04070D;
@@ -1184,6 +1193,80 @@
                 display: block;
             }
         }
+
+        /* ==========================================================================
+           BEGINNER'S GUIDE TO CSS: LANGUAGE SWITCHER STYLES
+           CSS (Cascading Style Sheets) controls how HTML elements look on the screen.
+           Below, we create a "glassmorphic" (frosted glass) look for our language dropdown.
+           ========================================================================== */
+        .lang-switcher-container {
+            position: relative; /* Allows us to position icons inside the box */
+            display: inline-flex; /* Aligns items neatly in a row */
+            align-items: center; /* Centers items vertically */
+            margin-left: 0.5rem; /* Adds space to the left */
+        }
+
+        /* We style the HTML <select> dropdown box */
+        .lang-select {
+            appearance: none; /* Removes browser default ugly arrow/box styling */
+            -webkit-appearance: none;
+            background: rgba(18, 26, 45, 0.8); /* Semi-transparent dark blue background */
+            border: 1px solid var(--border-glow); /* Glowing cyan border using CSS variables */
+            border-radius: 30px; /* Smooth rounded pill shape */
+            color: #FFF; /* White text color */
+            font-family: var(--font-heading); /* Uses our custom modern font */
+            font-size: 0.85rem; /* Text size */
+            font-weight: 600; /* Medium-bold font weight */
+            padding: 0.5rem 2.2rem 0.5rem 1rem; /* Inner spacing: top right bottom left */
+            cursor: pointer; /* Changes mouse cursor to a pointing hand on hover */
+            backdrop-filter: blur(12px); /* Creates the frosted glass blur effect behind */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth animation when hovering */
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); /* Subtle cyan outer glow */
+        }
+
+        /* What happens when the user hovers their mouse or clicks on the dropdown */
+        .lang-select:hover, .lang-select:focus {
+            background: rgba(28, 40, 68, 0.95); /* Slightly brighter background */
+            border-color: var(--cyan); /* Bright cyan border */
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); /* Stronger glow effect */
+            outline: none; /* Removes ugly browser focus outline */
+            transform: translateY(-1px); /* Moves up slightly for a 3D float effect */
+        }
+
+        /* Styling for the dropdown options inside the menu */
+        .lang-select option {
+            background: #070B14; /* Deep dark background so text is readable */
+            color: #FFF; /* White text */
+            padding: 0.5rem;
+        }
+
+        /* Custom globe/flag arrow icon positioned inside the dropdown */
+        .lang-icon {
+            position: absolute; /* Placed precisely on the right side of the box */
+            right: 0.8rem;
+            pointer-events: none; /* Lets mouse clicks pass through to the select element */
+            color: var(--cyan); /* Cyan color */
+            font-size: 0.75rem;
+        }
+
+        /* ==========================================================================
+           BEGINNER'S GUIDE TO CSS: HIDING DEFAULT GOOGLE TRANSLATE BANNER
+           When Google Translate runs, it adds a top bar that pushes the website down.
+           We use "display: none !important" to hide that bar and keep our aesthetic design!
+           ========================================================================== */
+        .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important; /* Forces the Google top banner to be invisible */
+        }
+        .goog-text-highlight {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+        body {
+            top: 0px !important; /* Prevents Google from pushing our page down by 40px */
+        }
+        #google_translate_element {
+            display: none !important; /* Hides the default Google translate container */
+        }
     </style>
 </head>
 
@@ -1207,17 +1290,32 @@
             </a>
 
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#program">Scientific Program</a></li>
-                <li><a href="#speakers">Keynotes</a></li>
-                <li><a href="#workshops">Workshops</a></li>
-                <li><a href="workshops.html" style="color: var(--amber);"><i class="fa-solid fa-vials"></i> Lab
-                        Sign-up</a></li>
-                <li><a href="#secretary">Secretary</a></li>
-                <li><a href="#committee">Committee</a></li>
+                <li><a href="#about" data-i18n="nav_about">About</a></li>
+                <li><a href="#program" data-i18n="nav_program">Scientific Program</a></li>
+                <li><a href="#speakers" data-i18n="nav_keynotes">Keynotes</a></li>
+                <li><a href="#workshops" data-i18n="nav_workshops">Workshops</a></li>
+                <li><a href="workshops.html" style="color: var(--amber);"><i class="fa-solid fa-vials"></i> <span data-i18n="nav_lab_signup">Lab
+                        Sign-up</span></a></li>
+                <li><a href="#secretary" data-i18n="nav_secretary">Secretary</a></li>
+                <li><a href="#committee" data-i18n="nav_committee">Committee</a></li>
+                <!-- BEGINNER'S GUIDE TO HTML: LANGUAGE SWITCHER DROPDOWN
+                     <select> creates a dropdown menu. When the user picks a language,
+                     the 'onchange' event triggers our JavaScript function setLanguage(). -->
+                <li>
+                    <div class="lang-switcher-container" title="Select Language / Seleziona Lingua / Sprache wählen">
+                        <select class="lang-select" id="lang-selector" onchange="setLanguage(this.value)">
+                            <option value="en">🇬🇧 EN</option>
+                            <option value="it">🇮🇹 IT</option>
+                            <option value="de">🇩🇪 DE</option>
+                            <option value="fr">🇫🇷 FR</option>
+                            <option value="es">🇪🇸 ES</option>
+                        </select>
+                        <i class="fa-solid fa-globe lang-icon"></i>
+                    </div>
+                </li>
                 <li>
                     <button onclick="openRegisterModal()" class="btn btn-glow" style="padding: 0.5rem 1.2rem;">
-                        <i class="fa-solid fa-ticket"></i> Register Free
+                        <i class="fa-solid fa-ticket"></i> <span data-i18n="nav_register_free">Register Free</span>
                     </button>
                 </li>
             </ul>
@@ -1232,15 +1330,15 @@
     <section class="hero">
         <div class="badge-organizer">
             <span class="pulse-dot"></span>
-            Organized by the Sapienza School of Advanced Studies (SSAS)
+            <span data-i18n="hero_subtitle">Organized by the Sapienza School of Advanced Studies (SSAS)</span>
         </div>
 
         <h1>
-            Exploring the Frontiers of <br>
-            <span class="text-gradient">Nanotechnology, Materials Science & Advanced Engineering</span>
+            <span data-i18n="hero_title">Exploring the Frontiers of</span> <br>
+            <span class="text-gradient" data-i18n="hero_grad">Nanotechnology, Materials Science & Advanced Engineering</span>
         </h1>
 
-        <p>
+        <p data-i18n="hero_desc">
             Bridging fundamental sciences and advanced cross-disciplinary applications—from 2D materials and single-atom
             microscopy to reticular chemistry, nanofluidics, and nanomedicine.
         </p>
@@ -1283,10 +1381,10 @@
 
         <div class="hero-actions">
             <button onclick="openRegisterModal()" class="btn btn-glow">
-                <i class="fa-solid fa-user-plus"></i> Secure Your Pass Now
+                <i class="fa-solid fa-user-plus"></i> <span data-i18n="hero_btn_secure">Secure Your Pass Now</span>
             </button>
             <a href="#program" class="btn btn-outline">
-                <i class="fa-solid fa-list-timeline"></i> Explore 2-Day Program
+                <i class="fa-solid fa-list-timeline"></i> <span data-i18n="hero_btn_program">Explore 2-Day Program</span>
             </a>
         </div>
     </section>
@@ -1639,6 +1737,12 @@
             <p>Renowned pioneers, inventors, and prize laureates shaping the future of matter and light.</p>
         </div>
 
+        <!-- ==========================================================================
+             BEGINNER'S GUIDE TO HTML: SPEAKER CARDS GRID
+             Each <div class="speaker-card"> represents a box displaying a keynote speaker.
+             Note: As requested by the user, the "Attend Talk" buttons have been removed
+             from under the speakers for a cleaner, more aesthetic profile view!
+             ========================================================================== -->
         <div class="speakers-grid">
             <!-- Speaker 1 -->
             <div class="speaker-card">
@@ -1652,8 +1756,6 @@
                     Realized the first aberration-corrected electron microscope, revolutionizing our ability to
                     visualize atomic lattices with sub-Angstrom precision.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 2 -->
@@ -1670,8 +1772,6 @@
                     World pioneer in single-atom imaging and electron energy-loss spectroscopy (EELS) in low-dimensional
                     nanomaterials and nanotubes.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 3 -->
@@ -1688,8 +1788,6 @@
                     Pioneer in terahertz photonics and polaritonics; inventor of the first Terahertz Quantum Cascade
                     Laser opening new spectral horizons.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 4 -->
@@ -1704,8 +1802,6 @@
                     Legendary theoretical physicist leading seminal discoveries in mesoscopic physics, quantum
                     transport, and Majorana fermions for quantum computing.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 5 -->
@@ -1722,8 +1818,6 @@
                     Coordinator of Center for Nanotechnology Innovation & IIT Graphene Labs. Pioneer in scalable CVD
                     synthesis of pristine 2D heterostructures.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 6 -->
@@ -1740,8 +1834,6 @@
                     Leading expert in surface chemistry and eco-friendly nanostructured coatings applied to cultural
                     heritage conservation and corrosion prevention.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 7 -->
@@ -1758,8 +1850,6 @@
                     Pioneer in 3D plasmonic nanostructures, advanced optical biosensors, and single-molecule
                     neuro-technologies for biomedical breakthroughs.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
 
             <!-- Speaker 8 -->
@@ -1776,8 +1866,6 @@
                     Innovator in surface science and molecular magnetism, controlling quantum spin states on surfaces
                     for next-gen quantum devices.
                 </p>
-                <button onclick="openRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;">Attend Talk</button>
             </div>
         </div>
     </section>
@@ -2132,12 +2220,14 @@
                         <label>Academic Status / Role *</label>
                         <select class="form-control" id="reg-role" required>
                             <option value="">Select your role...</option>
+                            <option value="Bachelor's Student">Bachelor's Student</option>
                             <option value="Master's Student">Master's Student</option>
                             <option value="PhD Candidate">PhD Candidate</option>
                             <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
                             <option value="Professor / Principal Investigator">Professor / Principal Investigator
-                            </option>
                             <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
+                            <!-- EDUCATIONAL COMMENT: Added 'Other' option to accommodate attendees with different academic/professional titles -->
+                            <option value="Other">Other</option>
                         </select>
                     </div>
 
@@ -2249,14 +2339,14 @@
         // GOOGLE FORMS INTEGRATION CONFIGURATION
         // ==========================================================
         // Pre-configured with the Google Form ID you provided:
-        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1dOAI9pDFyXrzLxIQnvcvnDIkxlE7V4di6dNOKIdZ-bo/formResponse';
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfuRUBndDGvTIvoLocHH52v-uTitgtyQO0aP-hjhkCudWs_Bw/formResponse';
         
         // Map the fields of your form to the corresponding input entry names.
         // To find these entry IDs, inspect your Google Form public view page source for input elements named like "entry.12345678".
-        const GOOGLE_ENTRY_NAME = 'entry.2005620554'; // Replace with your Form's Name field ID
-        const GOOGLE_ENTRY_EMAIL = 'entry.1045781283'; // Replace with your Form's Email field ID
-        const GOOGLE_ENTRY_ROLE = 'entry.839337160';   // Replace with your Form's Role field ID
-        const GOOGLE_ENTRY_WORKSHOP = 'entry.161271168'; // Replace with your Form's Workshop field ID
+        const GOOGLE_ENTRY_NAME = 'entry.235196378'; // Replace with your Form's Name field ID
+        const GOOGLE_ENTRY_EMAIL = 'entry.1127310225'; // Replace with your Form's Email field ID
+        const GOOGLE_ENTRY_ROLE = 'entry.415373699';   // Replace with your Form's Role field ID
+        const GOOGLE_ENTRY_WORKSHOP = 'entry.1773857955'; // Replace with your Form's Workshop field ID
 
         function saveToLocalDB(name, email, role, workshop) {
             try {
@@ -2439,6 +2529,178 @@
             requestAnimationFrame(animate);
         }
         animate();
+    </script>
+
+    <!-- ==========================================================================
+         BEGINNER'S GUIDE TO JAVASCRIPT: MULTI-LANGUAGE TRANSLATION ENGINE
+         JavaScript is the programming language of the web that makes pages interactive.
+         Below, we build an intelligent translation system that works in two ways:
+         1. Instant Dictionary (translations object): Immediately translates menus, titles,
+            and buttons without waiting for internet or external services.
+         2. Google Translate Fallback: Translates long biographies and paragraphs!
+         ========================================================================== -->
+    <!-- Hidden container for Google Translate widget -->
+    <div id="google_translate_element" style="display:none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,it,de,fr,es',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        /* Our translation dictionary stores text in English (en), Italian (it),
+           German (de), French (fr), and Spanish (es). */
+        const translations = {
+            en: {
+                nav_about: "About",
+                nav_program: "Scientific Program",
+                nav_keynotes: "Keynotes",
+                nav_workshops: "Workshops",
+                nav_lab_signup: "Lab Sign-up",
+                nav_secretary: "Secretary",
+                nav_committee: "Committee",
+                nav_register_free: "Register Free",
+                hero_subtitle: "Organized by the Sapienza School of Advanced Studies (SSAS)",
+                hero_title: "Exploring the Frontiers of",
+                hero_grad: "Nanotechnology, Materials Science & Advanced Engineering",
+                hero_desc: "Bridging fundamental sciences and advanced cross-disciplinary applications—from 2D materials and single-atom microscopy to reticular chemistry, nanofluidics, and nanomedicine.",
+                hero_btn_secure: "Secure Your Pass Now",
+                hero_btn_program: "Explore 2-Day Program"
+            },
+            it: {
+                nav_about: "Chi Siamo",
+                nav_program: "Programma Scientifico",
+                nav_keynotes: "Relatori",
+                nav_workshops: "Laboratori",
+                nav_lab_signup: "Iscrizione Lab",
+                nav_secretary: "Segreteria",
+                nav_committee: "Comitato",
+                nav_register_free: "Registrati Gratis",
+                hero_subtitle: "Organizzato dalla Scuola Superiore di Studi Avanzati Sapienza (SSAS)",
+                hero_title: "Esplorando le Frontiere di",
+                hero_grad: "Nanotecnologie, Scienza dei Materiali e Ingegneria Avanzata",
+                hero_desc: "Un ponte tra scienze fondamentali e applicazioni interdisciplinari avanzate: dai materiali 2D e microscopia a singolo atomo alla chimica reticolare, nanofluidica e nanomedicina.",
+                hero_btn_secure: "Richiedi Ora il Pass",
+                hero_btn_program: "Esplora il Programma"
+            },
+            de: {
+                nav_about: "Über uns",
+                nav_program: "Wissenschaftliches Programm",
+                nav_keynotes: "Hauptredner",
+                nav_workshops: "Workshops",
+                nav_lab_signup: "Lab-Anmeldung",
+                nav_secretary: "Sekretariat",
+                nav_committee: "Komitee",
+                nav_register_free: "Kostenlos Registrieren",
+                hero_subtitle: "Organisiert von der Sapienza School of Advanced Studies (SSAS)",
+                hero_title: "Erkundung der Grenzen von",
+                hero_grad: "Nanotechnologie, Materialwissenschaft & Fortschrittliche Ingenieurskunst",
+                hero_desc: "Verbindung von Grundlagenwissenschaften und interdisziplinären Anwendungen – von 2D-Materialien und Einzelatom-Mikroskopie bis hin zu Netzchemie, Nanofluidik und Nanomedizin.",
+                hero_btn_secure: "Sichern Sie sich Ihren Pass",
+                hero_btn_program: "2-Tages-Programm ansehen"
+            },
+            fr: {
+                nav_about: "À propos",
+                nav_program: "Programme Scientifique",
+                nav_keynotes: "Conférenciers",
+                nav_workshops: "Ateliers",
+                nav_lab_signup: "Inscription Lab",
+                nav_secretary: "Secrétariat",
+                nav_committee: "Comité",
+                nav_register_free: "S'inscrire Gratuitement",
+                hero_subtitle: "Organisé par l'École Supérieure d'Études Avancées Sapienza (SSAS)",
+                hero_title: "Exploration des Frontières de",
+                hero_grad: "Nanotechnologie, Science des Matériaux & Ingénierie Avancée",
+                hero_desc: "Rapprocher les sciences fondamentales et les applications interdisciplinaires — des matériaux 2D et de la microscopie atomique à la chimie réticulaire, la nanofluidique et la nanomédecine.",
+                hero_btn_secure: "Réservez Votre Pass",
+                hero_btn_program: "Découvrir le Programme"
+            },
+            es: {
+                nav_about: "Acerca de",
+                nav_program: "Programa Científico",
+                nav_keynotes: "Ponentes",
+                nav_workshops: "Talleres",
+                nav_lab_signup: "Registro Lab",
+                nav_secretary: "Secretaría",
+                nav_committee: "Comité",
+                nav_register_free: "Registro Gratuito",
+                hero_subtitle: "Organizado por la Escuela Superior de Estudios Avanzados Sapienza (SSAS)",
+                hero_title: "Explorando las Fronteras de",
+                hero_grad: "Nanotecnología, Ciencia de Materiales e Ingeniería Avanzada",
+                hero_desc: "Conectando ciencias fundamentales y aplicaciones interdisciplinarias avanzadas: desde materiales 2D y microscopía atómica hasta química reticular, nanofluidica y nanomedicina.",
+                hero_btn_secure: "Asegura tu Pase Ahora",
+                hero_btn_program: "Explorar Programa"
+            }
+        };
+
+        function triggerGoogleTranslate(lang) {
+            const gtCombo = document.querySelector('.goog-te-combo');
+            if (gtCombo) {
+                let targetVal = lang;
+                if (lang === 'en') {
+                    const enOption = gtCombo.querySelector('option[value="en"]');
+                    if (!enOption) targetVal = '';
+                }
+                if (gtCombo.value !== targetVal) {
+                    gtCombo.value = targetVal;
+                    gtCombo.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /* This function changes the website language immediately when called */
+        function setLanguage(lang) {
+            // 1. Save the user's choice in browser storage (localStorage) so it stays when refreshing or changing pages
+            localStorage.setItem('selectedLang', lang);
+
+            // 2. Update the language switcher dropdown value to match
+            const selector = document.getElementById('lang-selector');
+            if (selector && selector.value !== lang) {
+                selector.value = lang;
+            }
+
+            // 3. Apply instant local dictionary translations to all tagged elements
+            if (translations[lang]) {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+            }
+
+            // 4. Update Google Translate cookie so the whole page (including long speaker bios) translates!
+            // We set the cookie 'googtrans' which Google Translate checks automatically.
+            document.cookie = `googtrans=/en/${lang}; path=/;`;
+            if (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                document.cookie = `googtrans=/en/${lang}; domain=${window.location.hostname}; path=/;`;
+            }
+
+            // 5. Trigger Google Translate widget (with polling if script is still loading asynchronously)
+            if (!triggerGoogleTranslate(lang)) {
+                let attempts = 0;
+                const gtInterval = setInterval(() => {
+                    attempts++;
+                    if (triggerGoogleTranslate(lang) || attempts > 20) {
+                        clearInterval(gtInterval);
+                    }
+                }, 300);
+            }
+        }
+
+        /* When the webpage loads in the browser, check if the user previously selected a language */
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('selectedLang') || 'en';
+            setLanguage(savedLang);
+        });
     </script>
 </body>
 

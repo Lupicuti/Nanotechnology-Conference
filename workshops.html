@@ -335,6 +335,14 @@
             background-color: #121A2D;
             cursor: pointer;
         }
+        /* EDUCATIONAL COMMENT: Why style <option>?
+           In Windows browsers (Chrome, Edge, Firefox), dropdown <option> lists default to a white OS background.
+           If the <select> has white text (color: #FFF), it inherits into <option> causing "white text on white background"!
+           By explicitly setting background-color: #070B14 !important and color: #FFF !important, we guarantee high-contrast readability! */
+        select.form-control option, select option {
+            background-color: #070B14 !important;
+            color: #FFF !important;
+        }
 
         /* Workshop Cards Grid */
         .ws-select-grid {
@@ -598,6 +606,72 @@
                 gap: 1.2rem;
             }
         }
+
+        /* ==========================================================================
+           BEGINNER'S GUIDE TO CSS: LANGUAGE SWITCHER STYLES
+           CSS (Cascading Style Sheets) controls how HTML elements look on the screen.
+           Below, we create a "glassmorphic" (frosted glass) look for our language dropdown.
+           ========================================================================== */
+        .lang-switcher-container {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+
+        .lang-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(18, 26, 45, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 30px;
+            color: #FFF;
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.5rem 2.2rem 0.5rem 1rem;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+
+        .lang-select:hover, .lang-select:focus {
+            background: rgba(28, 40, 68, 0.95);
+            border-color: var(--cyan);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .lang-select option {
+            background: #070B14;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+
+        .lang-icon {
+            position: absolute;
+            right: 0.8rem;
+            pointer-events: none;
+            color: var(--cyan);
+            font-size: 0.75rem;
+        }
+
+        /* Hide Google Translate Default Top Bar, Tooltips, and Branding */
+        .goog-te-banner-frame.skiptranslate, #goog-gt-tt, .goog-te-balloon-frame {
+            display: none !important;
+        }
+        .goog-text-highlight {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+        body {
+            top: 0px !important;
+        }
+        #google_translate_element {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -620,16 +694,29 @@
             </a>
             
             <ul class="nav-links">
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#program">Scientific Program</a></li>
-                <li><a href="index.html#speakers">Keynotes</a></li>
-                <li><a href="index.html#workshops">Workshops</a></li>
-                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> Lab Sign-up</a></li>
-                <li><a href="index.html#secretary">Secretary</a></li>
-                <li><a href="index.html#committee">Committee</a></li>
+                <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+                <li><a href="index.html#program" data-i18n="nav_program">Scientific Program</a></li>
+                <li><a href="index.html#speakers" data-i18n="nav_keynotes">Keynotes</a></li>
+                <li><a href="index.html#workshops" data-i18n="nav_workshops">Workshops</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> <span data-i18n="nav_lab_signup">Lab Sign-up</span></a></li>
+                <li><a href="index.html#secretary" data-i18n="nav_secretary">Secretary</a></li>
+                <li><a href="index.html#committee" data-i18n="nav_committee">Committee</a></li>
+                <!-- BEGINNER'S GUIDE TO HTML: LANGUAGE SWITCHER DROPDOWN -->
+                <li>
+                    <div class="lang-switcher-container" title="Select Language / Seleziona Lingua / Sprache wählen">
+                        <select class="lang-select" id="lang-selector" onchange="setLanguage(this.value)">
+                            <option value="en">🇬🇧 EN</option>
+                            <option value="it">🇮🇹 IT</option>
+                            <option value="de">🇩🇪 DE</option>
+                            <option value="fr">🇫🇷 FR</option>
+                            <option value="es">🇪🇸 ES</option>
+                        </select>
+                        <i class="fa-solid fa-globe lang-icon"></i>
+                    </div>
+                </li>
                 <li>
                     <a href="index.html" class="btn btn-glow" style="padding: 0.5rem 1.2rem; text-decoration: none;">
-                        <i class="fa-solid fa-arrow-left"></i> Home Page
+                        <i class="fa-solid fa-arrow-left"></i> <span data-i18n="nav_home">Home Page</span>
                     </a>
                 </li>
             </ul>
@@ -642,9 +729,9 @@
 
     <!-- Header Section -->
     <header class="header-section">
-        <span class="section-badge"><i class="fa-solid fa-flask"></i> Interactive Session Reservation</span>
-        <h1 class="text-gradient">Laboratory Workshop Registration</h1>
-        <p>
+        <span class="section-badge"><i class="fa-solid fa-flask"></i> <span data-i18n="ws_badge">Interactive Session Reservation</span></span>
+        <h1 class="text-gradient" data-i18n="ws_title">Laboratory Workshop Registration</h1>
+        <p data-i18n="ws_desc">
             Reserve your seat in one of our parallel hands-on laboratories on Day 2 Afternoon (Sept 18, 15:00 - 18:00). 
             Instruments and spaces are strictly limited to ensure an optimal practical learning experience.
         </p>
@@ -659,7 +746,7 @@
                 
                 <!-- Section 1: Attendee Info -->
                 <div class="form-subtitle">
-                    <i class="fa-solid fa-id-card" style="color: var(--cyan);"></i> 1. Attendee Verification
+                    <i class="fa-solid fa-id-card" style="color: var(--cyan);"></i> <span data-i18n="ws_step1">1. Attendee Verification</span>
                 </div>
                 
                 <div class="form-grid">
@@ -677,11 +764,13 @@
                         <label>Academic Status / Role *</label>
                         <select class="form-control" id="reg-role" required>
                             <option value="">Select your role...</option>
+                            <option value="Bachelor's Student">Bachelor's Student</option>
                             <option value="Master's Student">Master's Student</option>
                             <option value="PhD Candidate">PhD Candidate</option>
                             <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
-                            <option value="Professor / Principal Investigator">Professor / Principal Investigator</option>
                             <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
+                            <!-- EDUCATIONAL COMMENT: Added 'Other' option to accommodate attendees with different academic/professional titles -->
+                            <option value="Other">Other</option>
                         </select>
                     </div>
                 </div>
@@ -1025,13 +1114,149 @@
         });
 
         // ==========================================================
+        // DYNAMIC GOOGLE SHEETS WORKSHOP SEAT COUNTER
+        // ==========================================================
+        // EDUCATIONAL COMMENT: How does this connect to Google Sheets?
+        // When attendees register via the Google Form, responses are saved to an attached Google Sheet.
+        // To dynamically calculate how many seats remain in each laboratory without needing a backend server,
+        // we can fetch the published CSV data directly from Google Sheets!
+        //
+        // HOW TO ENABLE THIS FOR YOUR LIVE GOOGLE SHEET:
+        // 1. Open your Google Sheet linked to your Google Form.
+        // 2. Click File -> Share -> Publish to web.
+        // 3. Choose "Comma-separated values (.csv)" and click Publish.
+        // 4. Paste your Spreadsheet ID below! (It's the long string in your sheet URL between /d/ and /edit).
+        const GOOGLE_SHEET_ID = "1Ue64qzKDi4BLJip0skFpaYb0zJqXpM18PyCkQStSjow"; // e.g., "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+        const MAX_SEATS_PER_WORKSHOP = 7; // Default fallback if not defined below
+
+        // ==========================================================
+        // INDEPENDENT MAXIMUM SEAT CAPACITY PER WORKSHOP
+        // ==========================================================
+        // Set the maximum number of students independently for each laboratory workshop:
+        const WORKSHOP_MAX_CAPACITIES = {
+            'afm': 7,
+            'nanomedicine': 7,
+            'quantum-well': 7,
+            'nanowires': 7,
+            'heritage-lab': 7,
+            'photonics': 7,
+            'computational-plasmonics': 7
+        };
+
+        // Initial seat counts (starts at 0 when offline or before live Google Sheet loads)
+        let workshopSeatCounts = {
+            'afm': 0,
+            'nanomedicine': 0,
+            'quantum-well': 0,
+            'nanowires': 0,
+            'heritage-lab': 0,
+            'photonics': 0,
+            'computational-plasmonics': 0
+        };
+
+        // Function to fetch registrations from Google Sheets and update card seat badges
+        async function fetchWorkshopCountsFromSheet() {
+            // First, check localStorage so any registrations made on this browser are counted immediately!
+            try {
+                const localData = localStorage.getItem('registrations');
+                if (localData) {
+                    const regs = JSON.parse(localData);
+                    regs.forEach(reg => {
+                        if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
+                            // Find matching workshop key by checking name
+                            for (let key in workshopsData) {
+                                if (workshopsData[key].name === reg.workshop) {
+                                    workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
+                                    break;
+                                }
+                            }
+                        }
+                    });
+                }
+            } catch(e) {
+                console.warn('Could not read local registrations:', e);
+            }
+
+            // If a live Google Sheet ID is provided, fetch real-time global counts from the published CSV!
+            if (GOOGLE_SHEET_ID) {
+                try {
+                    const csvUrl = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv`;
+                    const response = await fetch(csvUrl);
+                    if (response.ok) {
+                        const csvText = await response.text();
+                        // Reset counts to 0 before tallying live sheet
+                        for (let key in workshopSeatCounts) {
+                            workshopSeatCounts[key] = 0;
+                        }
+                        
+                        // Parse CSV lines and count workshop occurrences
+                        const lines = csvText.split('\n');
+                        lines.forEach(line => {
+                            for (let key in workshopsData) {
+                                const wsName = workshopsData[key].name;
+                                // Check if this row mentions the workshop name
+                                if (line.includes(wsName)) {
+                                    workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
+                                }
+                            }
+                        });
+                        console.log('Successfully updated workshop seat counts from live Google Sheet!');
+                    }
+                } catch(err) {
+                    console.warn('Could not fetch live Google Sheet (using fallback counts):', err);
+                }
+            }
+
+            // Update the HTML badges on all workshop cards
+            updateWorkshopSeatBadges();
+        }
+
+        // Dynamically updates the HTML badge on each workshop card
+        function updateWorkshopSeatBadges() {
+            document.querySelectorAll('.ws-select-card').forEach(card => {
+                const wsId = card.getAttribute('data-value');
+                if (!wsId || !workshopSeatCounts.hasOwnProperty(wsId)) return;
+
+                const taken = workshopSeatCounts[wsId] || 0;
+                const maxSeats = WORKSHOP_MAX_CAPACITIES[wsId] || MAX_SEATS_PER_WORKSHOP;
+                const remaining = Math.max(0, maxSeats - taken);
+                const metaDiv = card.querySelector('.ws-meta');
+                
+                if (metaDiv) {
+                    if (remaining === 0) {
+                        // Workshop is sold out!
+                        metaDiv.innerHTML = `<span class="ws-seats" style="color: var(--coral);"><b>SOLD OUT</b></span><span class="status-dot" style="background: var(--coral); box-shadow: 0 0 10px var(--coral);"></span>`;
+                        card.style.opacity = '0.5';
+                        card.style.cursor = 'not-allowed';
+                        card.onclick = (e) => {
+                            e.stopPropagation();
+                            alert('We are sorry, but this laboratory session is currently fully booked (Sold Out). Please select another session.');
+                        };
+                    } else {
+                        // Display remaining seats
+                        const statusClass = remaining <= 4 ? 'low' : 'available';
+                        metaDiv.innerHTML = `<span class="ws-seats">Seats: <b>${remaining} / ${maxSeats} remaining</b></span><span class="status-dot ${statusClass}"></span>`;
+                        card.style.opacity = '1';
+                        card.style.cursor = 'pointer';
+                        card.onclick = () => selectWorkshop(wsId);
+                    }
+                }
+            });
+        }
+
+        // Run seat counter when page loads
+        window.addEventListener('DOMContentLoaded', () => { 
+            fetchWorkshopCountsFromSheet();
+        });
+
+        // ==========================================================
         // GOOGLE FORMS INTEGRATION CONFIGURATION
         // ==========================================================
-        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/1dOAI9pDFyXrzLxIQnvcvnDIkxlE7V4di6dNOKIdZ-bo/formResponse';
-        const GOOGLE_ENTRY_NAME = 'entry.2005620554';
-        const GOOGLE_ENTRY_EMAIL = 'entry.1045781283';
-        const GOOGLE_ENTRY_ROLE = 'entry.839337160';
-        const GOOGLE_ENTRY_WORKSHOP = 'entry.161271168';
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfuRUBndDGvTIvoLocHH52v-uTitgtyQO0aP-hjhkCudWs_Bw/formResponse';
+        const GOOGLE_ENTRY_NAME = 'entry.235196378';
+        const GOOGLE_ENTRY_EMAIL = 'entry.1127310225';
+        const GOOGLE_ENTRY_ROLE = 'entry.415373699';
+        const GOOGLE_ENTRY_WORKSHOP = 'entry.1773857955';
 
         function saveToLocalDB(name, email, role, workshop) {
             try {
@@ -1089,6 +1314,9 @@
 
             // Save to LocalStorage for fallback dashboard use
             saveToLocalDB(name, email, role, wsInfo.name);
+            
+            // Dynamically update workshop seat counts immediately after registration!
+            fetchWorkshopCountsFromSheet();
             
             // Populate Ticket pass elements
             document.getElementById('ticket-name').innerText = name;
@@ -1196,6 +1424,153 @@
             requestAnimationFrame(animate);
         }
         animate();
+    </script>
+
+    <!-- ==========================================================================
+         BEGINNER'S GUIDE TO JAVASCRIPT: MULTI-LANGUAGE TRANSLATION ENGINE
+         JavaScript is the programming language of the web that makes pages interactive.
+         Below, we build an intelligent translation system that works in two ways:
+         1. Instant Dictionary (translations object): Immediately translates menus, titles,
+            and buttons without waiting for internet or external services.
+         2. Google Translate Fallback: Translates long biographies and paragraphs!
+         ========================================================================== -->
+    <div id="google_translate_element" style="display:none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,it,de,fr,es',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        const translations = {
+            en: {
+                nav_about: "About",
+                nav_program: "Scientific Program",
+                nav_keynotes: "Keynotes",
+                nav_workshops: "Workshops",
+                nav_lab_signup: "Lab Sign-up",
+                nav_secretary: "Secretary",
+                nav_committee: "Committee",
+                nav_home: "Home Page",
+                ws_badge: "Interactive Session Reservation",
+                ws_title: "Laboratory Workshop Registration",
+                ws_desc: "Reserve your seat in one of our parallel hands-on laboratories on Day 2 Afternoon (Sept 18, 15:00 - 18:00). Instruments and spaces are strictly limited to ensure an optimal practical learning experience.",
+                ws_step1: "1. Attendee Verification"
+            },
+            it: {
+                nav_about: "Chi Siamo",
+                nav_program: "Programma Scientifico",
+                nav_keynotes: "Relatori",
+                nav_workshops: "Laboratori",
+                nav_lab_signup: "Iscrizione Lab",
+                nav_secretary: "Segreteria",
+                nav_committee: "Comitato",
+                nav_home: "Pagina Iniziale",
+                ws_badge: "Prenotazione Sessioni Interattive",
+                ws_title: "Registrazione ai Laboratori Pratici",
+                ws_desc: "Prenota il tuo posto in uno dei nostri laboratori pratici paralleli nel pomeriggio del Secondo Giorno (18 Set, 15:00 - 18:00). Strumenti e posti sono strettamente limitati per garantire un'esperienza di apprendimento ottimale.",
+                ws_step1: "1. Verifica Partecipante"
+            },
+            de: {
+                nav_about: "Über uns",
+                nav_program: "Wissenschaftliches Programm",
+                nav_keynotes: "Hauptredner",
+                nav_workshops: "Workshops",
+                nav_lab_signup: "Lab-Anmeldung",
+                nav_secretary: "Sekretariat",
+                nav_committee: "Komitee",
+                nav_home: "Startseite",
+                ws_badge: "Reservierung interaktiver Sitzungen",
+                ws_title: "Anmeldung für Labor-Workshops",
+                ws_desc: "Reservieren Sie Ihren Platz in einem unserer parallelen praktischen Labors am Nachmittag des 2. Tages (18. Sept., 15:00 - 18:00). Geräte und Plätze sind streng limitiert, um eine optimale praktische Lernerfahrung zu gewährleisten.",
+                ws_step1: "1. Teilnehmer-Verifizierung"
+            },
+            fr: {
+                nav_about: "À propos",
+                nav_program: "Programme Scientifique",
+                nav_keynotes: "Conférenciers",
+                nav_workshops: "Ateliers",
+                nav_lab_signup: "Inscription Lab",
+                nav_secretary: "Secrétariat",
+                nav_committee: "Comité",
+                nav_home: "Page d'Accueil",
+                ws_badge: "Réservation de Sessions Interactives",
+                ws_title: "Inscription aux Ateliers en Laboratoire",
+                ws_desc: "Réservez votre place dans l'un de nos ateliers pratiques parallèles dans l'après-midi du 2e jour (18 sept., 15h00 - 18h00). Les instruments et les places sont strictement limités pour garantir une expérience d'apprentissage optimale.",
+                ws_step1: "1. Vérification du Participant"
+            },
+            es: {
+                nav_about: "Acerca de",
+                nav_program: "Programa Científico",
+                nav_keynotes: "Ponentes",
+                nav_workshops: "Talleres",
+                nav_lab_signup: "Registro Lab",
+                nav_secretary: "Secretaría",
+                nav_committee: "Comité",
+                nav_home: "Página Principal",
+                ws_badge: "Reserva de Sesiones Interactivas",
+                ws_title: "Registro para Talleres de Laboratorio",
+                ws_desc: "Reserva tu plaza en uno de nuestros laboratorios prácticos paralelos en la tarde del Día 2 (18 de sept., 15:00 - 18:00). Los instrumentos y las plazas están estrictamente limitados para garantizar una experiencia de aprendizaje óptima.",
+                ws_step1: "1. Verificación de Asistente"
+            }
+        };
+
+        function triggerGoogleTranslate(lang) {
+            const gtCombo = document.querySelector('.goog-te-combo');
+            if (gtCombo) {
+                let targetVal = lang;
+                if (lang === 'en') {
+                    const enOption = gtCombo.querySelector('option[value="en"]');
+                    if (!enOption) targetVal = '';
+                }
+                if (gtCombo.value !== targetVal) {
+                    gtCombo.value = targetVal;
+                    gtCombo.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+                return true;
+            }
+            return false;
+        }
+
+        function setLanguage(lang) {
+            localStorage.setItem('selectedLang', lang);
+            const selector = document.getElementById('lang-selector');
+            if (selector && selector.value !== lang) {
+                selector.value = lang;
+            }
+            if (translations[lang]) {
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        element.innerHTML = translations[lang][key];
+                    }
+                });
+            }
+            document.cookie = `googtrans=/en/${lang}; path=/;`;
+            if (window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                document.cookie = `googtrans=/en/${lang}; domain=${window.location.hostname}; path=/;`;
+            }
+            if (!triggerGoogleTranslate(lang)) {
+                let attempts = 0;
+                const gtInterval = setInterval(() => {
+                    attempts++;
+                    if (triggerGoogleTranslate(lang) || attempts > 20) {
+                        clearInterval(gtInterval);
+                    }
+                }, 300);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('selectedLang') || 'en';
+            setLanguage(savedLang);
+        });
     </script>
 </body>
 </html>

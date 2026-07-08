@@ -519,6 +519,10 @@
         select.form-control {
             background-color: #1F2937;
         }
+        select.form-control option, select option {
+            background-color: #070B14 !important;
+            color: #FFF !important;
+        }
 
         /* Footer */
         footer {
@@ -672,11 +676,12 @@
                 <div class="form-group">
                     <label>Academic Status / Role *</label>
                     <select class="form-control" id="add-role" required>
+                        <option value="Bachelor's Student">Bachelor's Student</option>
                         <option value="Master's Student">Master's Student</option>
                         <option value="PhD Candidate">PhD Candidate</option>
                         <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
-                        <option value="Professor / Principal Investigator">Professor / Principal Investigator</option>
                         <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 
@@ -726,7 +731,7 @@
         // - Column 4: Day 2 Laboratory Workshop
         // If your Google Sheet uses a different column order, adjust the mapping values
         // inside the parseCSV(text) function (located around line 720).
-        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRZRLlWIZjzf-dY5lNSc9TV4s2Hn1RPwO601lxyQpe7ZDK-b24E75nYuV8ar4_nKoDj-brChM4h9PIs/pub?gid=808331599&single=true&output=csv';
+        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv';
 
         // Registrants Cache
         let registrantsData = [];
@@ -987,6 +992,24 @@
                 'computational-plasmonics': 'Computational Plasmonics'
             };
             const workshop = wsNames[workshopInput] || 'None (Plenary Only)';
+
+            // Submit directly to Google Forms so the registrant appears in your live Google Sheet!
+            const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfuRUBndDGvTIvoLocHH52v-uTitgtyQO0aP-hjhkCudWs_Bw/formResponse';
+            const formData = new FormData();
+            formData.append('entry.235196378', name);
+            formData.append('entry.1127310225', email);
+            formData.append('entry.415373699', role);
+            formData.append('entry.1773857955', workshop);
+
+            fetch(GOOGLE_FORM_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            }).then(() => {
+                console.log('Submitted registration from Admin Dashboard to Google Forms successfully.');
+            }).catch(err => {
+                console.warn('Google Forms submission failed:', err);
+            });
 
             // Always save to LocalStorage
             try {
