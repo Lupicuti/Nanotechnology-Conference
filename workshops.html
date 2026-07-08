@@ -723,7 +723,7 @@
                 <li><a href="index.html#speakers" data-i18n="nav_keynotes">Keynotes</a></li>
                 <li><a href="index.html#workshops" data-i18n="nav_workshops">Workshops</a></li>
                 <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> <span data-i18n="nav_lab_signup">Lab Sign-up</span></a></li>
-                <li><a href="index.html#secretary" data-i18n="nav_secretary">Secretary</a></li>
+                <li><a href="index.html#secretary" data-i18n="nav_secretary">Organizers</a></li>
                 <li><a href="index.html#committee" data-i18n="nav_committee">Committee</a></li>
                 <!-- BEGINNER'S GUIDE TO HTML: LANGUAGE SWITCHER DROPDOWN -->
                 <li>
@@ -966,8 +966,16 @@
             
             <div style="padding: 1.5rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 0.8rem;">
                 <button onclick="downloadTicketPdf()" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 0.9rem;">
-                    <i class="fa-solid fa-file-pdf"></i> Download Official VIP Pass (.PDF)
+                    <i class="fa-solid fa-file-pdf"></i> Download Official Conference Pass (.PDF)
                 </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                    <button onclick="addWorkshopToGoogleCalendar()" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.8rem; border-color: rgba(0, 240, 255, 0.4); color: var(--cyan);">
+                        <i class="fa-brands fa-google"></i> Google Calendar
+                    </button>
+                    <button onclick="downloadWorkshopIcsCalendar()" class="btn btn-outline" style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.8rem; border-color: rgba(99, 102, 241, 0.4); color: #C7D2FE;">
+                        <i class="fa-brands fa-apple"></i> Apple / Outlook (.ics)
+                    </button>
+                </div>
                 <a href="index.html" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.9rem;">
                     <i class="fa-solid fa-house"></i> Return to Main Page
                 </a>
@@ -994,7 +1002,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>Organizing Secretary</h4>
+                <h4>Main Organizers & Contacts</h4>
                 <div class="contact-box">
                     <div>
                         <strong style="color: #FFF; display: block;">Francesco Lupicuti</strong>
@@ -1407,7 +1415,7 @@
             ticket.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Generate and Download Official VIP Digital Pass (.PDF)
+        // Generate and Download Official Digital Pass (.PDF)
         function downloadTicketPdf() {
             const name = document.getElementById('ticket-name').innerText || 'Attendee';
             const email = document.getElementById('ticket-email').innerText || 'N/A';
@@ -1419,46 +1427,48 @@
             const voucherCode = (orderEl && orderEl.getAttribute('data-voucher-code')) ? orderEl.getAttribute('data-voucher-code') : ('SQ-2026-' + String(globalTotalRegistrants || 1).padStart(3, '0'));
             const orderDisplay = (orderEl && orderEl.getAttribute('data-order-num')) ? (`Registration Order: #${orderEl.getAttribute('data-order-num')}`) : (`Registration Order: #${globalTotalRegistrants || 1}`);
 
-            // Create temporary container for clean PDF rendering (no buttons or print menus)
+            // Create temporary container for clean PDF rendering at origin (z-index -9999 prevents visual flash while ensuring browser paint engine and html2canvas render it completely without white/blank offscreen cropping)
             const container = document.createElement('div');
-            container.style.position = 'fixed';
-            container.style.left = '-9999px';
-            container.style.top = '0';
+            container.style.position = 'absolute';
+            container.style.left = '0px';
+            container.style.top = '0px';
             container.style.width = '540px';
+            container.style.zIndex = '-9999';
             container.style.backgroundColor = '#070B14';
             container.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
             container.style.color = '#E2E8F0';
             container.style.padding = '20px';
+            container.style.boxSizing = 'border-box';
 
             container.innerHTML = `
-                <div style="background: rgba(18, 26, 45, 0.95); border: 2px solid #00F0FF; border-radius: 28px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 0 40px rgba(0, 240, 255, 0.2);">
+                <div style="background: rgba(18, 26, 45, 0.95); border: 2px solid #00F0FF; border-radius: 28px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 0 40px rgba(0, 240, 255, 0.2); box-sizing: border-box;">
                     <div style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(99, 102, 241, 0.2)); border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 2.5rem 2rem 2rem; text-align: center;">
                         <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); color: #10B981; font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 2px solid rgba(16, 185, 129, 0.5);"><i class="fa-solid fa-check"></i></div>
                         <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #FFF; margin-bottom: 0.5rem;">SSAS Conference Pass</h1>
-                        <div style="display: inline-block; background: rgba(0, 240, 255, 0.15); border: 1px solid #00F0FF; color: #00F0FF; padding: 0.4rem 1.2rem; border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">VIP Pass #${voucherCode}</div>
+                        <div style="display: inline-block; background: rgba(0, 240, 255, 0.15); border: 1px solid #00F0FF; color: #00F0FF; padding: 0.4rem 1.2rem; border-radius: 30px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Delegate Pass #${voucherCode}</div>
                         <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.5rem; font-weight: 600;">${orderDisplay}</div>
                     </div>
                     <div style="padding: 2rem;">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
-                            <div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div style="flex: 1 1 calc(50% - 1rem); min-width: 180px;">
                                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Delegate Name</div>
                                 <div style="font-size: 1.1rem; font-weight: 700; color: #FFF;">${name}</div>
                             </div>
-                            <div>
+                            <div style="flex: 1 1 calc(50% - 1rem); min-width: 180px;">
                                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Academic Status</div>
                                 <div style="font-size: 1.1rem; font-weight: 700; color: #FFF;">${role}</div>
                             </div>
-                            <div style="grid-column: span 2;">
+                            <div style="width: 100%;">
                                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Email Address</div>
                                 <div style="font-size: 0.95rem; font-weight: 500; color: #CBD5E1;">${email}</div>
                             </div>
-                            <div style="grid-column: span 2; background: rgba(0, 240, 255, 0.07); padding: 1.2rem; border-radius: 16px; border-left: 4px solid #00F0FF;">
+                            <div style="width: 100%; background: rgba(0, 240, 255, 0.07); padding: 1.2rem; border-radius: 16px; border-left: 4px solid #00F0FF; box-sizing: border-box;">
                                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #00F0FF; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Reserved Laboratory Session</div>
                                 <div style="font-size: 1.2rem; font-weight: 800; color: #00F0FF; margin-bottom: 0.4rem;">${workshop}</div>
                                 <div style="font-size: 0.95rem; color: #E2E8F0;"><i class="fa-solid fa-location-dot" style="color: #00F0FF;"></i> ${location}</div>
                                 <div style="font-size: 0.85rem; color: #94A3B8; margin-top: 0.3rem;"><i class="fa-solid fa-clock" style="color: #00F0FF;"></i> Sept 18, 2026 | 15:00 - 18:00 CEST</div>
                             </div>
-                            <div style="grid-column: span 2;">
+                            <div style="width: 100%;">
                                 <div style="font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.3rem; font-weight: 600;">Day 1 Plenary Venue</div>
                                 <div style="font-size: 0.95rem; color: #E2E8F0;">Aula Amaldi, Department of Physics, Sapienza University (Sept 17 | 09:00 CEST)</div>
                             </div>
@@ -1479,15 +1489,75 @@
 
             const opt = {
                 margin:       0.3,
-                filename:     `SSAS_VIP_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                filename:     `SSAS_Conference_Pass_${name.replace(/\s+/g, '_')}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#070B14' },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true, 
+                    backgroundColor: '#070B14',
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    width: 540
+                },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
             html2pdf().set(opt).from(container).save().then(() => {
-                document.body.removeChild(container);
+                if (container.parentNode) {
+                    container.parentNode.removeChild(container);
+                }
             });
+        }
+
+        // Add Reserved Workshop to Google Calendar
+        function addWorkshopToGoogleCalendar() {
+            const wsTitle = document.getElementById('ticket-workshop').innerText || 'Laboratory Workshop';
+            const wsLoc = document.getElementById('ticket-location').innerText || 'Department of Physics (Edificio Marconi), Sapienza University';
+            const title = `Sapienza Workshop: ${wsTitle}`;
+            // Workshop session specifically runs Day 2 Afternoon (Friday Sept 18, 2026, 15:00 - 18:00 CEST -> 13:00 - 16:00 UTC)
+            const startUtc = "20260918T130000Z";
+            const endUtc = "20260918T160000Z";
+            const details = `Sapienza Nano & Tech 2026 - Hands-on Laboratory Workshop.\n\nReserved Session: ${wsTitle}\nVenue: ${wsLoc}\nNote: Please arrive 15 minutes early with your delegate pass (.PDF or QR code) for laboratory safety check-in.`;
+            
+            const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startUtc}/${endUtc}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(wsLoc)}`;
+            window.open(url, '_blank');
+        }
+
+        // Download .ICS Calendar File for Apple Calendar, Outlook, and Thunderbird for Reserved Workshop
+        function downloadWorkshopIcsCalendar() {
+            const wsTitle = document.getElementById('ticket-workshop').innerText || 'Laboratory Workshop';
+            const wsLoc = document.getElementById('ticket-location').innerText || 'Department of Physics (Edificio Marconi), Sapienza University';
+            
+            const icsContent = [
+                "BEGIN:VCALENDAR",
+                "VERSION:2.0",
+                "PRODID:-//Sapienza School of Advanced Studies//Sapienza Nano & Tech 2026 Workshops//EN",
+                "CALSCALE:GREGORIAN",
+                "METHOD:PUBLISH",
+                "BEGIN:VEVENT",
+                "SUMMARY:Sapienza Workshop: " + wsTitle,
+                "UID:sapienza-nano-workshop@" + (Date.now()) + ".uniroma1.it",
+                "SEQUENCE:0",
+                "STATUS:CONFIRMED",
+                "TRANSP:OPAQUE",
+                "DTSTART:20260918T130000Z",
+                "DTEND:20260918T160000Z",
+                "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + "Z",
+                "LOCATION:" + wsLoc + "\\, Piazzale Aldo Moro 5\\, Rome\\, Italy",
+                "DESCRIPTION:Sapienza Nano & Tech 2026 - Hands-on Laboratory Workshop.\\n\\nReserved Session: " + wsTitle.replace(/,/g, '\\,') + "\\nVenue: " + wsLoc.replace(/,/g, '\\,') + "\\nNote: Please arrive 15 minutes early with your delegate pass (.PDF or QR code) for laboratory safety check-in.",
+                "END:VEVENT",
+                "END:VCALENDAR"
+            ].join("\r\n");
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', `SSAS_Workshop_${wsTitle.replace(/[^a-zA-Z0-9]/g, '_')}.ics`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         // Animated Particle Network Background
@@ -1609,7 +1679,7 @@
                 nav_keynotes: "Keynotes",
                 nav_workshops: "Workshops",
                 nav_lab_signup: "Lab Sign-up",
-                nav_secretary: "Secretary",
+                nav_secretary: "Organizers",
                 nav_committee: "Committee",
                 nav_home: "Home Page",
                 ws_badge: "Interactive Session Reservation",
@@ -1623,7 +1693,7 @@
                 nav_keynotes: "Relatori",
                 nav_workshops: "Laboratori",
                 nav_lab_signup: "Iscrizione Lab",
-                nav_secretary: "Segreteria",
+                nav_secretary: "Organizzatori",
                 nav_committee: "Comitato",
                 nav_home: "Pagina Iniziale",
                 ws_badge: "Prenotazione Sessioni Interattive",
@@ -1637,7 +1707,7 @@
                 nav_keynotes: "Hauptredner",
                 nav_workshops: "Workshops",
                 nav_lab_signup: "Lab-Anmeldung",
-                nav_secretary: "Sekretariat",
+                nav_secretary: "Organisatoren",
                 nav_committee: "Komitee",
                 nav_home: "Startseite",
                 ws_badge: "Reservierung interaktiver Sitzungen",
@@ -1651,7 +1721,7 @@
                 nav_keynotes: "Conférenciers",
                 nav_workshops: "Ateliers",
                 nav_lab_signup: "Inscription Lab",
-                nav_secretary: "Secrétariat",
+                nav_secretary: "Organisateurs",
                 nav_committee: "Comité",
                 nav_home: "Page d'Accueil",
                 ws_badge: "Réservation de Sessions Interactives",
@@ -1665,7 +1735,7 @@
                 nav_keynotes: "Ponentes",
                 nav_workshops: "Talleres",
                 nav_lab_signup: "Registro Lab",
-                nav_secretary: "Secretaría",
+                nav_secretary: "Organizadores",
                 nav_committee: "Comité",
                 nav_home: "Página Principal",
                 ws_badge: "Reserva de Sesiones Interactivas",
