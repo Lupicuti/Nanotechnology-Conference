@@ -1529,28 +1529,64 @@
 
             const wsInfo = workshopsData[wsVal];
 
-            // Submit to Google Forms (No-CORS)
-            const formData = new FormData();
-            formData.append(GOOGLE_ENTRY_NAME, name);
-            formData.append(GOOGLE_ENTRY_EMAIL, email);
-            formData.append(GOOGLE_ENTRY_ROLE, role);
-            // Combines exact Workshop choice with exact Session participation list into the Workshop entry field so Google Sheet gets everything immediately
-            formData.append(GOOGLE_ENTRY_WORKSHOP, `${wsInfo.name} [Sessions Attending: ${fullSessionsList}]`);
+            // Submit to Google Forms (URLSearchParams + Hidden iframe fallback for 100% reliability)
+            const params = new URLSearchParams();
+            params.append(GOOGLE_ENTRY_NAME, name);
+            params.append(GOOGLE_ENTRY_EMAIL, email);
+            params.append(GOOGLE_ENTRY_ROLE, role);
+            params.append(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
             if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
-                formData.append(GOOGLE_ENTRY_SESSIONS, fullSessionsList);
+                checkedSessionElements.forEach(cb => params.append(GOOGLE_ENTRY_SESSIONS, cb.value));
             }
 
+            // Method 1: URLSearchParams fetch
             fetch(GOOGLE_FORM_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                body: formData
-            })
-                .then(() => {
-                    console.log('Submitted workshop registration to Google Forms successfully.');
-                })
-                .catch(err => {
-                    console.warn('Google Forms submission failed or blocked by CORS:', err);
-                });
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: params.toString()
+            }).then(() => console.log('Fetch submitted.')).catch(err => console.warn('Fetch submission error:', err));
+
+            // Method 2: Hidden iframe form submission (guaranteed to bypass CORS/adblock restrictions)
+            try {
+                let hiddenIframe = document.getElementById('hidden_iframe_reg');
+                if (!hiddenIframe) {
+                    hiddenIframe = document.createElement('iframe');
+                    hiddenIframe.id = 'hidden_iframe_reg';
+                    hiddenIframe.name = 'hidden_iframe_reg';
+                    hiddenIframe.style.display = 'none';
+                    document.body.appendChild(hiddenIframe);
+                }
+
+                const hiddenForm = document.createElement('form');
+                hiddenForm.action = GOOGLE_FORM_URL;
+                hiddenForm.method = 'POST';
+                hiddenForm.target = 'hidden_iframe_reg';
+                hiddenForm.style.display = 'none';
+
+                const addField = (name, val) => {
+                    if (!name || !val) return;
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = val;
+                    hiddenForm.appendChild(input);
+                };
+
+                addField(GOOGLE_ENTRY_NAME, name);
+                addField(GOOGLE_ENTRY_EMAIL, email);
+                addField(GOOGLE_ENTRY_ROLE, role);
+                addField(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
+                if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
+                    checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
+                }
+
+                document.body.appendChild(hiddenForm);
+                hiddenForm.submit();
+                setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
+            } catch (e) {
+                console.warn('Iframe submit fallback error:', e);
+            }
 
             // Save to LocalStorage for fallback dashboard use
             saveToLocalDB(name, email, role, `${wsInfo.name} (${checkedSessions})`);
@@ -1651,6 +1687,16 @@
                 </div>
             `;
 
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.top = '0px';
+            container.style.left = '0px';
+            container.style.width = '680px';
+            container.style.zIndex = '-999999';
+            container.style.backgroundColor = '#070B14';
+            container.innerHTML = passHtml;
+            document.body.appendChild(container);
+
             const opt = {
                 margin: 0.3,
                 filename: `SSAS_Conference_Pass_${name.replace(/\s+/g, '_')}.pdf`,
@@ -1658,12 +1704,19 @@
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
-                    backgroundColor: '#070B14'
+                    backgroundColor: '#070B14',
+                    scrollX: 0,
+                    scrollY: 0,
+                    x: 0,
+                    y: 0,
+                    width: 680
                 },
                 jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(passHtml).save();
+            html2pdf().set(opt).from(container).save().then(() => {
+                if (container.parentNode) container.parentNode.removeChild(container);
+            });
         }
 
         // Add Reserved Workshop to Google Calendar
