@@ -14,6 +14,9 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- HTML2PDF Library for Digital Ticket Pass Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
         :root {
             --bg-deep: #070B14;
@@ -1277,9 +1280,33 @@
             });
         }
 
-        // Run seat counter when page loads
+        // Run seat counter and parse URL parameters when page loads
         window.addEventListener('DOMContentLoaded', () => { 
             fetchWorkshopCountsFromSheet();
+            
+            // Automatically read and pre-fill data when navigating from index.html (`?select=...` or `?name=...`)
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectParam = urlParams.get('select');
+            const nameParam = urlParams.get('name');
+            const emailParam = urlParams.get('email');
+            const roleParam = urlParams.get('role');
+
+            if (nameParam && document.getElementById('reg-name')) {
+                document.getElementById('reg-name').value = nameParam;
+            }
+            if (emailParam && document.getElementById('reg-email')) {
+                document.getElementById('reg-email').value = emailParam;
+            }
+            if (roleParam && document.getElementById('reg-role')) {
+                document.getElementById('reg-role').value = roleParam;
+            }
+            if (selectParam && workshopsData[selectParam]) {
+                selectWorkshop(selectParam);
+                setTimeout(() => {
+                    const formContainer = document.getElementById('form-container');
+                    if (formContainer) formContainer.scrollIntoView({ behavior: 'smooth' });
+                }, 200);
+            }
         });
 
         // ==========================================================
