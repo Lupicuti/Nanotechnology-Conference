@@ -1151,20 +1151,20 @@
         // 3. Choose "Comma-separated values (.csv)" and click Publish.
         // 4. Paste your Spreadsheet ID below! (It's the long string in your sheet URL between /d/ and /edit).
         const GOOGLE_SHEET_ID = "1Ue64qzKDi4BLJip0skFpaYb0zJqXpM18PyCkQStSjow"; // e.g., "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
-        const MAX_SEATS_PER_WORKSHOP = 7; // Default fallback if not defined below
+        const MAX_SEATS_PER_WORKSHOP = 15; // Default fallback if not defined below
 
         // ==========================================================
         // INDEPENDENT MAXIMUM SEAT CAPACITY PER WORKSHOP
         // ==========================================================
         // Set the maximum number of students independently for each laboratory workshop:
         const WORKSHOP_MAX_CAPACITIES = {
-            'afm': 7,
-            'nanomedicine': 7,
-            'quantum-well': 7,
-            'nanowires': 7,
-            'heritage-lab': 7,
-            'photonics': 7,
-            'computational-plasmonics': 7
+            'afm': 15,
+            'nanomedicine': 15,
+            'quantum-well': 15,
+            'nanowires': 15,
+            'heritage-lab': 15,
+            'photonics': 15,
+            'computational-plasmonics': 15
         };
 
         // Initial seat counts (starts at 0 when offline or before live Google Sheet loads)
@@ -1377,7 +1377,10 @@
             ticket.style.animation = 'fadeInUp 0.6s both';
             
             // Scroll to success ticket
-            ticket.scrollIntoView({ behavi        // Generate and Download Official VIP Digital Pass (.PDF)
+            ticket.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Generate and Download Official VIP Digital Pass (.PDF)
         function downloadTicketPdf() {
             const name = document.getElementById('ticket-name').innerText || 'Attendee';
             const email = document.getElementById('ticket-email').innerText || 'N/A';
