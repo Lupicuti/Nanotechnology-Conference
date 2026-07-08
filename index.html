@@ -2279,9 +2279,17 @@
                     </a>
                 </div>
 
-                <button onclick="closeRegisterModal()" class="btn btn-outline"
-                    style="width: 100%; justify-content: center;" id="modal-close-btn">Return to Conference
-                    Site</button>
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <button onclick="downloadPlenaryPassTxt()" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 0.9rem;">
+                        <i class="fa-solid fa-file-arrow-down"></i> Download Official Pass (.TXT Voucher)
+                    </button>
+                    <button onclick="window.print()" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.9rem; border-color: var(--cyan); color: var(--cyan);">
+                        <i class="fa-solid fa-print"></i> Print / Save as PDF
+                    </button>
+                    <button onclick="closeRegisterModal()" class="btn btn-outline"
+                        style="width: 100%; justify-content: center;" id="modal-close-btn">Return to Conference
+                        Site</button>
+                </div>
             </div>
         </div>
     </div>
@@ -2399,6 +2407,17 @@
             document.getElementById('pass-name-display').innerText = name;
             document.getElementById('pass-role-display').innerText = role;
 
+            // Generate Sequential Registration Number (#001, #002...)
+            globalTotalRegistrants = (globalTotalRegistrants || 0) + 1;
+            const orderNumStr = String(globalTotalRegistrants).padStart(3, '0');
+            const confirmationId = 'SQ-2026-' + orderNumStr;
+            const orderEl = document.getElementById('plenary-order-id');
+            if (orderEl) {
+                orderEl.innerText = `Registration #${globalTotalRegistrants} (Pass #${confirmationId})`;
+                orderEl.setAttribute('data-voucher-code', confirmationId);
+                orderEl.setAttribute('data-order-num', globalTotalRegistrants);
+            }
+
             if (wantWorkshop) {
                 const redirectBtn = document.getElementById('workshop-redirect-btn');
                 redirectBtn.href = `workshops.html?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&role=${encodeURIComponent(role)}`;
@@ -2411,6 +2430,71 @@
 
             document.getElementById('form-step-1').style.display = 'none';
             document.getElementById('form-step-2').style.display = 'block';
+        }
+
+        // Track global registrants count for sequential numbers
+        let globalTotalRegistrants = 0;
+        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv';
+        fetch(GOOGLE_SHEET_CSV_URL)
+            .then(res => res.ok ? res.text() : '')
+            .then(csvText => {
+                if (csvText) {
+                    const lines = csvText.split('\n');
+                    const validRows = lines.filter(l => l.trim().length > 5 && !l.toLowerCase().includes('informazioni cronologiche') && !l.toLowerCase().includes('timestamp'));
+                    globalTotalRegistrants = validRows.length;
+                }
+            })
+            .catch(e => console.warn('Could not fetch initial sheet count:', e));
+
+        // Generate and Download Official Plenary Pass Voucher
+        function downloadPlenaryPassTxt() {
+            const name = document.getElementById('pass-name-display').innerText || 'Attendee';
+            const role = document.getElementById('pass-role-display').innerText || 'N/A';
+            const email = document.getElementById('reg-email').value || 'N/A';
+            const wantWorkshop = document.getElementById('reg-want-workshop').checked;
+            const workshopStatus = wantWorkshop ? 'Requested Day 2 Laboratory (Please select specific session on Workshops page)' : 'Plenary Sessions Only';
+            
+            const orderEl = document.getElementById('plenary-order-id');
+            const voucherCode = (orderEl && orderEl.getAttribute('data-voucher-code')) ? orderEl.getAttribute('data-voucher-code') : ('SQ-2026-' + String(globalTotalRegistrants || 1).padStart(3, '0'));
+            const orderDisplay = (orderEl && orderEl.getAttribute('data-order-num')) ? (`Registration Order: #${orderEl.getAttribute('data-order-num')}`) : (`Registration Order: #${globalTotalRegistrants || 1}`);
+
+            const txtContent = `========================================================================
+SAPIENZA SCHOOL OF ADVANCED STUDIES (SSAS)
+CONFERENCE REGISTRATION VOUCHER
+========================================================================
+
+Official Booking Confirmation: #${voucherCode}
+${orderDisplay}
+Issued On: ${new Date().toLocaleString()}
+
+------------------------------------------------------------------------
+DELEGATE INFORMATION
+------------------------------------------------------------------------
+Full Name:        ${name}
+Email Address:    ${email}
+Academic Status:  ${role}
+
+------------------------------------------------------------------------
+CONFERENCE PASS DETAILS
+------------------------------------------------------------------------
+Registration:     ${workshopStatus}
+Day 1 (Plenary):  September 17, 2026 | 09:00 - 18:00 CEST
+Plenary Venue:    Aula Amaldi, Department of Physics, Sapienza University
+
+Please present this voucher or your digital pass upon arrival at the
+conference check-in desk on September 17.
+
+© 2026 Sapienza University of Rome • School of Advanced Studies (SSAS)
+========================================================================`;
+
+            const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `SSAS_Plenary_Pass_${name.replace(/\s+/g, '_')}.txt`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         // Live Countdown to Sept 17, 2026 08:00:00 Rome Time
