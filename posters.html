@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapienza Conference 2026 | Scientific Poster Submission & Registration</title>
+    <meta name="description"
+        content="Submit your research abstract and register for the Scientific Poster Session at the Sapienza Nano & Tech 2026 Conference.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Automatic Image Format Support -->
+    <script>
+        function tryNextImg(img) {
+            const fallback = img.getAttribute('data-fallback') || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80';
+            if (!img.dataset.triedPng && img.src.includes('.jpg')) {
+                img.dataset.triedPng = 'true';
+                img.src = img.src.replace('.jpg', '.png');
+            } else if (!img.dataset.triedWebp && (img.src.includes('.jpg') || img.src.includes('.png'))) {
+                img.dataset.triedWebp = 'true';
+                img.src = img.src.replace(/\.(jpg|png)$/, '.webp');
+            } else if (!img.dataset.triedFallback) {
+                img.dataset.triedFallback = 'true';
+                img.src = fallback;
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-deep: #070B14;
+            --bg-card: rgba(18, 26, 45, 0.65);
+            --bg-card-hover: rgba(28, 40, 68, 0.8);
+            --border-glow: rgba(0, 240, 255, 0.18);
+            --border-light: rgba(255, 255, 255, 0.08);
+
+            --cyan: #00F0FF;
+            --indigo: #6366F1;
+            --violet: #A855F7;
+            --emerald: #10B981;
+            --coral: #FF5E7E;
+            --amber: #F59E0B;
+
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Grotesk', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255, 94, 126, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%);
+        }
+
+        #quantum-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--coral), var(--violet));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #FFF;
+            box-shadow: 0 0 20px rgba(255, 94, 126, 0.4);
+        }
+
+        .brand-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            display: block;
+        }
+
+        .brand-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, var(--coral), var(--violet));
+            color: #FFF;
+            box-shadow: 0 0 25px rgba(255, 94, 126, 0.35);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(255, 94, 126, 0.55);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--border-glow);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        /* Header Section */
+        .header-section {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            background: rgba(255, 94, 126, 0.15);
+            border: 1px solid var(--coral);
+            color: var(--coral);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 1.2rem;
+        }
+
+        .header-section h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #FFF 20%, var(--coral) 60%, var(--violet) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-section p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto 5rem;
+            padding: 0 5%;
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .info-card {
+            background: linear-gradient(145deg, rgba(18, 26, 45, 0.75), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 94, 126, 0.35);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--coral), var(--violet));
+        }
+
+        .form-card {
+            background: linear-gradient(145deg, rgba(18, 26, 45, 0.85), rgba(15, 23, 42, 0.95));
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 2.8rem 2.5rem;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.1);
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            background: rgba(7, 11, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #FFF;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+            background: rgba(7, 11, 20, 0.95);
+        }
+
+        .form-control::placeholder {
+            color: rgba(148, 163, 184, 0.45);
+        }
+
+        /* Footer */
+        footer {
+            background: #04060A;
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 5% 2rem;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow"></div>
+    <canvas id="quantum-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">Ψ</div>
+                <div>
+                    <span class="brand-text">SAPIENZA NANO & TECH</span>
+                    <span class="brand-sub">Advanced Studies • Rome 2026</span>
+                </div>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#program">Scientific Program</a></li>
+                <li><a href="index.html#speakers">Keynotes</a></li>
+                <li><a href="index.html#workshops">Workshops</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> Lab Sign-up</a></li>
+                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-arrow-up"></i> Poster Registration</a></li>
+                <li>
+                    <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem;">
+                        <i class="fa-solid fa-arrow-left"></i> Home Page
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="header-section">
+        <span class="section-badge"><i class="fa-solid fa-graduation-cap"></i> Call for Abstracts • PhDs & Young Researchers</span>
+        <h1>Scientific Poster <span class="text-gradient">Submission & Registration</span></h1>
+        <p>Join an international cohort of PhD candidates, postdocs, and early-career investigators presenting pioneering discoveries at the Sapienza School of Advanced Studies.</p>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Column: Guidelines & Benefits -->
+        <div class="info-card">
+            <h3 style="font-size: 1.5rem; color: #FFF; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem;">
+                <i class="fa-solid fa-lightbulb" style="color: var(--coral);"></i> Why Submit Your Research?
+            </h3>
+
+            <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; margin-bottom: 1.8rem;">
+                The SSAS Conference Poster Session is specifically designed to give PhD students, postdocs, and early-career investigators an active platform to showcase their breakthroughs, receive constructive feedback, and establish collaborations across nanoscience and advanced engineering.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 1.3rem;">
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 240, 255, 0.12); border: 1px solid var(--cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--cyan); font-size: 1.2rem;">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Direct Scientific Networking</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Engage directly during the dedicated coffee & networking sessions with plenary speakers including Prof. Beenakker, Prof. Suenaga, Prof. Haider, and top Italian researchers.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 94, 126, 0.12); border: 1px solid var(--coral); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--coral); font-size: 1.2rem;">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Peer Discussion & Visibility</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Present your research methodology and preliminary or published findings directly to the interdisciplinary academic community and conference attendees during open gallery sessions.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(168, 85, 247, 0.12); border: 1px solid var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--violet); font-size: 1.2rem;">
+                        <i class="fa-solid fa-ruler-combined"></i>
+                    </div>
+                    <div>
+                        <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Format & Technical Setup</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Posters should be printed in standard <b>vertical A0 format (84.1 × 118.9 cm)</b>. Display stands, mounting panels, and materials will be provided on-site at the Aula Amaldi foyer.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2.2rem; padding: 1.2rem 1.5rem; border-radius: 14px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.35); display: flex; align-items: center; gap: 1rem;">
+                <i class="fa-solid fa-clock-rotate-left" style="color: var(--amber); font-size: 1.5rem;"></i>
+                <div style="font-size: 0.9rem; color: #FFF;">
+                    <b>Abstract Submission Deadline:</b> July 15, 2026<br>
+                    <span style="color: var(--text-muted); font-size: 0.82rem;">Early submissions are recommended due to limited exhibition panel slots.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Interactive Poster Application Form connected to Google Moduli -->
+        <div class="form-card">
+            <div style="position: absolute; top: -12px; right: 25px; background: linear-gradient(135deg, var(--cyan), var(--indigo)); color: #000; font-weight: 800; font-size: 0.75rem; padding: 0.35rem 0.9rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);">
+                Online Portal
+            </div>
+
+            <h3 style="font-size: 1.5rem; color: #FFF; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.6rem;">
+                <i class="fa-solid fa-file-arrow-up" style="color: var(--cyan);"></i> Candidate Registration Form
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.8rem;">
+                Fill out your candidate details and abstract below. Submissions are transmitted directly to the SSAS Scientific Secretariat.
+            </p>
+
+            <!-- Hidden iframe to allow background submission to Google Forms without page reload -->
+            <iframe name="poster-hidden-iframe" id="poster-hidden-iframe" style="display:none;"></iframe>
+
+            <!-- Form step 1: inputs -->
+            <div id="poster-form-step-1">
+                <form id="poster-form" action="https://docs.google.com/forms/d/1J5u-V240_5DwfPwX2tCl7mScp9c87u-W7d8vsmEJYxo/formResponse" onsubmit="handlePosterSubmit(event)" method="POST" target="poster-hidden-iframe">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user"></i> Candidate Name & Surname *</label>
+                        <input type="text" class="form-control" id="poster-name" name="entry.709441540" placeholder="e.g. Dr. Giulia Rossi" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1.2rem;">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-envelope"></i> Institutional Email *</label>
+                            <input type="email" class="form-control" id="poster-email" name="entry.1310127548" placeholder="rossi.phd@uniroma1.it" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-building-columns"></i> University / Affiliation *</label>
+                            <input type="text" class="form-control" id="poster-affil" name="entry.1673425878" placeholder="Sapienza Univ. / Dept. Physics" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-tag"></i> Primary Scientific Area / Research Theme *</label>
+                        <input type="text" class="form-control" id="poster-topic" name="entry.1007441709" placeholder="e.g. 2D Materials, Photonics, Single-Atom Microscopy, Bio-Nano..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-heading"></i> Poster Title *</label>
+                        <input type="text" class="form-control" id="poster-title" name="entry.1723326517" placeholder="Title of your presentation..." required>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.8rem;">
+                        <label><i class="fa-solid fa-align-left"></i> Abstract Summary (Max 250 words) *</label>
+                        <textarea class="form-control" id="poster-abstract" name="entry.1450941179" rows="4" placeholder="Briefly summarize your objectives, methodology, and key experimental or theoretical findings..." required style="resize: vertical; min-height: 100px;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 1.1rem; font-size: 1.08rem;">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Candidate Abstract & Register
+                    </button>
+                </form>
+            </div>
+
+            <!-- Form step 2: Success Confirmation Card -->
+            <div id="poster-form-step-2" style="display: none; text-align: center; padding: 1rem 0;">
+                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid var(--emerald); color: var(--emerald); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h4 style="font-size: 1.4rem; color: #FFF; margin-bottom: 0.4rem;">Candidacy Successfully Submitted!</h4>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem;">
+                    Your research abstract has been recorded by the SSAS Scientific Committee. You will receive an email verification within 48 hours once your poster display slot is confirmed.
+                </p>
+
+                <div style="background: rgba(7, 11, 20, 0.8); border: 1px dashed var(--cyan); border-radius: 16px; padding: 1.4rem; text-align: left; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.6rem;">
+                        <span style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;"><i class="fa-solid fa-fingerprint"></i> Poster Application Pass</span>
+                        <span id="poster-conf-id" style="font-family: var(--font-mono); color: var(--amber); font-weight: 700;">#PSTR-2026-X</span>
+                    </div>
+                    <div style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.4rem;"><b>Candidate:</b> <span id="poster-conf-name">Dr. Name</span> (<span id="poster-conf-affil">Affiliation</span>)</div>
+                    <div style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.4rem;"><b>Theme:</b> <span id="poster-conf-topic" style="color: var(--cyan);">Topic</span></div>
+                    <div style="font-size: 0.88rem; color: var(--text-muted); font-style: italic;"><b>Title:</b> "<span id="poster-conf-title">Title</span>"</div>
+                </div>
+
+                <button onclick="resetPosterForm()" class="btn btn-outline" style="border-color: var(--border-glow); color: #FFF; padding: 0.6rem 1.4rem; font-size: 0.9rem;">
+                    <i class="fa-solid fa-plus"></i> Submit Another Abstract
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="brand" style="margin-bottom: 1.2rem;">
+                    <div class="brand-logo">Ψ</div>
+                    <span class="brand-text">SAPIENZA NANO & TECH 2026</span>
+                </div>
+                <p style="color: var(--text-muted); max-width: 400px; font-size: 0.9rem;">
+                    Interdisciplinary Conference on Quantum Technology, Materials Science, and Nanoscale Engineering organized by the Sapienza School of Advanced Studies (SSAS).
+                </p>
+            </div>
+            <div>
+                <h4 style="color: #FFF; margin-bottom: 1rem;">Navigation</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem;">
+                    <li><a href="index.html#about" style="color: var(--text-muted); text-decoration: none;">About</a></li>
+                    <li><a href="index.html#program" style="color: var(--text-muted); text-decoration: none;">Schedule</a></li>
+                    <li><a href="index.html#speakers" style="color: var(--text-muted); text-decoration: none;">Speakers</a></li>
+                    <li><a href="workshops.html" style="color: var(--text-muted); text-decoration: none;">Workshops</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Sapienza School of Advanced Studies (SSAS) • All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Interactive Canvas Animation Script -->
+    <script>
+        const canvas = document.getElementById('quantum-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        let globalPosterSubmissions = 0;
+        function handlePosterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('poster-name').value;
+            const email = document.getElementById('poster-email').value;
+            const affil = document.getElementById('poster-affil').value;
+            const topic = document.getElementById('poster-topic').value;
+            const title = document.getElementById('poster-title').value;
+
+            const form = document.getElementById('poster-form');
+            if (form && form.action && form.action.includes('docs.google.com/forms')) {
+                form.submit();
+            }
+
+            globalPosterSubmissions++;
+            const passNumStr = String(globalPosterSubmissions).padStart(3, '0');
+            const confId = '#PSTR-2026-' + (Math.floor(100 + Math.random() * 900)) + '-' + passNumStr;
+
+            if (document.getElementById('poster-conf-id')) document.getElementById('poster-conf-id').innerText = confId;
+            if (document.getElementById('poster-conf-name')) document.getElementById('poster-conf-name').innerText = name;
+            if (document.getElementById('poster-conf-affil')) document.getElementById('poster-conf-affil').innerText = affil;
+            if (document.getElementById('poster-conf-topic')) document.getElementById('poster-conf-topic').innerText = topic;
+            if (document.getElementById('poster-conf-title')) document.getElementById('poster-conf-title').innerText = title;
+
+            if (document.getElementById('poster-form-step-1')) document.getElementById('poster-form-step-1').style.display = 'none';
+            if (document.getElementById('poster-form-step-2')) document.getElementById('poster-form-step-2').style.display = 'block';
+        }
+
+        function resetPosterForm() {
+            const form = document.getElementById('poster-form');
+            if (form) form.reset();
+            if (document.getElementById('poster-form-step-2')) document.getElementById('poster-form-step-2').style.display = 'none';
+            if (document.getElementById('poster-form-step-1')) document.getElementById('poster-form-step-1').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

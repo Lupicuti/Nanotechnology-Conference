@@ -849,6 +849,35 @@
             margin-bottom: 0.4rem;
         }
 
+        .speaker-name-link, .ws-leader-name a, .slot-content h4 a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .speaker-name-link:hover, .ws-leader-name a:hover, .slot-content h4 a:hover {
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+
+        .speaker-name-link::after, .ws-leader-name a::after, .slot-content h4 a::after {
+            content: "\f08e";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.68em;
+            opacity: 0.6;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .speaker-name-link:hover::after, .ws-leader-name a:hover::after, .slot-content h4 a:hover::after {
+            transform: translate(3px, -3px);
+            opacity: 1;
+            color: var(--cyan);
+        }
+
         .speaker-inst {
             color: var(--cyan);
             font-size: 0.85rem;
@@ -1630,6 +1659,8 @@
                 <li><a href="workshops.html" style="color: var(--amber);"><i class="fa-solid fa-vials"></i> <span
                             data-i18n="nav_lab_signup">Lab
                             Sign-up</span></a></li>
+                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-circle-plus"></i> <span
+                            data-i18n="nav_poster_call">Call for Posters</span></a></li>
                 <li><a href="#secretary" data-i18n="nav_secretary">Organizers</a></li>
                 <li><a href="#committee" data-i18n="nav_committee">Committee</a></li>
                 <li><a href="#venue">Venue</a></li>
@@ -1678,14 +1709,12 @@
         </div>
 
         <h1>
-            <span data-i18n="hero_title">Exploring the Frontiers of</span> <br>
-            <span class="text-gradient" data-i18n="hero_grad">Nanotechnology, Materials Science & Advanced
-                Engineering</span>
+            <span class="text-gradient" data-i18n="hero_title" style="letter-spacing: 2px; font-size: 1.15em;">NANOCONVERGENCE</span> <br>
+            <span style="font-size: 0.52em; font-weight: 500; color: #E2E8F0; line-height: 1.4; display: block; margin-top: 0.4rem;" data-i18n="hero_grad">How are atomic manipulations and nanoscale physics reshaping medicine, quantum technologies, and sustainable preservation?</span>
         </h1>
 
         <p data-i18n="hero_desc">
-            Bridging fundamental sciences and advanced cross-disciplinary applications—from 2D materials and single-atom
-            microscopy to reticular chemistry, nanofluidics, and nanomedicine.
+            Bridging fundamental physics, surface chemistry, and advanced engineering—featuring world-renowned pioneers in single-atom aberration-corrected microscopy, topological quantum computing, CVD graphene heterostructures, plasmonic neuro-technologies, and eco-friendly cultural heritage restoration.
         </p>
 
         <!-- Event Meta Bar -->
@@ -1742,14 +1771,10 @@
                 <span class="section-badge"><i class="fa-solid fa-atom"></i> Vision & Scope</span>
                 <h3>Bridging Nanotechnology, Materials Science & Medical Innovation</h3>
                 <p>
-                    Targeting Bachelor's students, Master’s students, PhD candidates, and active researchers, this
-                    conference is calibrated
-                    to maintain rigorous technical depth while ensuring accessibility across scientific disciplines.
+                    Targeting Bachelor's students, Master’s students, PhD candidates, and active researchers, this conference bridges high-level theoretical discoveries and transformative real-world applications across physics, chemistry, and engineering.
                 </p>
                 <p>
-                    Building upon the highly successful format implemented during our previous conference on AI and
-                    Neuroscience, the program alternates 40-minute comprehensive keynote sessions by international
-                    experts with dedicated parallel laboratory workshops.
+                    Our distinguished keynotes explore the frontiers of modern nanoscience: from <strong>sub-Angstrom single-atom imaging</strong> (Prof. Haider & Prof. Suenaga) and <strong>topological quantum computation with Majorana fermions</strong> (Prof. Beenakker), to <strong>CVD graphene & terahertz polaritonics</strong> (Prof. Coletti & Prof. Tredicucci), <strong>3D plasmonic neuro-biosensors</strong> (Prof. De Angelis), and <strong>eco-friendly nanorestoration of cultural heritage</strong> (Prof. Di Carlo).
                 </p>
 
                 <div class="topics-tags">
@@ -1850,7 +1875,7 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 09:00 - 09:50</div>
                 <div class="slot-content">
                     <h4><img src="images/speakers/haider.png" class="slot-speaker-avatar" alt="Maximilian Haider">
-                        Maximilian Haider</h4>
+                        <a href="https://www.ceos-gmbh.de/en/about/max-haider" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Maximilian Haider</a></h4>
                     <div class="affil">CEOS GmbH & Karlsruhe Institute of Technology (KIT), Germany</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Recipient of the Wolf Prize in Physics
                         (2011) for the realization of aberration-corrected electron microscopy.</div>
@@ -1861,8 +1886,7 @@
             <div class="timeline-card">
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 09:50 - 10:40</div>
                 <div class="slot-content">
-                    <h4><img src="images/speakers/suenaga.jpg" class="slot-speaker-avatar" alt="Kazu Suenaga"> Kazu
-                        Suenaga</h4>
+                    <h4><img src="images/speakers/suenaga.jpg" class="slot-speaker-avatar" alt="Kazu Suenaga"> <a href="https://scholar.google.com/citations?user=Nf9cn1IAAAAJ&hl=ja" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Kazu Suenaga</a></h4>
                     <div class="affil">Osaka University & National Institute of Advanced Industrial Science and
                         Technology (AIST), Japan</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in single-atom imaging and
@@ -1884,7 +1908,7 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 11:10 - 12:00</div>
                 <div class="slot-content">
                     <h4><img src="images/speakers/tredicucci.jpg" class="slot-speaker-avatar"
-                            alt="Alessandro Tredicucci"> Alessandro Tredicucci</h4>
+                            alt="Alessandro Tredicucci"> <a href="https://scholar.google.com/citations?user=ipxoIdgAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Alessandro Tredicucci</a></h4>
                     <div class="affil">Università di Pisa & NEST - CNR-NANO, Italy</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in terahertz photonics and
                         polaritonics, and inventor of the first Terahertz Quantum Cascade Laser.</div>
@@ -1896,7 +1920,7 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 12:00 - 12:50</div>
                 <div class="slot-content">
                     <h4><img src="images/speakers/beenakker.jpg" class="slot-speaker-avatar" alt="Carlo Beenakker">
-                        Carlo Beenakker</h4>
+                        <a href="https://scholar.google.com/citations?user=IuwLtbgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Carlo Beenakker</a></h4>
                     <div class="affil">Leiden University, The Netherlands</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in mesoscopic physics and
                         topological quantum computing (Majorana fermions), Spinoza Prize Laureate (1999).</div>
@@ -1938,7 +1962,7 @@
                     <h4><img src="images/speakers/coletti.jpg" class="slot-speaker-avatar" alt="Camilla Coletti"
                             data-fallback="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80"
                             onerror="tryNextImg(this)">
-                        Camilla Coletti</h4>
+                        <a href="https://www.iit.it/it/people-profile/-/people/camilla-coletti" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Camilla Coletti</a></h4>
                     <div class="affil">Istituto Italiano di Tecnologia & CNI@NEST, Italy</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in the synthesis of highly
                         crystalline 2D materials (graphene) via CVD, and coordinator of IIT Graphene Labs.</div>
@@ -1952,7 +1976,7 @@
                     <h4><img src="images/speakers/dicarlo.png" class="slot-speaker-avatar" alt="Gabriella Di Carlo"
                             data-fallback="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80"
                             onerror="tryNextImg(this)">
-                        Gabriella Di Carlo</h4>
+                        <a href="https://www.ismn.cnr.it/gabriella-di-carlo/" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Gabriella Di Carlo</a></h4>
                     <div class="affil">ISMN-CNR / Sapienza University of Rome, Italy</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Expert in surface chemistry,
                         nanostructured materials, and eco-friendly coatings for cultural heritage conservation.</div>
@@ -1994,7 +2018,7 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 09:00 - 09:50</div>
                 <div class="slot-content">
                     <h4><img src="images/speakers/deangelis.jpg" class="slot-speaker-avatar" alt="Francesco De Angelis">
-                        Francesco De Angelis</h4>
+                        <a href="https://scholar.google.com/citations?user=-rjEmUYAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Francesco De Angelis</a></h4>
                     <div class="affil">Istituto Italiano di Tecnologia (IIT), Italy</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Internationally recognized expert in
                         nanophotonics and plasmonics. Pioneer in 3D nanostructures, advanced biosensors, and neural
@@ -2006,8 +2030,7 @@
             <div class="timeline-card">
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 09:50 - 10:40</div>
                 <div class="slot-content">
-                    <h4><img src="images/speakers/serrano.jpg" class="slot-speaker-avatar" alt="Giulia Serrano"> Giulia
-                        Serrano</h4>
+                    <h4><img src="images/speakers/serrano.jpg" class="slot-speaker-avatar" alt="Giulia Serrano"> <a href="https://scholar.google.com/citations?user=0gyrLMIAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Giulia Serrano</a></h4>
                     <div class="affil">University of Florence, Italy</div>
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Expert in surface science and molecular
                         magnetism, driving key advancements in molecular spintronics and quantum technologies.</div>
@@ -2112,7 +2135,7 @@
                     <span class="award-badge"><i class="fa-solid fa-trophy"></i> Wolf Prize Winner (2011)</span>
                     <div class="speaker-avatar"><img src="images/speakers/haider.png" alt="Maximilian Haider"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-microscope"></i></div>
-                    <h3>Maximilian Haider</h3>
+                    <h3><a href="https://www.ceos-gmbh.de/en/about/max-haider" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Haider">Maximilian Haider</a></h3>
                     <div class="speaker-inst">CEOS GmbH & KIT, Germany</div>
                 </div>
                 <p class="speaker-desc">
@@ -2129,7 +2152,7 @@
                             class="fa-solid fa-star"></i> Single-Atom Imaging</span>
                     <div class="speaker-avatar"><img src="images/speakers/suenaga.jpg" alt="Kazu Suenaga"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-eye"></i></div>
-                    <h3>Kazu Suenaga</h3>
+                    <h3><a href="https://scholar.google.com/citations?user=Nf9cn1IAAAAJ&hl=ja" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Suenaga">Kazu Suenaga</a></h3>
                     <div class="speaker-inst">Osaka University & AIST, Japan</div>
                 </div>
                 <p class="speaker-desc">
@@ -2146,7 +2169,7 @@
                             class="fa-solid fa-bolt"></i> THz Laser Inventor</span>
                     <div class="speaker-avatar"><img src="images/speakers/tredicucci.jpg" alt="Alessandro Tredicucci"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-wave-square"></i></div>
-                    <h3>Alessandro Tredicucci</h3>
+                    <h3><a href="https://scholar.google.com/citations?user=ipxoIdgAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Tredicucci">Alessandro Tredicucci</a></h3>
                     <div class="speaker-inst">Università di Pisa & NEST - CNR-NANO, Italy</div>
                 </div>
                 <p class="speaker-desc">
@@ -2161,7 +2184,7 @@
                     <span class="award-badge"><i class="fa-solid fa-award"></i> Spinoza Prize Winner (1999)</span>
                     <div class="speaker-avatar"><img src="images/speakers/beenakker.jpg" alt="Carlo Beenakker"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-atom"></i></div>
-                    <h3>Carlo Beenakker</h3>
+                    <h3><a href="https://scholar.google.com/citations?user=IuwLtbgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Beenakker">Carlo Beenakker</a></h3>
                     <div class="speaker-inst">Leiden University, The Netherlands</div>
                 </div>
                 <p class="speaker-desc">
@@ -2178,7 +2201,7 @@
                             class="fa-solid fa-layer-group"></i> Graphene Pioneer</span>
                     <div class="speaker-avatar"><img src="images/speakers/coletti.jpg" alt="Camilla Coletti"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-cube"></i></div>
-                    <h3>Camilla Coletti</h3>
+                    <h3><a href="https://www.iit.it/it/people-profile/-/people/camilla-coletti" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof.ssa Coletti">Camilla Coletti</a></h3>
                     <div class="speaker-inst">IIT & CNI@NEST, Italy</div>
                 </div>
                 <p class="speaker-desc">
@@ -2195,7 +2218,7 @@
                             class="fa-solid fa-shield-halved"></i> Nanorestoration</span>
                     <div class="speaker-avatar"><img src="images/speakers/dicarlo.png" alt="Gabriella Di Carlo"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-monument"></i></div>
-                    <h3>Gabriella Di Carlo</h3>
+                    <h3><a href="https://www.ismn.cnr.it/gabriella-di-carlo/" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof.ssa Di Carlo">Gabriella Di Carlo</a></h3>
                     <div class="speaker-inst">ISMN-CNR / Sapienza University, Italy</div>
                 </div>
                 <p class="speaker-desc">
@@ -2212,7 +2235,7 @@
                             class="fa-solid fa-brain"></i> Neural Interfaces</span>
                     <div class="speaker-avatar"><img src="images/speakers/deangelis.jpg" alt="Francesco De Angelis"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-dna"></i></div>
-                    <h3>Francesco De Angelis</h3>
+                    <h3><a href="https://scholar.google.com/citations?user=-rjEmUYAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. De Angelis">Francesco De Angelis</a></h3>
                     <div class="speaker-inst">Istituto Italiano di Tecnologia (IIT), Italy</div>
                 </div>
                 <p class="speaker-desc">
@@ -2229,7 +2252,7 @@
                             class="fa-solid fa-magnet"></i> Molecular Spintronics</span>
                     <div class="speaker-avatar"><img src="images/speakers/serrano.jpg" alt="Giulia Serrano"
                             onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-compass"></i></div>
-                    <h3>Giulia Serrano</h3>
+                    <h3><a href="https://scholar.google.com/citations?user=0gyrLMIAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof.ssa Serrano">Giulia Serrano</a></h3>
                     <div class="speaker-inst">University of Florence, Italy</div>
                 </div>
                 <p class="speaker-desc">
@@ -2261,7 +2284,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: var(--cyan);">Ernesto Placidi</div>
+                                <div class="ws-leader-name" style="color: var(--cyan);"><a href="https://scholar.google.com/citations?user=lCXcq00AAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Ernesto Placidi</a></div>
                                 <div class="ws-affil">AFM Lab (Sapienza)</div>
                             </div>
                         </div>
@@ -2296,8 +2319,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: var(--coral);">M. Gioia Fabiano & Eleonora
-                                    D’Intino</div>
+                                <div class="ws-leader-name" style="color: var(--coral);"><a href="https://phd.uniroma1.it/web/MARIA-GIOIA-FABIANO_nT1664856_IT.aspx" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">M. Gioia Fabiano</a> & <a href="https://scholar.google.com/citations?user=lwa0ApUAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Eleonora D’Intino</a></div>
                                 <div class="ws-affil">Nanomedicine Lab (Sapienza)</div>
                             </div>
                         </div>
@@ -2328,7 +2350,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: var(--amber);">Leonetta Baldassarre</div>
+                                <div class="ws-leader-name" style="color: var(--amber);"><a href="https://scholar.google.com/citations?hl=it&user=5609-D4AAAAJ" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Leonetta Baldassarre</a></div>
                                 <div class="ws-affil">IR & THz Lab (Sapienza)</div>
                             </div>
                         </div>
@@ -2359,7 +2381,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: var(--emerald);">Marta De Luca</div>
+                                <div class="ws-leader-name" style="color: var(--emerald);"><a href="https://www.nanospectroscopylab.com/team/marta" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marta De Luca</a></div>
                                 <div class="ws-affil">Micro-Raman Lab (Sapienza)</div>
                             </div>
                         </div>
@@ -2390,7 +2412,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: #60A5FA;">Maria Laura Santarelli</div>
+                                <div class="ws-leader-name" style="color: #60A5FA;"><a href="https://sites.google.com/a/uniroma1.it/marialaurasantarelli-eng/" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Maria Laura Santarelli</a></div>
                                 <div class="ws-affil">Heritage Nanotech (Sapienza)</div>
                             </div>
                         </div>
@@ -2421,7 +2443,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: var(--violet);">Marco Felici</div>
+                                <div class="ws-leader-name" style="color: var(--violet);"><a href="https://scholar.google.com/citations?user=rQBVLH4AAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marco Felici</a></div>
                                 <div class="ws-affil">Photonics Lab (Sapienza)</div>
                             </div>
                         </div>
@@ -2452,7 +2474,7 @@
                                     onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80'">
                             </div>
                             <div class="ws-leader-info">
-                                <div class="ws-leader-name" style="color: var(--indigo);">Tommaso Giovannini</div>
+                                <div class="ws-leader-name" style="color: var(--indigo);"><a href="https://sites.google.com/view/tommaso-giovannini/home" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Tommaso Giovannini</a></div>
                                 <div class="ws-affil">Computational Lab (Tor Vergata)</div>
                             </div>
                         </div>
@@ -2472,6 +2494,103 @@
                     <a href="workshops.html?select=computational-plasmonics" class="btn btn-outline"
                         style="width: 100%; justify-content: center; border-color: var(--indigo);">Reserve Lab Seat</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PhD & Young Researchers Poster Session Section -->
+    <section id="poster-submission" style="padding: 6rem 5% 4rem; position: relative;">
+        <!-- Glowing background accents -->
+        <div style="position: absolute; top: 20%; left: 5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255, 94, 126, 0.12) 0%, transparent 70%); filter: blur(70px); pointer-events: none; z-index: -1;"></div>
+        <div style="position: absolute; bottom: 10%; right: 5%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, transparent 70%); filter: blur(70px); pointer-events: none; z-index: -1;"></div>
+
+        <div class="section-header">
+            <span class="section-badge" style="background: rgba(255, 94, 126, 0.15); border-color: var(--coral); color: var(--coral);"><i class="fa-solid fa-graduation-cap"></i> Call for Abstracts • PhDs & Young Researchers</span>
+            <h2>Scientific Poster Session</h2>
+            <p>Present your cutting-edge research before world-renowned keynote speakers, senior faculty, and international peers at Sapienza University of Rome.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2.5rem; max-width: 1300px; margin: 3rem auto 0; align-items: start;">
+            
+            <!-- Left Column: Guidelines & Benefits -->
+            <div style="background: linear-gradient(145deg, rgba(18, 26, 45, 0.75), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(255, 94, 126, 0.35); border-radius: 24px; padding: 2.5rem; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--coral), var(--violet));"></div>
+                
+                <h3 style="font-size: 1.5rem; color: #FFF; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.7rem;">
+                    <i class="fa-solid fa-lightbulb" style="color: var(--coral);"></i> Why Submit Your Research?
+                </h3>
+                
+                <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; margin-bottom: 1.8rem;">
+                    The SSAS Conference Poster Session is specifically designed to give PhD students, postdocs, and early-career investigators an active platform to showcase their breakthroughs, receive constructive feedback, and establish collaborations across nanoscience and advanced engineering.
+                </p>
+
+                <div style="display: flex; flex-direction: column; gap: 1.3rem;">
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(0, 240, 255, 0.12); border: 1px solid var(--cyan); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--cyan); font-size: 1.2rem;">
+                            <i class="fa-solid fa-users-viewfinder"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Direct Scientific Networking</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Engage directly during the dedicated coffee & networking sessions with plenary speakers including Prof. Beenakker, Prof. Suenaga, Prof. Haider, and top Italian researchers.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 94, 126, 0.12); border: 1px solid var(--coral); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--coral); font-size: 1.2rem;">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Peer Discussion & Visibility</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Present your research methodology and preliminary or published findings directly to the interdisciplinary academic community and conference attendees during open gallery sessions.</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; align-items: flex-start;">
+                        <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(168, 85, 247, 0.12); border: 1px solid var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--violet); font-size: 1.2rem;">
+                            <i class="fa-solid fa-ruler-combined"></i>
+                        </div>
+                        <div>
+                            <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Format & Technical Setup</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Posters should be printed in standard <b>vertical A0 format (84.1 × 118.9 cm)</b>. Display stands, mounting panels, and materials will be provided on-site at the Aula Amaldi foyer.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2.2rem; padding: 1.2rem 1.5rem; border-radius: 14px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.35); display: flex; align-items: center; gap: 1rem;">
+                    <i class="fa-solid fa-clock-rotate-left" style="color: var(--amber); font-size: 1.5rem;"></i>
+                    <div style="font-size: 0.9rem; color: #FFF;">
+                        <b>Abstract Submission Deadline:</b> July 15, 2026<br>
+                        <span style="color: var(--text-muted); font-size: 0.82rem;">Early submissions are recommended due to limited exhibition panel slots.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Online Submission CTA (Links to dedicated posters.html page) -->
+            <div style="background: linear-gradient(145deg, rgba(18, 26, 45, 0.85), rgba(15, 23, 42, 0.95)); border: 1px solid var(--border-glow); border-radius: 24px; padding: 2.8rem 2.5rem; box-shadow: 0 0 40px rgba(0, 240, 255, 0.1); display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--cyan), var(--indigo));"></div>
+                
+                <div>
+                    <span class="section-badge" style="background: rgba(0, 240, 255, 0.12); border-color: var(--cyan); color: var(--cyan); margin-bottom: 1.2rem; display: inline-flex;"><i class="fa-solid fa-paper-plane"></i> Online Portal Open</span>
+                    <h3 style="font-size: 1.6rem; color: #FFF; margin-bottom: 1rem;">Ready to Submit Your Abstract?</h3>
+                    <p style="color: var(--text-muted); font-size: 0.98rem; line-height: 1.7; margin-bottom: 2rem;">
+                        Our online portal is open for PhD candidates, postdocs, and young researchers across Sapienza University and international institutes. Access the dedicated submission form to enter your candidate details, affiliation, and abstract summary.
+                    </p>
+                    
+                    <div style="background: rgba(7, 11, 20, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 1.5rem; margin-bottom: 2.2rem;">
+                        <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.8rem; color: #FFF; font-weight: 600;">
+                            <i class="fa-solid fa-circle-check" style="color: var(--emerald);"></i> Seamless Submission Process
+                        </div>
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; color: var(--text-muted); font-size: 0.9rem;">
+                            <li><i class="fa-solid fa-check" style="color: var(--cyan); margin-right: 0.5rem;"></i> No registration fees required</li>
+                            <li><i class="fa-solid fa-check" style="color: var(--cyan); margin-right: 0.5rem;"></i> Max 250 words abstract summary</li>
+                            <li><i class="fa-solid fa-check" style="color: var(--cyan); margin-right: 0.5rem;"></i> Instant confirmation ID generated</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="posters.html" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 1.2rem; font-size: 1.15rem; background: linear-gradient(135deg, var(--coral), var(--violet)); border: none; text-decoration: none;">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i> Access Poster Submission Portal &rarr;
+                </a>
             </div>
         </div>
     </section>
@@ -2769,187 +2888,6 @@
         </div>
     </footer>
 
-    <!-- Interactive Registration Modal -->
-    <div class="modal-overlay" id="reg-modal">
-        <div class="modal-content" id="reg-content">
-            <button class="close-modal" onclick="closeRegisterModal()"><i class="fa-solid fa-xmark"></i></button>
-
-            <div id="form-step-1">
-                <span class="section-badge" style="margin-bottom: 0.3rem;"><i class="fa-solid fa-ticket"></i> Free
-                    Registration</span>
-                <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: #FFF; margin-bottom: 1.5rem;">
-                    Conference Pass Application</h3>
-
-                <form id="conf-form" onsubmit="handleRegister(event)">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" class="form-control" placeholder="Dr. / Ms. / Mr. Name Surname" required
-                            id="reg-name">
-                    </div>
-
-                    <div class="form-group">
-                        <label>University / Institution Email *</label>
-                        <input type="email" class="form-control" placeholder="name@domain.edu / uniroma1.it" required
-                            id="reg-email">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Academic Status / Role *</label>
-                        <select class="form-control" id="reg-role" required>
-                            <option value="">Select your role...</option>
-                            <option value="Bachelor's Student">Bachelor's Student</option>
-                            <option value="Master's Student">Master's Student</option>
-                            <option value="PhD Candidate">PhD Candidate</option>
-                            <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
-                            <option value="Professor / Principal Investigator">Professor / Principal Investigator
-                            <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
-                            <!-- EDUCATIONAL COMMENT: Added 'Other' option to accommodate attendees with different academic/professional titles -->
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" style="margin-top: 1.2rem;">
-                        <label
-                            style="margin-bottom: 0.6rem; display: block; font-weight: 600; color: var(--cyan);">Select
-                            Sessions You Plan to Attend *</label>
-                        <div
-                            style="display: flex; flex-direction: column; gap: 0.6rem; background: rgba(0, 240, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.2); padding: 1rem; border-radius: 12px; text-align: left;">
-                            <label
-                                style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #E2E8F0; font-weight: 500; font-size: 0.9rem;">
-                                <input type="checkbox" name="reg-sessions" value="Session 1 (Sept 17 Morning)" checked
-                                    style="cursor: pointer; width: auto;">
-                                Session 1: Sept 17 Morning (Plenary Keynotes & Optics)
-                            </label>
-                            <label
-                                style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #E2E8F0; font-weight: 500; font-size: 0.9rem;">
-                                <input type="checkbox" name="reg-sessions" value="Session 2 (Sept 17 Afternoon)" checked
-                                    style="cursor: pointer; width: auto;">
-                                Session 2: Sept 17 Afternoon (Synthesis & Nanorestoration)
-                            </label>
-                            <label
-                                style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #E2E8F0; font-weight: 500; font-size: 0.9rem;">
-                                <input type="checkbox" name="reg-sessions" value="Session 3 (Sept 18 Morning)" checked
-                                    style="cursor: pointer; width: auto;">
-                                Session 3: Sept 18 Morning (Reticular Chem & Nanofluidics)
-                            </label>
-                            <label
-                                style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #FFF; font-weight: 600; font-size: 0.9rem;"
-                                id="label-session-4">
-                                <input type="checkbox" id="check-session-4" name="reg-sessions"
-                                    value="Session 4 (Sept 18 Afternoon Workshop)" style="cursor: pointer; width: auto;"
-                                    onchange="toggleWorkshopSelect(this.checked)">
-                                Session 4: Sept 18 Afternoon (Hands-on Laboratory Workshop)
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" id="ws-dropdown-container"
-                        style="display: none; margin-top: 0.8rem; background: rgba(16, 185, 129, 0.08); border: 1px solid var(--emerald); padding: 1.2rem; border-radius: 12px; text-align: left;">
-                        <label
-                            style="color: var(--emerald); font-weight: 600; margin-bottom: 0.4rem; display: block; font-size: 0.9rem;"><i
-                                class="fa-solid fa-flask"></i> Choose Your Laboratory (Sept 18 Afternoon) *</label>
-                        <p style="color: #CBD5E1; font-size: 0.83rem; margin-bottom: 0.8rem; line-height: 1.4;">
-                            Our hands-on laboratory workshops have dedicated detailed cards with full leader profiles and seats. Choose below or browse on the workshops page:
-                        </p>
-                        <button type="button" onclick="redirectToWorkshopsPage('')" class="btn btn-glow"
-                            style="width: 100%; justify-content: center; background: linear-gradient(135deg, var(--emerald), var(--cyan)); border: none; padding: 0.85rem; font-weight: 700; margin-bottom: 0.8rem; box-shadow: 0 0 20px rgba(16,185,129,0.3);">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Select Laboratory on Workshops Page →
-                        </button>
-                        <select class="form-control" id="reg-ws-select" onchange="handleWsSelectChange(this)"
-                            style="border-color: var(--emerald); background: #0F172A; color: #FFF;">
-                            <option value="">Or choose quickly right here...</option>
-                            <option value="Atomic Force Microscopy (AFM)">Atomic Force Microscopy (AFM) — Dept. of Physics</option>
-                            <option value="Nanomedicine Experience">Nanomedicine Experience — Dept. of Chemistry</option>
-                            <option value="Absorption in Quantum Well">Absorption in Quantum Well — Dept. of Physics</option>
-                            <option value="Semiconductor Nanowires">Semiconductor Nanowires — Dept. of Physics</option>
-                            <option value="HERITAGE-LAB Nanotech">HERITAGE-LAB Nanotech — Dept. of Chem. Eng.</option>
-                            <option value="Light and Photonics">Light and Photonics — Dept. of Physics</option>
-                            <option value="Computational Plasmonics">Computational Plasmonics — Dept. of Physics / Tor Vergata</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="btn btn-glow"
-                        style="width: 100%; justify-content: center; margin-top: 1rem; padding: 1rem;">
-                        <i class="fa-solid fa-qrcode"></i> Complete Registration & Get Pass
-                    </button>
-                </form>
-            </div>
-
-            <!-- Confirmation Step (Compact visual view) -->
-            <div id="form-step-2" style="display: none; text-align: center;">
-                <div id="plenary-ticket-card" class="ticket-box" style="display: block; margin: 0 auto 0.8rem;">
-                    <div class="ticket-header">
-                        <div
-                            style="width: 38px; height: 38px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 1.3rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem;">
-                            <i class="fa-solid fa-check"></i>
-                        </div>
-                        <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: #FFF; margin-bottom: 0.15rem;">
-                            Conference Pass Confirmed</h3>
-                        <span class="section-badge" style="color: var(--cyan); margin-bottom: 0; font-size: 0.72rem; padding: 0.2rem 0.7rem;" id="plenary-order-id">Attendee Pass #SQ-2026</span>
-                    </div>
-
-                    <div class="ticket-body">
-                        <div class="ticket-info-grid">
-                            <div>
-                                <div class="ticket-label">Delegate Name</div>
-                                <div class="ticket-value" id="pass-name-display"></div>
-                            </div>
-                            <div>
-                                <div class="ticket-label">Academic Role</div>
-                                <div class="ticket-value" id="pass-role-display" style="color: var(--cyan); font-weight: 600;"></div>
-                            </div>
-                            <div style="grid-column: span 2;">
-                                <div class="ticket-label">Email Address</div>
-                                <div class="ticket-value" id="pass-email-display" style="font-size: 0.88rem; word-break: break-all;"></div>
-                            </div>
-                            <div style="grid-column: span 2;">
-                                <div class="ticket-label">Registered Sessions</div>
-                                <div class="ticket-value" id="pass-sessions-display" style="font-size: 0.88rem;">All Plenary & Lab Sessions</div>
-                            </div>
-                            <div style="grid-column: span 2;">
-                                <div class="ticket-label">Date & Time</div>
-                                <div class="ticket-value" style="font-size: 0.88rem;">Sept 17-18, 2026 • Rome, Aula Amaldi</div>
-                            </div>
-                            <div id="pass-ws-box" style="grid-column: span 2; display: none; background: rgba(16, 185, 129, 0.1); padding: 0.5rem 0.8rem; border-radius: 8px; border-left: 3px solid var(--emerald);">
-                                <div class="ticket-label" style="color: var(--emerald);">Reserved Laboratory Workshop</div>
-                                <div class="ticket-value" id="pass-ws-display" style="color: #FFF; font-size: 1rem;"></div>
-                            </div>
-                        </div>
-
-                        <div class="ticket-footer">
-                            <div style="text-align: left;">
-                                <span style="font-size: 0.7rem; color: var(--text-dim); display: block;">Sapienza Advanced Studies</span>
-                                <strong style="font-size: 0.8rem; color: #FFF;">Rome, Aula Amaldi & Laboratories</strong>
-                            </div>
-                            <div>
-                                <i class="fa-solid fa-qrcode" style="font-size: 2.4rem; color: var(--text-main); opacity: 0.85;"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin: 0 auto;">
-                    <button onclick="downloadPlenaryPassPdf()" class="btn btn-glow"
-                        style="width: 100%; justify-content: center; padding: 0.7rem; font-size: 0.9rem;">
-                        <i class="fa-solid fa-file-pdf"></i> Download Official Conference Pass (.PDF)
-                    </button>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
-                        <button onclick="addToGoogleCalendar()" class="btn btn-outline"
-                            style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.6rem; border-color: rgba(0, 240, 255, 0.4); color: var(--cyan);">
-                            <i class="fa-brands fa-google"></i> Google Calendar
-                        </button>
-                        <button onclick="downloadIcsCalendar()" class="btn btn-outline"
-                            style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.6rem; border-color: rgba(99, 102, 241, 0.4); color: #C7D2FE;">
-                            <i class="fa-brands fa-apple"></i> Apple / Outlook (.ics)
-                        </button>
-                    </div>
-                    <button onclick="closeRegisterModal()" class="btn btn-outline"
-                        style="width: 100%; justify-content: center; padding: 0.6rem; font-size: 0.8rem;" id="modal-close-btn">Return to Conference Site</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- html2pdf Library for Direct PDF Downloads -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <!-- JavaScript -->
@@ -2988,22 +2926,13 @@
             btnElement.classList.add('active');
         }
 
-        // Registration Modal Controls
+        // Registration Redirect (Dedicated Registration Page)
         function openRegisterModal() {
-            document.getElementById('form-step-1').style.display = 'block';
-            document.getElementById('form-step-2').style.display = 'none';
-            document.getElementById('conf-form').reset();
-            const regContent = document.getElementById('reg-content');
-            if (regContent) regContent.style.padding = '';
-
-            const modal = document.getElementById('reg-modal');
-            modal.classList.add('active');
+            window.location.href = 'registration.html';
         }
 
         function closeRegisterModal() {
-            document.getElementById('reg-modal').classList.remove('active');
-            const regContent = document.getElementById('reg-content');
-            if (regContent) regContent.style.padding = '';
+            // No-op if called from legacy triggers
         }
 
         // ==========================================================
@@ -3087,7 +3016,7 @@
             let workshopSelected = 'None (Plenary Only)';
             if (isSession4Checked) {
                 if (!wsSelect || !wsSelect.value) {
-                    alert('Please choose your preferred Laboratory for Session 4.');
+                    redirectToWorkshopsPage('');
                     return;
                 }
                 workshopSelected = wsSelect.value;
@@ -3103,54 +3032,48 @@
                 checkedSessionElements.forEach(cb => params.append(GOOGLE_ENTRY_SESSIONS, cb.value));
             }
 
-            // Submit to Google Form (Single submission method to prevent duplicate rows)
-            fetch(GOOGLE_FORM_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            }).then(() => {
-                console.log('Form submitted successfully.');
-            }).catch(err => {
-                console.warn('Fetch failed, trying hidden iframe fallback:', err);
-                try {
-                    let hiddenIframe = document.getElementById('hidden_iframe_reg');
-                    if (!hiddenIframe) {
-                        hiddenIframe = document.createElement('iframe');
-                        hiddenIframe.id = 'hidden_iframe_reg';
-                        hiddenIframe.name = 'hidden_iframe_reg';
-                        hiddenIframe.style.display = 'none';
-                        document.body.appendChild(hiddenIframe);
-                    }
-                    const hiddenForm = document.createElement('form');
-                    hiddenForm.action = GOOGLE_FORM_URL;
-                    hiddenForm.method = 'POST';
-                    hiddenForm.target = 'hidden_iframe_reg';
-                    hiddenForm.style.display = 'none';
+            if (window._isSubmittingReg) return;
+            window._isSubmittingReg = true;
+            setTimeout(() => { window._isSubmittingReg = false; }, 5000);
 
-                    const addField = (name, val) => {
-                        if (!name || !val) return;
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = name;
-                        input.value = val;
-                        hiddenForm.appendChild(input);
-                    };
-
-                    addField(GOOGLE_ENTRY_NAME, name);
-                    addField(GOOGLE_ENTRY_EMAIL, email);
-                    addField(GOOGLE_ENTRY_ROLE, role);
-                    addField(GOOGLE_ENTRY_WORKSHOP, workshopSelected);
-                    if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
-                        checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
-                    }
-                    document.body.appendChild(hiddenForm);
-                    hiddenForm.submit();
-                    setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
-                } catch (e) {
-                    console.warn('Fallback error:', e);
+            // Submit to Google Form exactly once via hidden iframe to prevent double-row creation and CORS errors
+            try {
+                let hiddenIframe = document.getElementById('hidden_iframe_reg');
+                if (!hiddenIframe) {
+                    hiddenIframe = document.createElement('iframe');
+                    hiddenIframe.id = 'hidden_iframe_reg';
+                    hiddenIframe.name = 'hidden_iframe_reg';
+                    hiddenIframe.style.display = 'none';
+                    document.body.appendChild(hiddenIframe);
                 }
-            });
+                const hiddenForm = document.createElement('form');
+                hiddenForm.action = GOOGLE_FORM_URL;
+                hiddenForm.method = 'POST';
+                hiddenForm.target = 'hidden_iframe_reg';
+                hiddenForm.style.display = 'none';
+
+                const addField = (fieldName, val) => {
+                    if (!fieldName || !val) return;
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = fieldName;
+                    input.value = val;
+                    hiddenForm.appendChild(input);
+                };
+
+                addField(GOOGLE_ENTRY_NAME, name);
+                addField(GOOGLE_ENTRY_EMAIL, email);
+                addField(GOOGLE_ENTRY_ROLE, role);
+                addField(GOOGLE_ENTRY_WORKSHOP, workshopSelected);
+                if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
+                    checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
+                }
+                document.body.appendChild(hiddenForm);
+                hiddenForm.submit();
+                setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
+            } catch (err) {
+                console.warn('Form submit error:', err);
+            }
 
             // Save to LocalStorage for fallback dashboard use
             saveToLocalDB(name, email, role, `${workshopSelected} (${checkedSessions})`);
@@ -3189,6 +3112,44 @@
             if (regContent) regContent.style.padding = '1.2rem 1.5rem';
         }
 
+        let globalPosterSubmissions = 0;
+        function handlePosterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('poster-name').value;
+            const email = document.getElementById('poster-email').value;
+            const affil = document.getElementById('poster-affil').value;
+            const topic = document.getElementById('poster-topic').value;
+            const title = document.getElementById('poster-title').value;
+            const abstract = document.getElementById('poster-abstract').value;
+
+            // Check if form is configured for live Google Form submission
+            const form = document.getElementById('poster-form');
+            if (form && form.action && form.action.includes('docs.google.com/forms')) {
+                // Allow background submission via iframe
+                form.submit();
+            }
+
+            globalPosterSubmissions++;
+            const passNumStr = String(globalPosterSubmissions).padStart(3, '0');
+            const confId = '#PSTR-2026-' + (Math.floor(100 + Math.random() * 900)) + '-' + passNumStr;
+
+            if (document.getElementById('poster-conf-id')) document.getElementById('poster-conf-id').innerText = confId;
+            if (document.getElementById('poster-conf-name')) document.getElementById('poster-conf-name').innerText = name;
+            if (document.getElementById('poster-conf-affil')) document.getElementById('poster-conf-affil').innerText = affil;
+            if (document.getElementById('poster-conf-topic')) document.getElementById('poster-conf-topic').innerText = topic;
+            if (document.getElementById('poster-conf-title')) document.getElementById('poster-conf-title').innerText = title;
+
+            if (document.getElementById('poster-form-step-1')) document.getElementById('poster-form-step-1').style.display = 'none';
+            if (document.getElementById('poster-form-step-2')) document.getElementById('poster-form-step-2').style.display = 'block';
+        }
+
+        function resetPosterForm() {
+            const form = document.getElementById('poster-form');
+            if (form) form.reset();
+            if (document.getElementById('poster-form-step-2')) document.getElementById('poster-form-step-2').style.display = 'none';
+            if (document.getElementById('poster-form-step-1')) document.getElementById('poster-form-step-1').style.display = 'block';
+        }
+
         // Track global registrants count for sequential numbers
         let globalTotalRegistrants = 0;
         const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv';
@@ -3209,6 +3170,8 @@
             if (!ticketEl) return;
             const name = document.getElementById('pass-name-display').innerText || 'Attendee';
 
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
             const widthPx = ticketEl.offsetWidth || 500;
             const heightPx = ticketEl.offsetHeight || 580;
 
@@ -3217,11 +3180,11 @@
                 filename: `SSAS_Conference_Pass_${name.replace(/\s+/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: {
-                    scale: 3,
+                    scale: 2,
                     useCORS: true,
-                    backgroundColor: '#0F172A',
-                    width: widthPx,
-                    height: heightPx
+                    scrollY: 0,
+                    scrollX: 0,
+                    backgroundColor: '#0F172A'
                 },
                 jsPDF: {
                     unit: 'px',
@@ -3428,6 +3391,7 @@
                 nav_keynotes: "Keynotes",
                 nav_workshops: "Workshops",
                 nav_lab_signup: "Lab Sign-up",
+                nav_poster_call: "Call for Posters",
                 nav_secretary: "Organizers",
                 nav_committee: "Committee",
                 nav_register_free: "Register Free",
@@ -3444,6 +3408,7 @@
                 nav_keynotes: "Relatori",
                 nav_workshops: "Laboratori",
                 nav_lab_signup: "Iscrizione Lab",
+                nav_poster_call: "Candidature Poster",
                 nav_secretary: "Organizzatori",
                 nav_committee: "Comitato",
                 nav_register_free: "Registrati Gratis",
@@ -3460,6 +3425,7 @@
                 nav_keynotes: "Hauptredner",
                 nav_workshops: "Workshops",
                 nav_lab_signup: "Lab-Anmeldung",
+                nav_poster_call: "Poster-Aufruf",
                 nav_secretary: "Organisatoren",
                 nav_committee: "Komitee",
                 nav_register_free: "Kostenlos Registrieren",
@@ -3476,6 +3442,7 @@
                 nav_keynotes: "Conférenciers",
                 nav_workshops: "Ateliers",
                 nav_lab_signup: "Inscription Lab",
+                nav_poster_call: "Appel à Posters",
                 nav_secretary: "Organisateurs",
                 nav_committee: "Comité",
                 nav_register_free: "S'inscrire Gratuitement",
@@ -3492,6 +3459,7 @@
                 nav_keynotes: "Ponentes",
                 nav_workshops: "Talleres",
                 nav_lab_signup: "Registro Lab",
+                nav_poster_call: "Convocatoria Pósteres",
                 nav_secretary: "Organizadores",
                 nav_committee: "Comité",
                 nav_register_free: "Registro Gratuito",
@@ -3580,6 +3548,7 @@
             for (let key in indexWorkshopCounts) indexWorkshopCounts[key] = 0;
             const sheetCounts = {};
             for (let key in indexWorkshopsData) sheetCounts[key] = 0;
+            let loadedFromSheet = false;
 
             const urls = [
                 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv&_t=' + Date.now(),
@@ -3601,6 +3570,7 @@
                                     }
                                 }
                             });
+                            loadedFromSheet = true;
                             break;
                         }
                     }
@@ -3609,28 +3579,34 @@
                 }
             }
 
-            const localCounts = {};
-            for (let key in indexWorkshopsData) localCounts[key] = 0;
-            try {
-                const localData = localStorage.getItem('registrations');
-                if (localData) {
-                    const regs = JSON.parse(localData);
-                    regs.forEach(reg => {
-                        if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
-                            for (let key in indexWorkshopsData) {
-                                if (reg.workshop.includes(indexWorkshopsData[key].name)) {
-                                    localCounts[key] = (localCounts[key] || 0) + 1;
+            if (loadedFromSheet) {
+                for (let key in indexWorkshopsData) {
+                    indexWorkshopCounts[key] = sheetCounts[key] || 0;
+                }
+                try { localStorage.removeItem('registrations'); } catch (e) {}
+            } else {
+                const localCounts = {};
+                for (let key in indexWorkshopsData) localCounts[key] = 0;
+                try {
+                    const localData = localStorage.getItem('registrations');
+                    if (localData) {
+                        const regs = JSON.parse(localData);
+                        regs.forEach(reg => {
+                            if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
+                                for (let key in indexWorkshopsData) {
+                                    if (reg.workshop.includes(indexWorkshopsData[key].name)) {
+                                        localCounts[key] = (localCounts[key] || 0) + 1;
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Could not read local registrations on index:', e);
                 }
-            } catch (e) {
-                console.warn('Could not read local registrations on index:', e);
-            }
-
-            for (let key in indexWorkshopsData) {
-                indexWorkshopCounts[key] = Math.max(sheetCounts[key] || 0, localCounts[key] || 0);
+                for (let key in indexWorkshopsData) {
+                    indexWorkshopCounts[key] = localCounts[key] || 0;
+                }
             }
             updateWorkshopSeatBadges();
         }

@@ -497,6 +497,35 @@
             line-height: 1.3;
         }
 
+        .ws-leader-name a {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .ws-leader-name a:hover {
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+        }
+
+        .ws-leader-name a::after {
+            content: "\f08e";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.68em;
+            opacity: 0.6;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .ws-leader-name a:hover::after {
+            transform: translate(3px, -3px);
+            opacity: 1;
+            color: var(--cyan);
+        }
+
         .ws-affil {
             color: var(--text-muted);
             font-size: 0.8rem;
@@ -879,6 +908,7 @@
                 <li><a href="index.html#workshops" data-i18n="nav_workshops">Workshops</a></li>
                 <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> <span
                             data-i18n="nav_lab_signup">Lab Sign-up</span></a></li>
+                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-arrow-up"></i> Call for Posters</a></li>
                 <li><a href="index.html#secretary" data-i18n="nav_secretary">Organizers</a></li>
                 <li><a href="index.html#committee" data-i18n="nav_committee">Committee</a></li>
                 <!-- BEGINNER'S GUIDE TO HTML: LANGUAGE SWITCHER DROPDOWN -->
@@ -893,6 +923,11 @@
                         </select>
                         <i class="fa-solid fa-globe lang-icon"></i>
                     </div>
+                </li>
+                <li>
+                    <a href="registration.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem; text-decoration: none; border-color: var(--cyan); color: var(--cyan);">
+                        <i class="fa-solid fa-ticket"></i> <span>Register Free</span>
+                    </a>
                 </li>
                 <li>
                     <a href="index.html" class="btn btn-glow" style="padding: 0.5rem 1.2rem; text-decoration: none;">
@@ -1009,7 +1044,7 @@
                                         <img src="images/workshops/placidi.jpg" alt="Ernesto Placidi" class="ws-person-img" style="border-color: var(--cyan);" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--cyan);">Ernesto Placidi</div>
+                                        <div class="ws-leader-name" style="color: var(--cyan);"><a href="https://scholar.google.com/citations?user=lCXcq00AAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Ernesto Placidi</a></div>
                                         <div class="ws-affil">AFM Lab (Sapienza)</div>
                                     </div>
                                 </div>
@@ -1035,7 +1070,7 @@
                                         <img src="images/workshops/dintino.jpg" alt="Eleonora D’Intino" title="Eleonora D’Intino" class="ws-person-img" style="border-color: var(--coral); margin-left: -12px; z-index: 1;" onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--coral);">M. Gioia Fabiano & Eleonora D’Intino</div>
+                                        <div class="ws-leader-name" style="color: var(--coral);"><a href="https://phd.uniroma1.it/web/MARIA-GIOIA-FABIANO_nT1664856_IT.aspx" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">M. Gioia Fabiano</a> & <a href="https://scholar.google.com/citations?user=lwa0ApUAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Eleonora D’Intino</a></div>
                                         <div class="ws-affil">Nanomedicine Lab (Sapienza)</div>
                                     </div>
                                 </div>
@@ -1060,7 +1095,7 @@
                                         <img src="images/workshops/baldassarre.jpg" alt="Leonetta Baldassarre" class="ws-person-img" style="border-color: var(--amber);" onerror="this.src='https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--amber);">Leonetta Baldassarre</div>
+                                        <div class="ws-leader-name" style="color: var(--amber);"><a href="https://scholar.google.com/citations?hl=it&user=5609-D4AAAAJ" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Leonetta Baldassarre</a></div>
                                         <div class="ws-affil">IR & THz Lab (Sapienza)</div>
                                     </div>
                                 </div>
@@ -1085,7 +1120,7 @@
                                         <img src="images/workshops/deluca.jpg" alt="Marta De Luca" class="ws-person-img" style="border-color: var(--emerald);" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--emerald);">Marta De Luca</div>
+                                        <div class="ws-leader-name" style="color: var(--emerald);"><a href="https://www.nanospectroscopylab.com/team/marta" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marta De Luca</a></div>
                                         <div class="ws-affil">Micro-Raman Lab (Sapienza)</div>
                                     </div>
                                 </div>
@@ -1110,7 +1145,7 @@
                                         <img src="images/workshops/santarelli.jpg" alt="Maria Laura Santarelli" class="ws-person-img" style="border-color: #60A5FA;" onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: #60A5FA;">Maria Laura Santarelli</div>
+                                        <div class="ws-leader-name" style="color: #60A5FA;"><a href="https://sites.google.com/a/uniroma1.it/marialaurasantarelli-eng/" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Maria Laura Santarelli</a></div>
                                         <div class="ws-affil">Heritage Nanotech (Sapienza)</div>
                                     </div>
                                 </div>
@@ -1135,7 +1170,7 @@
                                         <img src="images/workshops/felici.jpg" alt="Marco Felici" class="ws-person-img" style="border-color: var(--violet);" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--violet);">Marco Felici</div>
+                                        <div class="ws-leader-name" style="color: var(--violet);"><a href="https://scholar.google.com/citations?user=rQBVLH4AAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marco Felici</a></div>
                                         <div class="ws-affil">Photonics Lab (Sapienza)</div>
                                     </div>
                                 </div>
@@ -1161,7 +1196,7 @@
                                         <img src="images/workshops/giovannini.jpg" alt="Tommaso Giovannini" class="ws-person-img" style="border-color: var(--indigo);" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--indigo);">Tommaso Giovannini</div>
+                                        <div class="ws-leader-name" style="color: var(--indigo);"><a href="https://sites.google.com/view/tommaso-giovannini/home" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Tommaso Giovannini</a></div>
                                         <div class="ws-affil">Computational Lab (Tor Vergata)</div>
                                     </div>
                                 </div>
@@ -1189,8 +1224,8 @@
         </div>
 
         <!-- Success Ticket Pass (Hidden initially) -->
-        <div class="ticket-box" id="ticket-container">
-            <div id="workshop-ticket-card">
+        <div id="ticket-container" style="display: none; text-align: center;">
+            <div id="workshop-ticket-card" class="ticket-box" style="display: block; margin: 0 auto 0.8rem;">
             <div class="ticket-header">
                 <div
                     style="width: 38px; height: 38px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 1.3rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem;">
@@ -1248,7 +1283,7 @@
             </div>
 
             <div
-                style="padding: 1rem 1.2rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 0.5rem;">
+                style="padding: 1rem 1.2rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 0.5rem; max-width: 500px; margin: 0 auto; border-radius: 12px;">
                 <button onclick="downloadTicketPdf()" class="btn btn-glow"
                     style="width: 100%; justify-content: center; padding: 0.7rem; font-size: 0.9rem;">
                     <i class="fa-solid fa-file-pdf"></i> Download Official Conference Pass (.PDF)
@@ -1506,6 +1541,7 @@
             }
 
             // Fetch from both exact gid and default output=csv with timestamp cache-buster to ensure instant update from Google
+            let loadedFromSheet = false;
             const urls = [
                 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv&_t=' + Date.now(),
                 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?output=csv&_t=' + Date.now()
@@ -1529,6 +1565,7 @@
                                     }
                                 }
                             });
+                            loadedFromSheet = true;
                             break; // Successfully loaded live rows
                         }
                     }
@@ -1537,32 +1574,37 @@
                 }
             }
 
-            // Also check localStorage registrations
-            const localCounts = {};
-            for (let key in workshopsData) { localCounts[key] = 0; }
-            try {
-                const localData = localStorage.getItem('registrations');
-                if (localData) {
-                    const regs = JSON.parse(localData);
-                    regs.forEach(reg => {
-                        if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
-                            for (let key in workshopsData) {
-                                const wsName = workshopsData[key].name;
-                                // Use includes() so session strings or suffixes match properly
-                                if (reg.workshop.includes(wsName)) {
-                                    localCounts[key] = (localCounts[key] || 0) + 1;
+            // If loaded from Google Fogli directly, use sheetCounts as authoritative source and clean stale localStorage test entries
+            if (loadedFromSheet) {
+                for (let key in workshopsData) {
+                    workshopSeatCounts[key] = sheetCounts[key] || 0;
+                }
+                try { localStorage.removeItem('registrations'); } catch (e) {}
+            } else {
+                // Offline fallback using localStorage
+                const localCounts = {};
+                for (let key in workshopsData) { localCounts[key] = 0; }
+                try {
+                    const localData = localStorage.getItem('registrations');
+                    if (localData) {
+                        const regs = JSON.parse(localData);
+                        regs.forEach(reg => {
+                            if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
+                                for (let key in workshopsData) {
+                                    const wsName = workshopsData[key].name;
+                                    if (reg.workshop.includes(wsName)) {
+                                        localCounts[key] = (localCounts[key] || 0) + 1;
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Could not read local registrations:', e);
                 }
-            } catch (e) {
-                console.warn('Could not read local registrations:', e);
-            }
-
-            // Take the maximum of sheet vs localStorage counts so immediate local registrations update right away while Google CDN synchronizes
-            for (let key in workshopsData) {
-                workshopSeatCounts[key] = Math.max(sheetCounts[key] || 0, localCounts[key] || 0);
+                for (let key in workshopsData) {
+                    workshopSeatCounts[key] = localCounts[key] || 0;
+                }
             }
 
             updateWorkshopSeatBadges();
@@ -1680,54 +1722,48 @@
                 checkedSessionElements.forEach(cb => params.append(GOOGLE_ENTRY_SESSIONS, cb.value));
             }
 
-            // Submit to Google Form (Single submission method to prevent duplicate rows)
-            fetch(GOOGLE_FORM_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            }).then(() => {
-                console.log('Form submitted successfully.');
-            }).catch(err => {
-                console.warn('Fetch failed, trying hidden iframe fallback:', err);
-                try {
-                    let hiddenIframe = document.getElementById('hidden_iframe_reg');
-                    if (!hiddenIframe) {
-                        hiddenIframe = document.createElement('iframe');
-                        hiddenIframe.id = 'hidden_iframe_reg';
-                        hiddenIframe.name = 'hidden_iframe_reg';
-                        hiddenIframe.style.display = 'none';
-                        document.body.appendChild(hiddenIframe);
-                    }
-                    const hiddenForm = document.createElement('form');
-                    hiddenForm.action = GOOGLE_FORM_URL;
-                    hiddenForm.method = 'POST';
-                    hiddenForm.target = 'hidden_iframe_reg';
-                    hiddenForm.style.display = 'none';
+            if (window._isSubmittingReg) return;
+            window._isSubmittingReg = true;
+            setTimeout(() => { window._isSubmittingReg = false; }, 5000);
 
-                    const addField = (name, val) => {
-                        if (!name || !val) return;
-                        const input = document.createElement('input');
-                        input.type = 'hidden';
-                        input.name = name;
-                        input.value = val;
-                        hiddenForm.appendChild(input);
-                    };
-
-                    addField(GOOGLE_ENTRY_NAME, name);
-                    addField(GOOGLE_ENTRY_EMAIL, email);
-                    addField(GOOGLE_ENTRY_ROLE, role);
-                    addField(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
-                    if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
-                        checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
-                    }
-                    document.body.appendChild(hiddenForm);
-                    hiddenForm.submit();
-                    setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
-                } catch (e) {
-                    console.warn('Fallback error:', e);
+            // Submit to Google Form exactly once via hidden iframe to prevent double-row creation and CORS errors
+            try {
+                let hiddenIframe = document.getElementById('hidden_iframe_reg');
+                if (!hiddenIframe) {
+                    hiddenIframe = document.createElement('iframe');
+                    hiddenIframe.id = 'hidden_iframe_reg';
+                    hiddenIframe.name = 'hidden_iframe_reg';
+                    hiddenIframe.style.display = 'none';
+                    document.body.appendChild(hiddenIframe);
                 }
-            });
+                const hiddenForm = document.createElement('form');
+                hiddenForm.action = GOOGLE_FORM_URL;
+                hiddenForm.method = 'POST';
+                hiddenForm.target = 'hidden_iframe_reg';
+                hiddenForm.style.display = 'none';
+
+                const addField = (fieldName, val) => {
+                    if (!fieldName || !val) return;
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = fieldName;
+                    input.value = val;
+                    hiddenForm.appendChild(input);
+                };
+
+                addField(GOOGLE_ENTRY_NAME, name);
+                addField(GOOGLE_ENTRY_EMAIL, email);
+                addField(GOOGLE_ENTRY_ROLE, role);
+                addField(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
+                if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
+                    checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
+                }
+                document.body.appendChild(hiddenForm);
+                hiddenForm.submit();
+                setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
+            } catch (err) {
+                console.warn('Form submit error:', err);
+            }
 
             // Save to LocalStorage for fallback dashboard use
             saveToLocalDB(name, email, role, `${wsInfo.name} (${checkedSessions})`);
@@ -1766,9 +1802,11 @@
 
         // Generate and Download Official Digital Pass (.PDF) full screen edge-to-edge
         function downloadTicketPdf() {
-            const ticketEl = document.getElementById('workshop-ticket-card') || document.getElementById('ticket-container');
+            const ticketEl = document.getElementById('workshop-ticket-card');
             if (!ticketEl) return;
             const name = document.getElementById('ticket-name').innerText || 'Attendee';
+
+            window.scrollTo({ top: 0, behavior: 'instant' });
 
             const widthPx = ticketEl.offsetWidth || 500;
             const heightPx = ticketEl.offsetHeight || 580;
@@ -1778,11 +1816,11 @@
                 filename: `SSAS_Workshop_Pass_${name.replace(/\s+/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: {
-                    scale: 3,
+                    scale: 2,
                     useCORS: true,
-                    backgroundColor: '#0F172A',
-                    width: widthPx,
-                    height: heightPx
+                    scrollY: 0,
+                    scrollX: 0,
+                    backgroundColor: '#0F172A'
                 },
                 jsPDF: {
                     unit: 'px',

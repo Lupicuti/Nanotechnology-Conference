@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapienza Conference 2026 | Conference Pass Registration</title>
+    <meta name="description"
+        content="Register for your free digital pass to attend the Sapienza Nano & Tech 2026 Conference at Aula Amaldi, Physics Dept, Rome.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- HTML2PDF Library for Digital Ticket Pass Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --bg-deep: #070B14;
+            --bg-card: rgba(18, 26, 45, 0.65);
+            --border-glow: rgba(0, 240, 255, 0.18);
+            --border-light: rgba(255, 255, 255, 0.08);
+
+            --cyan: #00F0FF;
+            --indigo: #6366F1;
+            --violet: #A855F7;
+            --emerald: #10B981;
+            --coral: #FF5E7E;
+            --amber: #F59E0B;
+
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Space Grotesk', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.1) 0%, transparent 45%);
+        }
+
+        #quantum-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 5%;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #FFF;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .brand-text {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            display: block;
+        }
+
+        .brand-sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.6rem;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-glow {
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.55);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan);
+            border: 1px solid var(--border-glow);
+        }
+
+        .btn-outline:hover {
+            background: rgba(0, 240, 255, 0.1);
+            border-color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 800px;
+            margin: 3rem auto 5rem;
+            padding: 0 5%;
+            flex: 1;
+        }
+
+        .reg-card {
+            background: linear-gradient(145deg, rgba(18, 26, 45, 0.85), rgba(15, 23, 42, 0.95));
+            border: 1px solid var(--border-glow);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.12);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(7, 11, 20, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #FFF;
+            font-family: inherit;
+            font-size: 0.98rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
+            background: rgba(7, 11, 20, 0.95);
+        }
+
+        /* Ticket Box */
+        .ticket-box {
+            background: linear-gradient(135deg, #091223 0%, #111A30 100%);
+            border: 2px solid var(--cyan);
+            border-radius: 20px;
+            padding: 2.2rem;
+            position: relative;
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.25);
+            color: var(--text-main);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .ticket-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--cyan), var(--violet));
+        }
+
+        /* Footer */
+        footer {
+            background: #04060A;
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 5% 2rem;
+            margin-top: auto;
+        }
+
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .reg-card {
+                padding: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-glow"></div>
+    <canvas id="quantum-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="brand">
+                <div class="brand-logo">Ψ</div>
+                <div>
+                    <span class="brand-text">SAPIENZA NANO & TECH</span>
+                    <span class="brand-sub">Advanced Studies • Rome 2026</span>
+                </div>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html#program">Program</a></li>
+                <li><a href="index.html#speakers">Speakers</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> Workshops</a></li>
+                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-arrow-up"></i> Poster Call</a></li>
+                <li>
+                    <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem;">
+                        <i class="fa-solid fa-arrow-left"></i> Home Page
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <div class="reg-card">
+            <!-- Hidden iframe for background submission to Google Forms -->
+            <iframe name="hidden-reg-iframe" id="hidden-reg-iframe" style="display:none;"></iframe>
+
+            <div id="reg-form-step-1">
+                <div style="text-align: center; margin-bottom: 2.2rem;">
+                    <span style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.9rem; border-radius: 100px; background: rgba(0, 240, 255, 0.12); border: 1px solid var(--cyan); color: var(--cyan); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem;">
+                        <i class="fa-solid fa-qrcode"></i> Official Conference Pass Portal
+                    </span>
+                    <h2 style="font-family: var(--font-heading); font-size: 2rem; color: #FFF; margin-bottom: 0.6rem;">Free Digital Registration</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                        Register your attendance for plenary lectures, keynote talks, and networking sessions at Aula Amaldi.
+                    </p>
+                </div>
+
+                <form id="conf-form" onsubmit="handleRegistrationSubmit(event)">
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user"></i> Full Name *</label>
+                        <input type="text" class="form-control" id="reg-name" placeholder="Dr. / Ms. / Mr. Name Surname" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-envelope"></i> University / Institution Email *</label>
+                        <input type="email" class="form-control" id="reg-email" placeholder="name@domain.edu / uniroma1.it" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user-tag"></i> Academic Status / Role *</label>
+                        <select class="form-control" id="reg-role" required style="background-color: rgba(7, 11, 20, 0.9);">
+                            <option value="" disabled selected>-- Select your role --</option>
+                            <option value="Bachelor's Student">Bachelor's Student</option>
+                            <option value="Master's Student">Master's Student</option>
+                            <option value="PhD Candidate">PhD Candidate</option>
+                            <option value="Postdoctoral Researcher">Postdoctoral Researcher</option>
+                            <option value="Professor / Principal Investigator">Professor / Principal Investigator</option>
+                            <option value="Industry / Technical Specialist">Industry / Technical Specialist</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label style="margin-bottom: 0.6rem; display: block; font-weight: 600; color: var(--cyan);">Select Sessions You Plan to Attend *</label>
+                        <div style="display: flex; flex-direction: column; gap: 0.6rem; background: rgba(0, 240, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.2); padding: 1.2rem; border-radius: 12px; text-align: left;">
+                            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #E2E8F0; font-weight: 500; font-size: 0.9rem;">
+                                <input type="checkbox" name="reg-sessions" value="Session 1 (Sept 17 Morning)" checked style="cursor: pointer; width: auto;">
+                                Session 1: Sept 17 Morning (Plenary Keynotes & Optics)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #E2E8F0; font-weight: 500; font-size: 0.9rem;">
+                                <input type="checkbox" name="reg-sessions" value="Session 2 (Sept 17 Afternoon)" checked style="cursor: pointer; width: auto;">
+                                Session 2: Sept 17 Afternoon (Synthesis & Nanorestoration)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #E2E8F0; font-weight: 500; font-size: 0.9rem;">
+                                <input type="checkbox" name="reg-sessions" value="Session 3 (Sept 18 Morning)" checked style="cursor: pointer; width: auto;">
+                                Session 3: Sept 18 Morning (Reticular Chem & Nanofluidics)
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #FFF; font-weight: 600; font-size: 0.9rem;">
+                                <input type="checkbox" id="check-session-4" name="reg-sessions" value="Session 4 (Sept 18 Afternoon Workshop)" style="cursor: pointer; width: auto;" onchange="toggleWorkshopSelect(this.checked)">
+                                Session 4: Sept 18 Afternoon (Hands-on Laboratory Workshop)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="ws-dropdown-container" style="display: none; margin-top: 1rem; background: rgba(16, 185, 129, 0.08); border: 1px solid var(--emerald); padding: 1.4rem; border-radius: 12px; text-align: left;">
+                        <label style="color: var(--emerald); font-weight: 700; margin-bottom: 0.4rem; display: block; font-size: 0.95rem;"><i class="fa-solid fa-flask"></i> Choose Your Laboratory (Sept 18 Afternoon) *</label>
+                        <p style="color: #CBD5E1; font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4;">
+                            Each hands-on laboratory has a dedicated full-screen card with detailed leader profiles, prerequisites, and live seat counts. Click below to browse and reserve your laboratory one by one:
+                        </p>
+                        <button type="button" onclick="redirectToWorkshopsPage('')" class="btn btn-glow" style="width: 100%; justify-content: center; background: linear-gradient(135deg, var(--emerald), var(--cyan)); border: none; padding: 0.9rem; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.8rem; box-shadow: 0 0 20px rgba(16,185,129,0.3); border-radius: 10px;">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Select Laboratory on Workshops Page →
+                        </button>
+                        <select class="form-control" id="reg-ws-select" onchange="handleWsSelectChange(this)" style="border-color: var(--emerald); background: #0F172A; color: #FFF; font-size: 0.88rem;">
+                            <option value="">Or choose right here to redirect automatically...</option>
+                            <option value="Atomic Force Microscopy (AFM)">Atomic Force Microscopy (AFM) — Dept. of Physics</option>
+                            <option value="Nanomedicine Experience">Nanomedicine Experience — Dept. of Chemistry</option>
+                            <option value="Absorption in Quantum Well">Absorption in Quantum Well — Dept. of Physics</option>
+                            <option value="Semiconductor Nanowires">Semiconductor Nanowires — Dept. of Physics</option>
+                            <option value="HERITAGE-LAB Nanotech">HERITAGE-LAB Nanotech — Dept. of Chem. Eng.</option>
+                            <option value="Light and Photonics">Light and Photonics — Dept. of Physics</option>
+                            <option value="Computational Plasmonics">Computational Plasmonics — Dept. of Physics / Tor Vergata</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-glow" style="width: 100%; justify-content: center; padding: 1.15rem; font-size: 1.1rem; margin-top: 1rem;">
+                        <i class="fa-solid fa-ticket"></i> Complete Registration & Get Pass
+                    </button>
+                </form>
+            </div>
+
+            <!-- Confirmation Step -->
+            <div id="reg-form-step-2" style="display: none; text-align: center;">
+                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid var(--emerald); color: var(--emerald); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: #FFF; margin-bottom: 0.4rem;">Registration Confirmed!</h3>
+                <p style="color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.8rem;">
+                    Here is your official digital entry ticket. You can download it as a PDF or save it on your phone to show at the check-in desk.
+                </p>
+
+                <div id="plenary-ticket-card" class="ticket-box" style="text-align: left;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 1rem;">
+                        <div>
+                            <span style="font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: #FFF; display: block;">SAPIENZA NANO & TECH 2026</span>
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Aula Amaldi • Edificio Marconi (Piazzale Aldo Moro 5)</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="display: inline-block; background: rgba(0, 240, 255, 0.15); color: var(--cyan); font-weight: 700; font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid var(--cyan); margin-bottom: 0.3rem;">FULL PASS</span>
+                            <div id="conf-order-num" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--amber); font-weight: 700;">Pass #001</div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center;">
+                        <div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">ATTENDEE</div>
+                            <div id="conf-name-display" style="font-size: 1.15rem; font-weight: 700; color: #FFF; margin-top: 0.1rem;">Name Surname</div>
+                            <div id="conf-role-display" style="font-size: 0.88rem; color: var(--cyan); margin-top: 0.1rem;">Role</div>
+                            <div id="conf-email-display" style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem;">Email</div>
+                            
+                            <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed rgba(255,255,255,0.1);">
+                                <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase;">REGISTERED SESSIONS</div>
+                                <div id="conf-sessions-display" style="font-size: 0.88rem; color: #E2E8F0; margin-top: 0.2rem;">All Sessions</div>
+                                <div id="conf-ws-box" style="display: none; margin-top: 0.5rem; background: rgba(16, 185, 129, 0.15); padding: 0.4rem 0.7rem; border-radius: 6px; border-left: 3px solid var(--emerald); color: #FFF; font-size: 0.85rem;"></div>
+                            </div>
+                        </div>
+
+                        <div style="background: #FFF; padding: 0.6rem; border-radius: 12px; text-align: center;">
+                            <img id="conf-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=SAPIENZA-2026-PASS" alt="Ticket QR Code" style="width: 110px; height: 110px; display: block;">
+                            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: #000; font-weight: 700; display: block; margin-top: 0.3rem;">CHECK-IN QR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="downloadTicketPDF()" class="btn btn-glow" style="padding: 0.8rem 1.8rem;">
+                        <i class="fa-solid fa-file-pdf"></i> Download Ticket (.PDF)
+                    </button>
+                    <button onclick="window.location.href='index.html'" class="btn btn-outline" style="padding: 0.8rem 1.6rem; color: #FFF; border-color: var(--border-glow);">
+                        <i class="fa-solid fa-house"></i> Return to Homepage
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="brand" style="margin-bottom: 1.2rem;">
+                    <div class="brand-logo">Ψ</div>
+                    <span class="brand-text">SAPIENZA NANO & TECH 2026</span>
+                </div>
+                <p style="color: var(--text-muted); max-width: 400px; font-size: 0.9rem;">
+                    Interdisciplinary Conference on Quantum Technology, Materials Science, and Nanoscale Engineering organized by the Sapienza School of Advanced Studies (SSAS).
+                </p>
+            </div>
+            <div>
+                <h4 style="color: #FFF; margin-bottom: 1rem;">Navigation</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem;">
+                    <li><a href="index.html#about" style="color: var(--text-muted); text-decoration: none;">About</a></li>
+                    <li><a href="index.html#program" style="color: var(--text-muted); text-decoration: none;">Schedule</a></li>
+                    <li><a href="index.html#speakers" style="color: var(--text-muted); text-decoration: none;">Speakers</a></li>
+                    <li><a href="workshops.html" style="color: var(--text-muted); text-decoration: none;">Workshops</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 Sapienza School of Advanced Studies (SSAS) • All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('quantum-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx = -this.vx;
+                if (this.y < 0 || this.y > height) this.vy = -this.vy;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Google Forms Configuration
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfuRUBndDGvTIvoLocHH52v-uTitgtyQO0aP-hjhkCudWs_Bw/formResponse';
+        const GOOGLE_ENTRY_NAME = 'entry.235196378';
+        const GOOGLE_ENTRY_EMAIL = 'entry.1127310225';
+        const GOOGLE_ENTRY_ROLE = 'entry.415373699';
+        const GOOGLE_ENTRY_WORKSHOP = 'entry.1773857955';
+        const GOOGLE_ENTRY_SESSIONS = 'entry.597327982';
+
+        function toggleWorkshopSelect(isChecked) {
+            const container = document.getElementById('ws-dropdown-container');
+            const select = document.getElementById('reg-ws-select');
+            if (container) {
+                container.style.display = isChecked ? 'block' : 'none';
+                if (isChecked && select) select.required = true;
+                else if (select) {
+                    select.required = false;
+                    select.value = '';
+                }
+            }
+        }
+
+        function redirectToWorkshopsPage(selectedWorkshop = '') {
+            const name = document.getElementById('reg-name')?.value || '';
+            const email = document.getElementById('reg-email')?.value || '';
+            const role = document.getElementById('reg-role')?.value || '';
+            if (name) localStorage.setItem('prefill_name', name);
+            if (email) localStorage.setItem('prefill_email', email);
+            if (role) localStorage.setItem('prefill_role', role);
+            if (selectedWorkshop) localStorage.setItem('prefill_workshop', selectedWorkshop);
+            window.location.href = 'workshops.html#workshops-grid';
+        }
+
+        function handleWsSelectChange(selectEl) {
+            if (selectEl && selectEl.value) {
+                redirectToWorkshopsPage(selectEl.value);
+            }
+        }
+
+        function handleRegistrationSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const role = document.getElementById('reg-role').value;
+
+            const checkedSessionElements = Array.from(document.querySelectorAll('input[name="reg-sessions"]:checked'));
+            if (checkedSessionElements.length === 0) {
+                alert('Please select at least one session to attend.');
+                return;
+            }
+            const checkedSessions = checkedSessionElements.map(cb => cb.value.split(' ')[0] + ' ' + cb.value.split(' ')[1]).join(', ');
+
+            const isSession4Checked = checkedSessionElements.some(cb => cb.value.includes('Session 4'));
+            const wsSelect = document.getElementById('reg-ws-select');
+            let workshopSelected = 'None (Plenary Only)';
+            if (isSession4Checked) {
+                if (!wsSelect || !wsSelect.value) {
+                    redirectToWorkshopsPage('');
+                    return;
+                }
+                workshopSelected = wsSelect.value;
+            }
+
+            // Submit to Google Forms via iframe + URLSearchParams
+            const params = new URLSearchParams();
+            params.append(GOOGLE_ENTRY_NAME, name);
+            params.append(GOOGLE_ENTRY_EMAIL, email);
+            params.append(GOOGLE_ENTRY_ROLE, role);
+            params.append(GOOGLE_ENTRY_WORKSHOP, workshopSelected);
+            if (GOOGLE_ENTRY_SESSIONS) {
+                checkedSessionElements.forEach(cb => params.append(GOOGLE_ENTRY_SESSIONS, cb.value));
+            }
+
+            const tempForm = document.createElement('form');
+            tempForm.method = 'POST';
+            tempForm.action = GOOGLE_FORM_URL;
+            tempForm.target = 'hidden-reg-iframe';
+
+            params.forEach((val, key) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = val;
+                tempForm.appendChild(input);
+            });
+
+            document.body.appendChild(tempForm);
+            try { tempForm.submit(); } catch (err) {}
+            setTimeout(() => tempForm.remove(), 2000);
+
+            // Generate Pass Number & UI Update
+            const randPass = Math.floor(100 + Math.random() * 900);
+            const confId = '#PASS-2026-' + randPass;
+
+            document.getElementById('conf-name-display').innerText = name;
+            document.getElementById('conf-role-display').innerText = role;
+            document.getElementById('conf-email-display').innerText = email;
+            document.getElementById('conf-sessions-display').innerText = checkedSessions;
+            
+            const wsBox = document.getElementById('conf-ws-box');
+            if (workshopSelected && workshopSelected !== 'None (Plenary Only)') {
+                wsBox.style.display = 'block';
+                wsBox.innerHTML = `<b>Reserved Laboratory:</b> ${workshopSelected}`;
+            } else {
+                wsBox.style.display = 'none';
+            }
+
+            document.getElementById('conf-order-num').innerText = 'Pass ' + confId;
+            document.getElementById('conf-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=' + encodeURIComponent('SAPIENZA-2026|' + confId + '|' + name + '|' + email);
+
+            document.getElementById('reg-form-step-1').style.display = 'none';
+            document.getElementById('reg-form-step-2').style.display = 'block';
+
+            try {
+                let list = JSON.parse(localStorage.getItem('registrations') || '[]');
+                list.push({ name, email, role, workshop: workshopSelected, passId: confId, date: new Date().toISOString() });
+                localStorage.setItem('registrations', JSON.stringify(list));
+            } catch (err) {}
+        }
+
+        function downloadTicketPDF() {
+            const element = document.getElementById('plenary-ticket-card');
+            const opt = {
+                margin: 0.3,
+                filename: 'Sapienza_Conference_Pass_2026.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, backgroundColor: '#091223' },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>

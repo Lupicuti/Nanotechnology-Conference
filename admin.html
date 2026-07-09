@@ -1001,15 +1001,41 @@
             formData.append('entry.415373699', role);
             formData.append('entry.1773857955', workshop);
 
-            fetch(GOOGLE_FORM_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: formData
-            }).then(() => {
-                console.log('Submitted registration from Admin Dashboard to Google Forms successfully.');
-            }).catch(err => {
-                console.warn('Google Forms submission failed:', err);
-            });
+            // Submit to Google Form exactly once via hidden iframe
+            try {
+                let hiddenIframe = document.getElementById('hidden_iframe_admin');
+                if (!hiddenIframe) {
+                    hiddenIframe = document.createElement('iframe');
+                    hiddenIframe.id = 'hidden_iframe_admin';
+                    hiddenIframe.name = 'hidden_iframe_admin';
+                    hiddenIframe.style.display = 'none';
+                    document.body.appendChild(hiddenIframe);
+                }
+                const hiddenForm = document.createElement('form');
+                hiddenForm.action = GOOGLE_FORM_URL;
+                hiddenForm.method = 'POST';
+                hiddenForm.target = 'hidden_iframe_admin';
+                hiddenForm.style.display = 'none';
+
+                const addField = (fieldName, val) => {
+                    if (!fieldName || !val) return;
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = fieldName;
+                    input.value = val;
+                    hiddenForm.appendChild(input);
+                };
+
+                addField('entry.2005620554', name);
+                addField('entry.1127310225', email);
+                addField('entry.415373699', role);
+                addField('entry.1773857955', workshop);
+                document.body.appendChild(hiddenForm);
+                hiddenForm.submit();
+                setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
+            } catch (err) {
+                console.warn('Form submit error:', err);
+            }
 
             // Always save to LocalStorage
             try {
