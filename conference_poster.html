@@ -284,7 +284,7 @@
         .vertical-list {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 10px;
             flex: 1;
             justify-content: space-around;
         }
@@ -292,12 +292,12 @@
         .list-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 7px;
-            padding: 5px 9px;
+            border-radius: 8px;
+            padding: 9px 12px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 2px;
+            gap: 4px;
         }
 
         .list-card .card-top {
@@ -305,7 +305,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            font-size: 11.8px;
+            font-size: 12.5px;
         }
 
         .list-card.speaker {
@@ -320,16 +320,16 @@
 
         .list-card.speaker span.univ {
             color: var(--text-muted);
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: 500;
             text-align: right;
         }
 
         .list-card.speaker .card-sub {
-            font-size: 10px;
+            font-size: 10.8px;
             color: #E2E8F0;
             font-weight: 500;
-            line-height: 1.25;
+            line-height: 1.3;
             font-style: italic;
             white-space: nowrap;
             overflow: hidden;
@@ -348,16 +348,16 @@
 
         .list-card.workshop span.univ.pink-univ {
             color: var(--item-color, var(--pink));
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: 600;
             text-align: right;
         }
 
         .list-card.workshop .card-sub {
-            font-size: 10.2px;
+            font-size: 10.8px;
             color: #CBD5E1;
             font-weight: 600;
-            line-height: 1.25;
+            line-height: 1.3;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -367,90 +367,11 @@
             background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(16, 185, 129, 0.25));
             border-color: var(--violet);
             color: #FFF;
-            font-size: 11.5px;
-            font-weight: 800;
-            align-items: center;
-            justify-content: center;
-            flex-direction: row;
-            padding: 7px 10px;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
-        }
-
-        /* Bottom Grid: Scientific Committee & Call for Posters */
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: 1.22fr 0.78fr;
-            gap: 14px;
-            margin-bottom: 8px;
-        }
-
-        .committee-box, .call-box-poster {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            padding: 10px 14px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .committee-box {
-            border-color: rgba(99, 102, 241, 0.35);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.06);
-        }
-
-        .call-box-poster {
-            border-color: rgba(16, 185, 129, 0.35);
-        }
-
-        .section-title span.tag.indigo {
-            background: rgba(99, 102, 241, 0.15);
-            color: #A5B4FC;
-            border-color: rgba(99, 102, 241, 0.35);
-        }
-
-        .section-title span.tag.amber {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--pink);
-            border-color: rgba(16, 185, 129, 0.35);
-        }
-
-        .committee-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4.5px;
-            margin-top: 2px;
-        }
-
-        .comm-pill {
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.28);
-            border-radius: 5px;
-            padding: 3px 6.5px;
-            font-size: 10px;
-            color: #E2E8F0;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .comm-pill i {
-            color: var(--indigo);
-            font-size: 9px;
-        }
-
-        .comm-pill strong {
-            color: #FFF;
-        }
-
-        .call-text {
-            font-size: 11px;
-            color: var(--text-muted);
-            line-height: 1.35;
-        }
-
-        .call-text strong {
-            color: #FFF;
+            font-size: 12px;
+            font-weight: 700;
+            text-align: center;
+            padding: 8px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
         }
 
         /* Footer Contacts & QR Code Bar */
@@ -587,7 +508,7 @@
                 <div class="theme-box">SAPIENZA NANO & TECH 2026</div>
                 <div class="subtitle">
                     A 2-Day Scientific Immersion Organized by the Sapienza School of Advanced Studies (SSAS)<br>
-                    <strong>Plenary Speeches • Hands-On Laboratory Workshops • Poster Exhibition</strong>
+                    <strong>Plenary Speeches • Hands-On Laboratory Workshops</strong>
                 </div>
             </div>
 
@@ -713,44 +634,6 @@
                             ✨ ...and many more hands-on training sessions!
                         </div>
                     </div>
-                </div>
-
-            </div>
-
-            <!-- Bottom Grid: Scientific Committee & Call for Posters -->
-            <div class="bottom-grid">
-                
-                <!-- Scientific Committee Box -->
-                <div class="section-box committee-box">
-                    <div class="section-title">
-                        <span>Scientific Committee</span>
-                        <span class="tag indigo">Sapienza Leadership</span>
-                    </div>
-                    <div class="committee-pills">
-                        <div class="comm-pill"><i class="fa-solid fa-dna"></i> <span><strong>Michele Ortolani</strong> (Biophysics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-dna"></i> <span><strong>Valeria Giliberti</strong> (Biophysics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-dna"></i> <span><strong>Roberto Di Leonardo</strong> (Biophysics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Bernard Van Heck</strong> (Physics & Optics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Marta De Luca</strong> (Physics & Optics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Jose Lorenzana</strong> (Physics & Optics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Fabio Sciarrino</strong> (Physics & Optics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-cubes"></i> <span><strong>Paola D’Angelo</strong> (MOFs & Chem)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-water"></i> <span><strong>Mirko Gallo</strong> (Nanofluidics)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-heart-pulse"></i> <span><strong>Maria Carafa</strong> (Nanomedicine)</span></div>
-                        <div class="comm-pill"><i class="fa-solid fa-monument"></i> <span><strong>M. Laura Santarelli</strong> (Nanorestoration)</span></div>
-                    </div>
-                </div>
-
-                <!-- Call for Posters Box -->
-                <div class="section-box call-box-poster">
-                    <div class="section-title">
-                        <span>Call for Posters</span>
-                        <span class="tag amber">Sept 5 Deadline</span>
-                    </div>
-                    <p class="call-text">
-                        Are you a PhD candidate, Postdoc, or Early-Career Scientist? Submit your breakthrough abstract for the official <strong>Evening Poster Gallery & Cocktail Reception</strong>. Gain high-visibility interaction with international speakers and scientific committee peers.<br><br>
-                        <strong style="color: var(--pink);"><i class="fa-solid fa-calendar-check"></i> Submission Deadline: Sept 5, 2026</strong>
-                    </p>
                 </div>
 
             </div>
