@@ -557,17 +557,18 @@
             box-shadow: 0 0 8px var(--amber);
         }
 
-        /* Success Card Admission Ticket */
+        /* Success Card Admission Ticket (Compact, no scrollbar needed) */
         .ticket-box {
             display: none;
-            max-width: 650px;
-            margin: 0 auto 6rem;
+            max-width: 500px;
+            margin: 0 auto 3rem;
             background: linear-gradient(135deg, rgba(18, 26, 45, 0.95), rgba(28, 40, 68, 0.95));
             border: 2px solid var(--cyan);
-            border-radius: 24px;
-            box-shadow: 0 25px 60px rgba(0, 240, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.2);
             overflow: hidden;
             position: relative;
+            text-align: left;
         }
 
         .ticket-box::before,
@@ -575,68 +576,68 @@
             content: '';
             position: absolute;
             top: 50%;
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
             background: var(--bg-deep);
             border-radius: 50%;
             z-index: 5;
         }
 
         .ticket-box::before {
-            left: -15px;
+            left: -12px;
             border-right: 2px solid var(--cyan);
             transform: translateY(-50%);
         }
 
         .ticket-box::after {
-            right: -15px;
+            right: -12px;
             border-left: 2px solid var(--cyan);
             transform: translateY(-50%);
         }
 
         .ticket-header {
             background: rgba(0, 240, 255, 0.07);
-            border-bottom: 2px dashed rgba(0, 240, 255, 0.3);
-            padding: 2rem;
+            border-bottom: 1px dashed rgba(0, 240, 255, 0.3);
+            padding: 1rem 1.2rem 0.8rem;
             text-align: center;
             position: relative;
         }
 
         .ticket-body {
-            padding: 2.5rem;
+            padding: 1rem 1.2rem 0.8rem;
         }
 
         .ticket-info-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
         }
 
         .ticket-label {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             color: var(--cyan);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 0.2rem;
+            letter-spacing: 1.2px;
+            margin-bottom: 0.1rem;
         }
 
         .ticket-value {
             font-family: var(--font-heading);
             font-weight: 600;
             color: #FFF;
-            font-size: 1.1rem;
+            font-size: 0.92rem;
         }
 
         .ticket-footer {
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 1.5rem;
+            padding-top: 0.6rem;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1.5rem;
+            gap: 0.5rem;
         }
 
         /* Footer */
@@ -1189,14 +1190,15 @@
 
         <!-- Success Ticket Pass (Hidden initially) -->
         <div class="ticket-box" id="ticket-container">
+            <div id="workshop-ticket-card">
             <div class="ticket-header">
                 <div
-                    style="width: 50px; height: 50px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem;">
+                    style="width: 38px; height: 38px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 1.3rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem;">
                     <i class="fa-solid fa-check"></i>
                 </div>
-                <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: #FFF; margin-bottom: 0.25rem;">
+                <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: #FFF; margin-bottom: 0.15rem;">
                     Workshop Pass Confirmed</h3>
-                <span class="section-badge" style="color: var(--cyan); margin-bottom: 0;" id="ticket-order-id">Attendee
+                <span class="section-badge" style="color: var(--cyan); margin-bottom: 0; font-size: 0.72rem; padding: 0.2rem 0.7rem;" id="ticket-order-id">Attendee
                     Pass #WSP-2026-07</span>
             </div>
 
@@ -1212,56 +1214,57 @@
                     </div>
                     <div>
                         <div class="ticket-label">Email</div>
-                        <div class="ticket-value" id="ticket-email" style="font-size: 0.95rem; word-break: break-all;">
+                        <div class="ticket-value" id="ticket-email" style="font-size: 0.88rem; word-break: break-all;">
                         </div>
                     </div>
                     <div>
                         <div class="ticket-label">Date & Time</div>
-                        <div class="ticket-value">Sept 18, 2026, 15:00 - 18:00</div>
+                        <div class="ticket-value" style="font-size: 0.88rem;">Sept 18, 2026, 15:00 - 18:00</div>
                     </div>
                     <div style="grid-column: span 2;">
                         <div class="ticket-label">Selected Laboratory</div>
-                        <div class="ticket-value" id="ticket-workshop" style="color: var(--cyan); font-size: 1.2rem;">
+                        <div class="ticket-value" id="ticket-workshop" style="color: var(--cyan); font-size: 1.05rem;">
                         </div>
                     </div>
                     <div style="grid-column: span 2;">
                         <div class="ticket-label">Laboratory Location</div>
                         <div class="ticket-value" id="ticket-location"
-                            style="font-size: 1rem; font-weight: 400; color: var(--text-muted);"></div>
+                            style="font-size: 0.88rem; font-weight: 400; color: var(--text-muted);"></div>
                     </div>
                 </div>
 
                 <div class="ticket-footer">
                     <div style="text-align: left;">
-                        <span style="font-size: 0.75rem; color: var(--text-dim); display: block;">Sapienza Advanced
+                        <span style="font-size: 0.7rem; color: var(--text-dim); display: block;">Sapienza Advanced
                             Studies</span>
-                        <strong style="font-size: 0.85rem; color: #FFF;">Rome, Aula Amaldi & Laboratories</strong>
+                        <strong style="font-size: 0.8rem; color: #FFF;">Rome, Aula Amaldi & Laboratories</strong>
                     </div>
                     <div>
                         <i class="fa-solid fa-qrcode"
-                            style="font-size: 3.5rem; color: var(--text-main); opacity: 0.85;"></i>
+                            style="font-size: 2.4rem; color: var(--text-main); opacity: 0.85;"></i>
                     </div>
                 </div>
             </div>
+            </div>
 
             <div
-                style="padding: 1.5rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 0.8rem;">
+                style="padding: 1rem 1.2rem; background: rgba(7, 11, 20, 0.6); text-align: center; border-top: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; gap: 0.5rem;">
                 <button onclick="downloadTicketPdf()" class="btn btn-glow"
-                    style="width: 100%; justify-content: center; padding: 0.9rem;">
+                    style="width: 100%; justify-content: center; padding: 0.7rem; font-size: 0.9rem;">
                     <i class="fa-solid fa-file-pdf"></i> Download Official Conference Pass (.PDF)
                 </button>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
                     <button onclick="addWorkshopToGoogleCalendar()" class="btn btn-outline"
-                        style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.8rem; border-color: rgba(0, 240, 255, 0.4); color: var(--cyan);">
+                        style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.6rem; border-color: rgba(0, 240, 255, 0.4); color: var(--cyan);">
                         <i class="fa-brands fa-google"></i> Google Calendar
                     </button>
                     <button onclick="downloadWorkshopIcsCalendar()" class="btn btn-outline"
-                        style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.8rem; border-color: rgba(99, 102, 241, 0.4); color: #C7D2FE;">
+                        style="width: 100%; justify-content: center; font-size: 0.8rem; padding: 0.6rem; border-color: rgba(99, 102, 241, 0.4); color: #C7D2FE;">
                         <i class="fa-brands fa-apple"></i> Apple / Outlook (.ics)
                     </button>
                 </div>
                 <a href="index.html" class="btn btn-outline"
-                    style="width: 100%; justify-content: center; padding: 0.9rem;">
+                    style="width: 100%; justify-content: center; padding: 0.6rem; font-size: 0.8rem;">
                     <i class="fa-solid fa-house"></i> Return to Main Page
                 </a>
             </div>
@@ -1413,12 +1416,13 @@
         }
 
         // Parse query params to auto-populate form
+        // Parse query params and localStorage to auto-populate form when arriving from index.html
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const name = params.get('name');
-            const email = params.get('email');
-            const role = params.get('role');
-            const select = params.get('select');
+            const name = params.get('name') || localStorage.getItem('prefill_name');
+            const email = params.get('email') || localStorage.getItem('prefill_email');
+            const role = params.get('role') || localStorage.getItem('prefill_role');
+            const select = params.get('select') || localStorage.getItem('prefill_workshop');
 
             if (name) document.getElementById('reg-name').value = decodeURIComponent(name);
             if (email) document.getElementById('reg-email').value = decodeURIComponent(email);
@@ -1433,11 +1437,14 @@
                 }
             }
             if (select) {
-                const wsId = select.toLowerCase().trim();
-                if (workshopsData[wsId]) {
-                    selectWorkshop(wsId);
-                    // Smooth scroll to selection section if pre-selected
-                    document.getElementById('selected-ws-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const queryStr = select.toLowerCase().trim();
+                let foundKey = Object.keys(workshopsData).find(k => k === queryStr || workshopsData[k].name.toLowerCase() === queryStr || workshopsData[k].name.toLowerCase().startsWith(queryStr.substring(0, 15)));
+                if (foundKey) {
+                    selectWorkshop(foundKey);
+                    setTimeout(() => {
+                        const selInput = document.getElementById('selected-ws-input');
+                        if (selInput) selInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 200);
                 }
             }
         });
@@ -1488,54 +1495,62 @@
 
         // Function to fetch registrations from Google Sheets and update card seat badges
         async function fetchWorkshopCountsFromSheet() {
-            // Use the exact same Published CSV link as admin.html to avoid 401 gviz authorization errors
-            const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv';
-
-            try {
-                const response = await fetch(GOOGLE_SHEET_CSV_URL);
-                if (response.ok) {
-                    const csvText = await response.text();
-                    // Reset counts to 0 before tallying live sheet
-                    for (let key in workshopSeatCounts) {
-                        workshopSeatCounts[key] = 0;
-                    }
-
-                    // Parse CSV lines and count workshop occurrences
-                    const lines = csvText.split('\n');
-                    const validRows = lines.filter(l => l.trim().length > 5 && !l.toLowerCase().includes('informazioni cronologiche') && !l.toLowerCase().includes('timestamp'));
-                    globalTotalRegistrants = validRows.length;
-
-                    lines.forEach(line => {
-                        for (let key in workshopsData) {
-                            const wsName = workshopsData[key].name;
-                            // Check if this row mentions the workshop name
-                            if (line.includes(wsName)) {
-                                workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
-                            }
-                        }
-                    });
-                    console.log('Successfully updated workshop seat counts from live Google Sheet! Total Registrants:', globalTotalRegistrants);
-                    updateWorkshopSeatBadges();
-                    return;
-                }
-            } catch (err) {
-                console.warn('Could not fetch live Google Sheet (using fallback/localStorage counts):', err);
+            // Reset base counts to 0
+            for (let key in workshopSeatCounts) {
+                workshopSeatCounts[key] = 0;
             }
 
-            // Fallback to localStorage ONLY if offline or live Google Sheet fetch failed
-            try {
-                for (let key in workshopSeatCounts) {
-                    workshopSeatCounts[key] = 0;
+            const sheetCounts = {};
+            for (let key in workshopsData) {
+                sheetCounts[key] = 0;
+            }
+
+            // Fetch from both exact gid and default output=csv with timestamp cache-buster to ensure instant update from Google
+            const urls = [
+                'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv&_t=' + Date.now(),
+                'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?output=csv&_t=' + Date.now()
+            ];
+
+            for (const url of urls) {
+                try {
+                    const response = await fetch(url, { cache: 'no-store' });
+                    if (response.ok) {
+                        const csvText = await response.text();
+                        const lines = csvText.split('\n');
+                        const validRows = lines.filter(l => l.trim().length > 5 && !l.toLowerCase().includes('informazioni cronologiche') && !l.toLowerCase().includes('timestamp'));
+                        if (validRows.length > 0) {
+                            globalTotalRegistrants = Math.max(globalTotalRegistrants || 0, validRows.length);
+                            for (let key in workshopsData) { sheetCounts[key] = 0; }
+                            validRows.forEach(line => {
+                                for (let key in workshopsData) {
+                                    const wsName = workshopsData[key].name;
+                                    if (line.includes(wsName)) {
+                                        sheetCounts[key] = (sheetCounts[key] || 0) + 1;
+                                    }
+                                }
+                            });
+                            break; // Successfully loaded live rows
+                        }
+                    }
+                } catch (err) {
+                    console.warn('Could not fetch CSV URL:', url, err);
                 }
+            }
+
+            // Also check localStorage registrations
+            const localCounts = {};
+            for (let key in workshopsData) { localCounts[key] = 0; }
+            try {
                 const localData = localStorage.getItem('registrations');
                 if (localData) {
                     const regs = JSON.parse(localData);
                     regs.forEach(reg => {
                         if (reg.workshop && reg.workshop !== 'None (Plenary Only)') {
                             for (let key in workshopsData) {
-                                if (workshopsData[key].name === reg.workshop) {
-                                    workshopSeatCounts[key] = (workshopSeatCounts[key] || 0) + 1;
-                                    break;
+                                const wsName = workshopsData[key].name;
+                                // Use includes() so session strings or suffixes match properly
+                                if (reg.workshop.includes(wsName)) {
+                                    localCounts[key] = (localCounts[key] || 0) + 1;
                                 }
                             }
                         }
@@ -1545,7 +1560,11 @@
                 console.warn('Could not read local registrations:', e);
             }
 
-            // Update the HTML badges on all workshop cards
+            // Take the maximum of sheet vs localStorage counts so immediate local registrations update right away while Google CDN synchronizes
+            for (let key in workshopsData) {
+                workshopSeatCounts[key] = Math.max(sheetCounts[key] || 0, localCounts[key] || 0);
+            }
+
             updateWorkshopSeatBadges();
         }
 
@@ -1583,31 +1602,22 @@
         }
 
         // Run seat counter and parse URL parameters when page loads
+        // Run seat counter when page loads
         window.addEventListener('DOMContentLoaded', () => {
             fetchWorkshopCountsFromSheet();
 
-            // Automatically read and pre-fill data when navigating from index.html (`?select=...` or `?name=...`)
             const urlParams = new URLSearchParams(window.location.search);
-            const selectParam = urlParams.get('select');
-            const nameParam = urlParams.get('name');
-            const emailParam = urlParams.get('email');
-            const roleParam = urlParams.get('role');
-
-            if (nameParam && document.getElementById('reg-name')) {
-                document.getElementById('reg-name').value = nameParam;
-            }
-            if (emailParam && document.getElementById('reg-email')) {
-                document.getElementById('reg-email').value = emailParam;
-            }
-            if (roleParam && document.getElementById('reg-role')) {
-                document.getElementById('reg-role').value = roleParam;
-            }
-            if (selectParam && workshopsData[selectParam]) {
-                selectWorkshop(selectParam);
-                setTimeout(() => {
-                    const formContainer = document.getElementById('form-container');
-                    if (formContainer) formContainer.scrollIntoView({ behavior: 'smooth' });
-                }, 200);
+            const selectParam = urlParams.get('select') || localStorage.getItem('prefill_workshop');
+            if (selectParam) {
+                const queryStr = selectParam.toLowerCase().trim();
+                let foundKey = Object.keys(workshopsData).find(k => k === queryStr || workshopsData[k].name.toLowerCase() === queryStr || workshopsData[k].name.toLowerCase().startsWith(queryStr.substring(0, 15)));
+                if (foundKey) {
+                    selectWorkshop(foundKey);
+                    setTimeout(() => {
+                        const formContainer = document.getElementById('form-container');
+                        if (formContainer) formContainer.scrollIntoView({ behavior: 'smooth' });
+                    }, 200);
+                }
             }
         });
 
@@ -1670,54 +1680,54 @@
                 checkedSessionElements.forEach(cb => params.append(GOOGLE_ENTRY_SESSIONS, cb.value));
             }
 
-            // Method 1: URLSearchParams fetch
+            // Submit to Google Form (Single submission method to prevent duplicate rows)
             fetch(GOOGLE_FORM_URL, {
                 method: 'POST',
                 mode: 'no-cors',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: params.toString()
-            }).then(() => console.log('Fetch submitted.')).catch(err => console.warn('Fetch submission error:', err));
+            }).then(() => {
+                console.log('Form submitted successfully.');
+            }).catch(err => {
+                console.warn('Fetch failed, trying hidden iframe fallback:', err);
+                try {
+                    let hiddenIframe = document.getElementById('hidden_iframe_reg');
+                    if (!hiddenIframe) {
+                        hiddenIframe = document.createElement('iframe');
+                        hiddenIframe.id = 'hidden_iframe_reg';
+                        hiddenIframe.name = 'hidden_iframe_reg';
+                        hiddenIframe.style.display = 'none';
+                        document.body.appendChild(hiddenIframe);
+                    }
+                    const hiddenForm = document.createElement('form');
+                    hiddenForm.action = GOOGLE_FORM_URL;
+                    hiddenForm.method = 'POST';
+                    hiddenForm.target = 'hidden_iframe_reg';
+                    hiddenForm.style.display = 'none';
 
-            // Method 2: Hidden iframe form submission (guaranteed to bypass CORS/adblock restrictions)
-            try {
-                let hiddenIframe = document.getElementById('hidden_iframe_reg');
-                if (!hiddenIframe) {
-                    hiddenIframe = document.createElement('iframe');
-                    hiddenIframe.id = 'hidden_iframe_reg';
-                    hiddenIframe.name = 'hidden_iframe_reg';
-                    hiddenIframe.style.display = 'none';
-                    document.body.appendChild(hiddenIframe);
+                    const addField = (name, val) => {
+                        if (!name || !val) return;
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = name;
+                        input.value = val;
+                        hiddenForm.appendChild(input);
+                    };
+
+                    addField(GOOGLE_ENTRY_NAME, name);
+                    addField(GOOGLE_ENTRY_EMAIL, email);
+                    addField(GOOGLE_ENTRY_ROLE, role);
+                    addField(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
+                    if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
+                        checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
+                    }
+                    document.body.appendChild(hiddenForm);
+                    hiddenForm.submit();
+                    setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
+                } catch (e) {
+                    console.warn('Fallback error:', e);
                 }
-
-                const hiddenForm = document.createElement('form');
-                hiddenForm.action = GOOGLE_FORM_URL;
-                hiddenForm.method = 'POST';
-                hiddenForm.target = 'hidden_iframe_reg';
-                hiddenForm.style.display = 'none';
-
-                const addField = (name, val) => {
-                    if (!name || !val) return;
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = name;
-                    input.value = val;
-                    hiddenForm.appendChild(input);
-                };
-
-                addField(GOOGLE_ENTRY_NAME, name);
-                addField(GOOGLE_ENTRY_EMAIL, email);
-                addField(GOOGLE_ENTRY_ROLE, role);
-                addField(GOOGLE_ENTRY_WORKSHOP, wsInfo.name);
-                if (GOOGLE_ENTRY_SESSIONS && GOOGLE_ENTRY_SESSIONS.trim() !== '') {
-                    checkedSessionElements.forEach(cb => addField(GOOGLE_ENTRY_SESSIONS, cb.value));
-                }
-
-                document.body.appendChild(hiddenForm);
-                hiddenForm.submit();
-                setTimeout(() => { if (hiddenForm.parentNode) hiddenForm.parentNode.removeChild(hiddenForm); }, 2000);
-            } catch (e) {
-                console.warn('Iframe submit fallback error:', e);
-            }
+            });
 
             // Save to LocalStorage for fallback dashboard use
             saveToLocalDB(name, email, role, `${wsInfo.name} (${checkedSessions})`);
@@ -1754,100 +1764,34 @@
             ticket.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Generate and Download Official Digital Pass (.PDF) - Fixed for clean rendering without white/blank output or viewport offset bugs
+        // Generate and Download Official Digital Pass (.PDF) full screen edge-to-edge
         function downloadTicketPdf() {
+            const ticketEl = document.getElementById('workshop-ticket-card') || document.getElementById('ticket-container');
+            if (!ticketEl) return;
             const name = document.getElementById('ticket-name').innerText || 'Attendee';
-            const email = document.getElementById('ticket-email').innerText || 'N/A';
-            const role = document.getElementById('ticket-role').innerText || 'N/A';
-            const workshop = document.getElementById('ticket-workshop').innerText || 'Laboratory Workshop';
-            const location = document.getElementById('ticket-location').innerText || 'Sapienza University';
 
-            const checkedSessionElements = Array.from(document.querySelectorAll('input[name="ws-sessions"]:checked'));
-            const sessionsDisplay = checkedSessionElements.length > 0 ? checkedSessionElements.map(cb => cb.value.split(' ')[0] + ' ' + cb.value.split(' ')[1]).join(', ') : 'All Plenary & Lab Sessions';
-
-            const orderEl = document.getElementById('ticket-order-id');
-            const voucherCode = (orderEl && orderEl.getAttribute('data-voucher-code')) ? orderEl.getAttribute('data-voucher-code') : ('SQ-2026-' + String(globalTotalRegistrants || 1).padStart(3, '0'));
-            const orderDisplay = (orderEl && orderEl.getAttribute('data-order-num')) ? (`Registration Order: #${orderEl.getAttribute('data-order-num')}`) : (`Registration Order: #${globalTotalRegistrants || 1}`);
-
-            const passHtml = `
-                <div style="background: #070B14; font-family: 'Plus Jakarta Sans', sans-serif; color: #E2E8F0; padding: 25px; box-sizing: border-box; width: 540px;">
-                    <div style="background: rgba(18, 26, 45, 0.98); border: 2px solid #00F0FF; border-radius: 28px; width: 100%; max-width: 500px; margin: 0 auto; overflow: hidden; box-shadow: 0 0 40px rgba(0, 240, 255, 0.25); box-sizing: border-box;">
-                        <div style="background: linear-gradient(135deg, rgba(0, 240, 255, 0.22), rgba(99, 102, 241, 0.22)); border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding: 2.2rem 2rem 1.8rem; text-align: center;">
-                            <div style="width: 58px; height: 58px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); color: #10B981; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8rem; border: 2px solid rgba(16, 185, 129, 0.5);"><i class="fa-solid fa-check"></i></div>
-                            <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.7rem; font-weight: 800; color: #FFF; margin-bottom: 0.4rem; line-height: 1.2;">SSAS Conference Pass</h1>
-                            <div style="display: inline-block; background: rgba(0, 240, 255, 0.15); border: 1px solid #00F0FF; color: #00F0FF; padding: 0.35rem 1.1rem; border-radius: 30px; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;">Delegate Pass #${voucherCode}</div>
-                            <div style="font-size: 0.82rem; color: #94A3B8; margin-top: 0.4rem; font-weight: 600;">${orderDisplay}</div>
-                        </div>
-                        <div style="padding: 1.8rem 2rem;">
-                            <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; margin-bottom: 1.2rem;">
-                                <div style="flex: 1 1 calc(50% - 1rem); min-width: 180px;">
-                                    <div style="font-size: 0.72rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.2rem; font-weight: 600;">Delegate Name</div>
-                                    <div style="font-size: 1.05rem; font-weight: 700; color: #FFF;">${name}</div>
-                                </div>
-                                <div style="flex: 1 1 calc(50% - 1rem); min-width: 180px;">
-                                    <div style="font-size: 0.72rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.2rem; font-weight: 600;">Academic Status</div>
-                                    <div style="font-size: 1.05rem; font-weight: 700; color: #FFF;">${role}</div>
-                                </div>
-                                <div style="width: 100%;">
-                                    <div style="font-size: 0.72rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.2rem; font-weight: 600;">Email Address</div>
-                                    <div style="font-size: 0.92rem; font-weight: 500; color: #CBD5E1;">${email}</div>
-                                </div>
-                                <div style="width: 100%; background: rgba(0, 240, 255, 0.08); padding: 1.1rem; border-radius: 14px; border-left: 4px solid #00F0FF; box-sizing: border-box;">
-                                    <div style="font-size: 0.72rem; text-transform: uppercase; color: #00F0FF; letter-spacing: 1px; margin-bottom: 0.2rem; font-weight: 600;">Reserved Laboratory Session</div>
-                                    <div style="font-size: 1.1rem; font-weight: 800; color: #00F0FF; margin-bottom: 0.3rem;">${workshop}</div>
-                                    <div style="font-size: 0.9rem; color: #E2E8F0; margin-bottom: 0.3rem;"><i class="fa-solid fa-location-dot" style="color: #00F0FF;"></i> ${location}</div>
-                                    <div style="font-size: 0.85rem; color: #10B981; font-weight: 700;">Sessions: ${sessionsDisplay}</div>
-                                    <div style="font-size: 0.82rem; color: #94A3B8; margin-top: 0.2rem;"><i class="fa-solid fa-clock" style="color: #00F0FF;"></i> Sept 18, 2026 | 15:00 - 18:00 CEST</div>
-                                </div>
-                                <div style="width: 100%;">
-                                    <div style="font-size: 0.72rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1px; margin-bottom: 0.2rem; font-weight: 600;">Day 1 Plenary Venue</div>
-                                    <div style="font-size: 0.92rem; color: #E2E8F0;">Aula Amaldi, Department of Physics, Sapienza University (Sept 17 | 09:00 CEST)</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="background: rgba(7, 11, 20, 0.9); border-top: 1px dashed rgba(255, 255, 255, 0.15); padding: 1.2rem 2rem; display: flex; align-items: center; justify-content: space-between;">
-                            <div>
-                                <span style="font-size: 0.72rem; color: #64748B; display: block; font-weight: 600;">ISSUED BY</span>
-                                <strong style="font-size: 0.92rem; color: #FFF;">Sapienza School of Advanced Studies (SSAS)</strong>
-                            </div>
-                            <div>
-                                <i class="fa-solid fa-qrcode" style="font-size: 3.2rem; color: #FFF; opacity: 0.9;"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            const container = document.createElement('div');
-            container.style.position = 'absolute';
-            container.style.top = '0px';
-            container.style.left = '0px';
-            container.style.width = '640px';
-            container.style.zIndex = '99999999';
-            container.style.backgroundColor = '#070B14';
-            container.innerHTML = passHtml;
-            document.body.appendChild(container);
+            const widthPx = ticketEl.offsetWidth || 500;
+            const heightPx = ticketEl.offsetHeight || 580;
 
             const opt = {
-                margin: 0.3,
-                filename: `SSAS_Conference_Pass_${name.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
+                margin: 0,
+                filename: `SSAS_Workshop_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: {
-                    scale: 2,
+                    scale: 3,
                     useCORS: true,
-                    backgroundColor: '#070B14',
-                    scrollX: 0,
-                    scrollY: 0,
-                    x: 0,
-                    y: 0,
-                    width: 640
+                    backgroundColor: '#0F172A',
+                    width: widthPx,
+                    height: heightPx
                 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                jsPDF: {
+                    unit: 'px',
+                    format: [widthPx, heightPx],
+                    orientation: widthPx > heightPx ? 'landscape' : 'portrait'
+                }
             };
 
-            html2pdf().set(opt).from(container).save().then(() => {
-                if (container.parentNode) container.parentNode.removeChild(container);
-            });
+            html2pdf().set(opt).from(ticketEl).save();
         }
 
         // Add Reserved Workshop to Google Calendar
