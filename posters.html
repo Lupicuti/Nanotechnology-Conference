@@ -47,9 +47,9 @@
             --cyan: #00F0FF;
             --indigo: #6366F1;
             --violet: #A855F7;
-            --emerald: #10B981;
-            --coral: #FF5E7E;
-            --amber: #F59E0B;
+            --emerald: #34D399;
+            --coral: #10B981;
+            --amber: #38BDF8;
 
             --text-main: #F8FAFC;
             --text-muted: #94A3B8;
@@ -86,7 +86,7 @@
             pointer-events: none;
             z-index: -2;
             background:
-                radial-gradient(circle at 15% 20%, rgba(255, 94, 126, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 45%),
                 radial-gradient(circle at 85% 75%, rgba(168, 85, 247, 0.1) 0%, transparent 45%),
                 radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 60%);
         }
@@ -110,11 +110,12 @@
             background: rgba(7, 11, 20, 0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-light);
-            padding: 1rem 5%;
+            padding: 0.8rem 2%;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1850px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -141,13 +142,14 @@
             font-weight: 700;
             font-size: 1.4rem;
             color: #FFF;
-            box-shadow: 0 0 20px rgba(255, 94, 126, 0.4);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
         }
 
         .brand-text {
             font-family: var(--font-heading);
             font-weight: 700;
             font-size: 1.25rem;
+            line-height: 1.15;
             letter-spacing: -0.5px;
             display: block;
         }
@@ -162,7 +164,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: clamp(0.8rem, 1.4vw, 2rem);
             list-style: none;
             align-items: center;
         }
@@ -196,12 +198,12 @@
         .btn-glow {
             background: linear-gradient(135deg, var(--coral), var(--violet));
             color: #FFF;
-            box-shadow: 0 0 25px rgba(255, 94, 126, 0.35);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
         }
 
         .btn-glow:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(255, 94, 126, 0.55);
+            box-shadow: 0 0 35px rgba(16, 185, 129, 0.55);
         }
 
         .btn-outline {
@@ -230,7 +232,7 @@
             gap: 0.5rem;
             padding: 0.4rem 1rem;
             border-radius: 100px;
-            background: rgba(255, 94, 126, 0.15);
+            background: rgba(16, 185, 129, 0.15);
             border: 1px solid var(--coral);
             color: var(--coral);
             font-size: 0.82rem;
@@ -275,7 +277,7 @@
 
         .info-card {
             background: linear-gradient(145deg, rgba(18, 26, 45, 0.75), rgba(15, 23, 42, 0.9));
-            border: 1px solid rgba(255, 94, 126, 0.35);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: 24px;
             padding: 2.5rem;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
@@ -399,7 +401,7 @@
                 height: 100vh !important;
                 margin: 0 !important;
                 padding: 40px !important;
-                background: radial-gradient(circle at 15% 20%, rgba(255, 94, 126, 0.22) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.22) 0%, transparent 45%), linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%) !important;
+                background: radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.22) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.22) 0%, transparent 45%), linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%) !important;
                 display: flex !important;
                 flex-direction: column !important;
                 justify-content: center !important;
@@ -422,9 +424,9 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">
-                <div class="brand-logo">Ψ</div>
+                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                 <div>
-                    <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
+                    <span class="brand-text" style="line-height: 1.15; display: block;">NANO - Sapienza School<br>of Advanced Studies</span>
                 </div>
             </a>
 
@@ -433,8 +435,8 @@
                 <li><a href="index.html#program">Scientific Program</a></li>
                 <li><a href="index.html#speakers">Speeches</a></li>
                 <li><a href="index.html#workshops">Workshops</a></li>
-                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> Lab Sign-up</a></li>
-                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-arrow-up"></i> Poster Registration</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-vials"></i> <span data-i18n="nav_lab_signup">Lab<br>Sign up</span></a></li>
+                <li><a href="posters.html" style="color: var(--coral); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-file-arrow-up"></i> <span>Call for<br>Posters</span></a></li>
                 <li>
                     <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem;">
                         <i class="fa-solid fa-arrow-left"></i> Home Page
@@ -475,7 +477,7 @@
                 </div>
 
                 <div style="display: flex; gap: 1rem; align-items: flex-start;">
-                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 94, 126, 0.12); border: 1px solid var(--coral); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--coral); font-size: 1.2rem;">
+                    <div style="width: 44px; height: 44px; border-radius: 12px; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--coral); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--coral); font-size: 1.2rem;">
                         <i class="fa-solid fa-comments"></i>
                     </div>
                     <div>
@@ -495,8 +497,8 @@
                 </div>
             </div>
 
-            <div style="margin-top: 2.2rem; padding: 1.2rem 1.5rem; border-radius: 14px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.35); display: flex; align-items: center; gap: 1rem;">
-                <i class="fa-solid fa-clock-rotate-left" style="color: var(--amber); font-size: 1.5rem;"></i>
+            <div style="margin-top: 2.2rem; padding: 1.2rem 1.5rem; border-radius: 14px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); display: flex; align-items: center; gap: 1rem;">
+                <i class="fa-solid fa-clock-rotate-left" style="color: var(--coral); font-size: 1.5rem;"></i>
                 <div style="font-size: 0.9rem; color: #FFF;">
                     <b>Abstract Submission Deadline:</b> 5 September 2026<br>
                     <span style="color: var(--text-muted); font-size: 0.82rem;">Early submissions are recommended due to limited exhibition panel slots.</span>
@@ -562,7 +564,7 @@
 
             <!-- Form step 2: Success Confirmation Card -->
             <div id="poster-form-step-2" style="display: none; text-align: center; padding: 1rem 0;">
-                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid var(--emerald); color: var(--emerald); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);">
+                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(0, 240, 255, 0.15); border: 2px solid var(--cyan); color: var(--cyan); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);">
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <h4 style="font-size: 1.4rem; color: #FFF; margin-bottom: 0.4rem;">Candidacy Successfully Submitted!</h4>
@@ -573,7 +575,7 @@
                 <div style="background: rgba(7, 11, 20, 0.8); border: 1px dashed var(--cyan); border-radius: 16px; padding: 1.4rem; text-align: left; margin-bottom: 1.5rem;" id="poster-pass-card">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.6rem;">
                         <span style="color: var(--cyan); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;"><i class="fa-solid fa-fingerprint"></i> Poster Application Pass</span>
-                        <span id="poster-conf-id" style="font-family: var(--font-mono); color: var(--amber); font-weight: 700;">#PSTR-2026-X</span>
+                        <span id="poster-conf-id" style="font-family: var(--font-mono); color: var(--violet); font-weight: 700;">#PSTR-2026-X</span>
                     </div>
                     <div style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.4rem;"><b>Candidate:</b> <span id="poster-conf-name">Dr. Name</span> (<span id="poster-conf-affil">Affiliation</span>)</div>
                     <div style="font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.4rem;"><b>Theme:</b> <span id="poster-conf-topic" style="color: var(--cyan);">Topic</span></div>
@@ -581,9 +583,6 @@
                 </div>
 
                 <div style="display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem;">
-                    <button onclick="downloadPosterPdf()" class="btn btn-glow" style="padding: 0.6rem 1.4rem; font-size: 0.9rem;">
-                        <i class="fa-solid fa-file-pdf"></i> Download Official Poster Pass (.PDF)
-                    </button>
                     <button onclick="resetPosterForm()" class="btn btn-outline" style="border-color: var(--border-glow); color: #FFF; padding: 0.6rem 1.4rem; font-size: 0.9rem;">
                         <i class="fa-solid fa-plus"></i> Submit Another Abstract
                     </button>
@@ -597,7 +596,7 @@
         <div class="footer-grid">
             <div>
                 <div class="brand" style="margin-bottom: 1.2rem;">
-                    <div class="brand-logo">Ψ</div>
+                    <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 58px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                     <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
                 </div>
                 <p style="color: var(--text-muted); max-width: 400px; font-size: 0.9rem;">
@@ -808,7 +807,7 @@
             container.style.height = '1123px';
             container.style.boxSizing = 'border-box';
             container.style.padding = '60px 50px';
-            container.style.background = 'radial-gradient(circle at 15% 20%, rgba(255, 94, 126, 0.22) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.22) 0%, transparent 45%), linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%)';
+            container.style.background = 'radial-gradient(circle at 15% 20%, rgba(16, 185, 129, 0.22) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.22) 0%, transparent 45%), linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%)';
             container.style.display = 'flex';
             container.style.flexDirection = 'column';
             container.style.justifyContent = 'center';
@@ -854,8 +853,8 @@
                         <div style="font-size: 16px; font-weight: 700; color: #00F0FF;">${topic}</div>
                     </div>
 
-                    <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; border-left: 3px solid #FF5E7E;">
-                        <div style="font-size: 11px; color: #FF5E7E; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Abstract Title</div>
+                    <div style="margin-bottom: 25px; background: rgba(0,0,0,0.3); padding: 16px; border-radius: 12px; border-left: 3px solid #10B981;">
+                        <div style="font-size: 11px; color: #10B981; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">Abstract Title</div>
                         <div style="font-size: 15px; font-weight: 600; color: #F8FAFC; line-height: 1.4; font-style: italic;">"${title}"</div>
                     </div>
 
@@ -876,7 +875,7 @@
             `;
 
             const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 794px; height: 1123px; z-index: 999999; background: #070b14; margin: 0; padding: 0; overflow: hidden;';
+            wrapper.style.cssText = 'position: fixed !important; top: 0px !important; left: 0px !important; width: 794px !important; height: 1123px !important; z-index: 9999999 !important; background: #070b14 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; align-self: flex-start !important;';
             wrapper.appendChild(container);
             document.body.appendChild(wrapper);
 
@@ -893,6 +892,8 @@
                     scrollX: 0,
                     width: 794,
                     height: 1123,
+                    windowWidth: 794,
+                    windowHeight: 1123,
                     backgroundColor: '#070b14'
                 },
                 jsPDF: {

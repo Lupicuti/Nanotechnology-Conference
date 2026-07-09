@@ -182,8 +182,8 @@ def create_conference_workbook():
         ws_lab.row_dimensions[1].height = 26
         
         # Add Dynamic FILTER Formula in Cell A2 that pulls live data from 'Risposte del modulo 1'
-        # In Google Sheets and modern Excel, this single cell formula populates all matching columns & rows automatically!
-        ws_lab["A2"] = f'=FILTER(\'Risposte del modulo 1\'!B2:F1000, ISNUMBER(SEARCH("{search_key}", \'Risposte del modulo 1\'!E2:E1000)), "No registrations yet for this laboratory")'
+        # Wrapped with IFERROR because Google Sheets FILTER does not accept if_empty as a 3rd parameter like Excel does
+        ws_lab["A2"] = f'=IFERROR(FILTER(\'Risposte del modulo 1\'!$B$2:$F$1000, ISNUMBER(SEARCH("{search_key}", \'Risposte del modulo 1\'!$E$2:$E$1000))), "No registrations yet for this laboratory")'
         ws_lab["A2"].font = Font(name="Calibri", size=11, bold=False, color="0F172A")
         
         # Adjust columns widths

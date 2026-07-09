@@ -31,9 +31,9 @@
             --cyan: #00F0FF;
             --indigo: #6366F1;
             --violet: #A855F7;
-            --emerald: #10B981;
-            --coral: #FF5E7E;
-            --amber: #F59E0B;
+            --coral: #10B981;
+            --amber: #38BDF8;
+            --emerald: #38BDF8;
 
             --text-main: #F8FAFC;
             --text-muted: #94A3B8;
@@ -91,11 +91,12 @@
             background: rgba(7, 11, 20, 0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-light);
-            padding: 1rem 5%;
+            padding: 0.8rem 2%;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1850px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -129,6 +130,7 @@
             font-family: var(--font-heading);
             font-weight: 700;
             font-size: 1.25rem;
+            line-height: 1.15;
             letter-spacing: -0.5px;
             display: block;
         }
@@ -143,7 +145,7 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: clamp(0.8rem, 1.4vw, 2rem);
             list-style: none;
             align-items: center;
         }
@@ -313,17 +315,17 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">
-                <div class="brand-logo">Ψ</div>
+                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                 <div>
-                    <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
+                    <span class="brand-text" style="line-height: 1.15; display: block;">NANO - Sapienza School<br>of Advanced Studies</span>
                 </div>
             </a>
 
             <ul class="nav-links">
                 <li><a href="index.html#program">Program</a></li>
                 <li><a href="index.html#speakers">Speakers</a></li>
-                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> Workshops</a></li>
-                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-arrow-up"></i> Poster Call</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-vials"></i> <span data-i18n="nav_lab_signup">Lab<br>Sign up</span></a></li>
+                <li><a href="posters.html" style="color: var(--coral); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-file-arrow-up"></i> <span>Call for<br>Posters</span></a></li>
                 <li>
                     <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem;">
                         <i class="fa-solid fa-arrow-left"></i> Home Page
@@ -350,15 +352,15 @@
                     </p>
                 </div>
 
-                <form id="conf-form" onsubmit="handleRegistrationSubmit(event)">
+                <form id="conf-form" autocomplete="off" onsubmit="handleRegistrationSubmit(event)">
                     <div class="form-group">
                         <label><i class="fa-solid fa-user"></i> Full Name *</label>
-                        <input type="text" class="form-control" id="reg-name" placeholder="Dr. / Ms. / Mr. Name Surname" required>
+                        <input type="text" class="form-control" id="reg-name" placeholder="Dr. / Ms. / Mr. Name Surname" autocomplete="off" required>
                     </div>
 
                     <div class="form-group">
                         <label><i class="fa-solid fa-envelope"></i> University / Institution Email *</label>
-                        <input type="email" class="form-control" id="reg-email" placeholder="name@domain.edu / uniroma1.it" required>
+                        <input type="email" class="form-control" id="reg-email" placeholder="name@domain.edu / uniroma1.it" autocomplete="off" required>
                     </div>
 
                     <div class="form-group">
@@ -397,15 +399,15 @@
                         </div>
                     </div>
 
-                    <div class="form-group" id="ws-dropdown-container" style="display: none; margin-top: 1rem; background: rgba(16, 185, 129, 0.08); border: 1px solid var(--emerald); padding: 1.4rem; border-radius: 12px; text-align: left;">
-                        <label style="color: var(--emerald); font-weight: 700; margin-bottom: 0.4rem; display: block; font-size: 0.95rem;"><i class="fa-solid fa-flask"></i> Choose Your Laboratory (Sept 18 Afternoon) *</label>
+                    <div class="form-group" id="ws-dropdown-container" style="display: none; margin-top: 1rem; background: rgba(0, 240, 255, 0.08); border: 1px solid var(--cyan); padding: 1.4rem; border-radius: 12px; text-align: left;">
+                        <label style="color: var(--cyan); font-weight: 700; margin-bottom: 0.4rem; display: block; font-size: 0.95rem;"><i class="fa-solid fa-flask"></i> Choose Your Laboratory (Sept 18 Afternoon) *</label>
                         <p style="color: #CBD5E1; font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4;">
                             Each hands-on laboratory has a dedicated full-screen card with detailed leader profiles, prerequisites, and live seat counts. Click below to browse and reserve your laboratory one by one:
                         </p>
-                        <button type="button" onclick="redirectToWorkshopsPage('')" class="btn btn-glow" style="width: 100%; justify-content: center; background: linear-gradient(135deg, var(--emerald), var(--cyan)); border: none; padding: 0.9rem; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.8rem; box-shadow: 0 0 20px rgba(16,185,129,0.3); border-radius: 10px;">
+                        <button type="button" onclick="redirectToWorkshopsPage('')" class="btn btn-glow" style="width: 100%; justify-content: center; background: linear-gradient(135deg, var(--violet), var(--cyan)); border: none; padding: 0.9rem; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.8rem; box-shadow: 0 0 20px rgba(0,240,255,0.3); border-radius: 10px;">
                             <i class="fa-solid fa-arrow-up-right-from-square"></i> Select Laboratory on Workshops Page →
                         </button>
-                        <select class="form-control" id="reg-ws-select" onchange="handleWsSelectChange(this)" style="border-color: var(--emerald); background: #0F172A; color: #FFF; font-size: 0.88rem;">
+                        <select class="form-control" id="reg-ws-select" onchange="handleWsSelectChange(this)" style="border-color: var(--cyan); background: #0F172A; color: #FFF; font-size: 0.88rem;">
                             <option value="">Or choose right here to redirect automatically...</option>
                             <option value="Atomic Force Microscopy (AFM)">Atomic Force Microscopy (AFM) — Dept. of Physics</option>
                             <option value="Nanomedicine Experience">Nanomedicine Experience — Dept. of Chemistry</option>
@@ -425,7 +427,7 @@
 
             <!-- Confirmation Step -->
             <div id="reg-form-step-2" style="display: none; text-align: center;">
-                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid var(--emerald); color: var(--emerald); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);">
+                <div style="width: 65px; height: 65px; border-radius: 50%; background: rgba(0, 240, 255, 0.15); border: 2px solid var(--cyan); color: var(--cyan); font-size: 2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);">
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: #FFF; margin-bottom: 0.4rem;">Registration Confirmed!</h3>
@@ -441,7 +443,7 @@
                         </div>
                         <div style="text-align: right;">
                             <span style="display: inline-block; background: rgba(0, 240, 255, 0.15); color: var(--cyan); font-weight: 700; font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid var(--cyan); margin-bottom: 0.3rem;">FULL PASS</span>
-                            <div id="conf-order-num" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--amber); font-weight: 700;">Pass #001</div>
+                            <div id="conf-order-num" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--violet); font-weight: 700;">Pass #001</div>
                         </div>
                     </div>
 
@@ -455,7 +457,7 @@
                             <div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px dashed rgba(255,255,255,0.1);">
                                 <div style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase;">REGISTERED SESSIONS</div>
                                 <div id="conf-sessions-display" style="font-size: 0.88rem; color: #E2E8F0; margin-top: 0.2rem;">All Sessions</div>
-                                <div id="conf-ws-box" style="display: none; margin-top: 0.5rem; background: rgba(16, 185, 129, 0.15); padding: 0.4rem 0.7rem; border-radius: 6px; border-left: 3px solid var(--emerald); color: #FFF; font-size: 0.85rem;"></div>
+                                <div id="conf-ws-box" style="display: none; margin-top: 0.5rem; background: rgba(0, 240, 255, 0.15); padding: 0.4rem 0.7rem; border-radius: 6px; border-left: 3px solid var(--cyan); color: #FFF; font-size: 0.85rem;"></div>
                             </div>
                         </div>
 
@@ -483,7 +485,7 @@
         <div class="footer-grid">
             <div>
                 <div class="brand" style="margin-bottom: 1.2rem;">
-                    <div class="brand-logo">Ψ</div>
+                    <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 58px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                     <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
                 </div>
                 <p style="color: var(--text-muted); max-width: 400px; font-size: 0.9rem;">
@@ -573,6 +575,24 @@
         const GOOGLE_ENTRY_ROLE = 'entry.415373699';
         const GOOGLE_ENTRY_WORKSHOP = 'entry.1773857955';
         const GOOGLE_ENTRY_SESSIONS = 'entry.597327982';
+
+        // Ensure completely clean form on every site-opening (no pre-compilation or browser autocomplete)
+        window.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('conf-form');
+            if (form) form.reset();
+            const nameEl = document.getElementById('reg-name');
+            const emailEl = document.getElementById('reg-email');
+            const roleEl = document.getElementById('reg-role');
+            const wsSelectEl = document.getElementById('reg-ws-select');
+            if (nameEl) nameEl.value = '';
+            if (emailEl) emailEl.value = '';
+            if (roleEl) roleEl.value = '';
+            if (wsSelectEl) wsSelectEl.value = '';
+            localStorage.removeItem('prefill_name');
+            localStorage.removeItem('prefill_email');
+            localStorage.removeItem('prefill_role');
+            localStorage.removeItem('prefill_workshop');
+        });
 
         function toggleWorkshopSelect(isChecked) {
             const container = document.getElementById('ws-dropdown-container');
@@ -768,7 +788,7 @@
             `;
 
             const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 794px; height: 1123px; z-index: 999999; background: #070b14; margin: 0; padding: 0; overflow: hidden;';
+            wrapper.style.cssText = 'position: fixed !important; top: 0px !important; left: 0px !important; width: 794px !important; height: 1123px !important; z-index: 9999999 !important; background: #070b14 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; align-self: flex-start !important;';
             wrapper.appendChild(container);
             document.body.appendChild(wrapper);
 
@@ -785,6 +805,8 @@
                     scrollX: 0,
                     width: 794,
                     height: 1123,
+                    windowWidth: 794,
+                    windowHeight: 1123,
                     backgroundColor: '#070b14'
                 },
                 jsPDF: {

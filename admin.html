@@ -27,9 +27,9 @@
             --cyan: #00F0FF;
             --indigo: #6366F1;
             --violet: #A855F7;
-            --coral: #FF5E7E;
-            --amber: #F59E0B;
-            --emerald: #10B981;
+            --coral: #10B981;
+            --amber: #38BDF8;
+            --emerald: #34D399;
 
             --text-main: #F3F4F6;
             --text-muted: #9CA3AF;
@@ -89,7 +89,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 1rem 5%;
+            padding: 0.8rem 2%;
             background: rgba(7, 11, 20, 0.85);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-light);
@@ -97,7 +97,8 @@
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1850px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -548,7 +549,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">
-                <div class="brand-logo">Ψ</div>
+                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                 <div>
                     <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
                 </div>
@@ -568,7 +569,7 @@
         </div>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
             <button onclick="exportCSVClientSide()" class="btn btn-outline">
-                <i class="fa-solid fa-file-excel" style="color: var(--emerald);"></i> Export Excel (CSV)
+                <i class="fa-solid fa-file-excel" style="color: var(--cyan);"></i> Export Excel (CSV)
             </button>
             <button onclick="openAddModal()" class="btn btn-glow">
                 <i class="fa-solid fa-user-plus"></i> Add Attendee Manually
@@ -776,12 +777,12 @@
             const badge = document.getElementById('source-badge');
             if (isGoogle) {
                 badge.innerText = 'Connected: Google Sheets';
-                badge.style.background = 'rgba(16, 185, 129, 0.12)';
-                badge.style.color = 'var(--emerald)';
+                badge.style.background = 'rgba(0, 240, 255, 0.12)';
+                badge.style.color = 'var(--cyan)';
             } else {
                 badge.innerText = 'Demo Mode: LocalStorage';
-                badge.style.background = 'rgba(245, 158, 11, 0.12)';
-                badge.style.color = 'var(--amber)';
+                badge.style.background = 'rgba(16, 185, 129, 0.12)';
+                badge.style.color = 'var(--coral)';
             }
         }
 

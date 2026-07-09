@@ -16,8 +16,8 @@
             --card-bg: rgba(18, 26, 45, 0.92);
             --cyan: #00F0FF;
             --indigo: #6366F1;
-            --pink: #FF5E7E;
-            --amber: #F59E0B;
+            --pink: #10B981;
+            --amber: #38BDF8;
             --text-main: #F8FAFC;
             --text-muted: #94A3B8;
         }
@@ -104,7 +104,7 @@
             width: 794px;
             height: 1123px;
             max-height: 1123px;
-            background: radial-gradient(circle at 15% 15%, rgba(255, 94, 126, 0.2) 0%, transparent 40%),
+            background: radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.2) 0%, transparent 40%),
                         radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.2) 0%, transparent 45%),
                         linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%);
             border: 1.5px solid rgba(0, 240, 255, 0.35);
@@ -275,9 +275,9 @@
         }
 
         .section-title span.tag.pink {
-            background: rgba(255, 94, 126, 0.15);
+            background: rgba(16, 185, 129, 0.15);
             color: var(--pink);
-            border-color: rgba(255, 94, 126, 0.3);
+            border-color: rgba(16, 185, 129, 0.3);
         }
 
         /* Vertical Stacked Cards */
@@ -309,12 +309,12 @@
         }
 
         .list-card.speaker {
-            border-color: rgba(0, 240, 255, 0.22);
-            background: rgba(0, 240, 255, 0.04);
+            border-color: var(--item-color, rgba(0, 240, 255, 0.22));
+            background: color-mix(in srgb, var(--item-color, var(--cyan)) 6%, transparent);
         }
 
         .list-card.speaker strong {
-            color: var(--cyan);
+            color: var(--item-color, var(--cyan));
             font-weight: 700;
         }
 
@@ -337,8 +337,8 @@
         }
 
         .list-card.workshop {
-            border-color: rgba(255, 94, 126, 0.22);
-            background: rgba(255, 94, 126, 0.04);
+            border-color: var(--item-color, rgba(16, 185, 129, 0.22));
+            background: color-mix(in srgb, var(--item-color, #10B981) 6%, transparent);
         }
 
         .list-card.workshop strong {
@@ -347,7 +347,7 @@
         }
 
         .list-card.workshop span.univ.pink-univ {
-            color: var(--pink);
+            color: var(--item-color, var(--pink));
             font-size: 10.5px;
             font-weight: 600;
             text-align: right;
@@ -364,8 +364,8 @@
         }
 
         .list-card.more-tag {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(255, 94, 126, 0.25));
-            border-color: var(--amber);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(16, 185, 129, 0.25));
+            border-color: var(--violet);
             color: #FFF;
             font-size: 11.5px;
             font-weight: 800;
@@ -373,7 +373,7 @@
             justify-content: center;
             flex-direction: row;
             padding: 7px 10px;
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
         }
 
         /* Bottom Grid: Scientific Committee & Call for Posters */
@@ -400,7 +400,7 @@
         }
 
         .call-box-poster {
-            border-color: rgba(245, 158, 11, 0.35);
+            border-color: rgba(16, 185, 129, 0.35);
         }
 
         .section-title span.tag.indigo {
@@ -410,9 +410,9 @@
         }
 
         .section-title span.tag.amber {
-            background: rgba(245, 158, 11, 0.15);
-            color: var(--amber);
-            border-color: rgba(245, 158, 11, 0.35);
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--pink);
+            border-color: rgba(16, 185, 129, 0.35);
         }
 
         .committee-pills {
@@ -601,49 +601,49 @@
                         <span class="tag">Global Leaders</span>
                     </div>
                     <div class="vertical-list">
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #10B981;">
                             <div class="card-top">
                                 <strong>Prof. Carlo Beenakker</strong>
                                 <span class="univ">Leiden University</span>
                             </div>
                             <div class="card-sub">Mesoscopic Physics & Majorana Fermions in Quantum Transport</div>
                         </div>
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #14B8A6;">
                             <div class="card-top">
                                 <strong>Prof. Kazu Suenaga</strong>
                                 <span class="univ">Osaka University / AIST</span>
                             </div>
                             <div class="card-sub">Single-Atom Imaging & EELS in Low-Dimensional Nanomaterials</div>
                         </div>
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #00F0FF;">
                             <div class="card-top">
                                 <strong>Prof. Maximilian Haider</strong>
                                 <span class="univ">CEOS GmbH • MORE-TEM PI</span>
                             </div>
                             <div class="card-sub">Aberration-Corrected Electron Microscopy & Sub-Angstrom Optics</div>
                         </div>
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #38BDF8;">
                             <div class="card-top">
                                 <strong>Prof. Francesco De Angelis</strong>
                                 <span class="univ">Istituto Italiano di Tecnologia</span>
                             </div>
                             <div class="card-sub">3D Plasmonic Nanostructures & Advanced Optical Biosensors</div>
                         </div>
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #3B82F6;">
                             <div class="card-top">
                                 <strong>Prof.ssa Camilla Coletti</strong>
                                 <span class="univ">Istituto Italiano di Tecnologia</span>
                             </div>
                             <div class="card-sub">Scalable CVD Synthesis of Pristine 2D Heterostructures</div>
                         </div>
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #6366F1;">
                             <div class="card-top">
                                 <strong>Prof.ssa Giulia Serrano</strong>
                                 <span class="univ">University of Florence</span>
                             </div>
                             <div class="card-sub">Surface Science & Molecular Magnetism for Spintronics</div>
                         </div>
-                        <div class="list-card speaker">
+                        <div class="list-card speaker" style="--item-color: #A855F7;">
                             <div class="card-top">
                                 <strong>Prof. Alessandro Tredicucci</strong>
                                 <span class="univ">University of Pisa</span>
@@ -660,49 +660,49 @@
                         <span class="tag pink">Experimental Training</span>
                     </div>
                     <div class="vertical-list">
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #10B981;">
                             <div class="card-top">
                                 <strong>Dr. Ernesto Placidi</strong>
                                 <span class="univ pink-univ">Sapienza Physics</span>
                             </div>
                             <div class="card-sub">Atomic Force Microscopy (AFM)</div>
                         </div>
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #14B8A6;">
                             <div class="card-top">
                                 <strong>M. Gioia Fabiano & E. D’Intino</strong>
                                 <span class="univ pink-univ">Drug Technologies</span>
                             </div>
                             <div class="card-sub">Nanomedicine Experience</div>
                         </div>
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #00F0FF;">
                             <div class="card-top">
                                 <strong>Dr.ssa Leonetta Baldassarre</strong>
                                 <span class="univ pink-univ">IR & THz Facility</span>
                             </div>
                             <div class="card-sub">Absorption in Quantum Well</div>
                         </div>
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #38BDF8;">
                             <div class="card-top">
                                 <strong>Dr.ssa Marta De Luca</strong>
                                 <span class="univ pink-univ">Micro-Raman Lab</span>
                             </div>
                             <div class="card-sub">Semiconductor Nanowires</div>
                         </div>
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #3B82F6;">
                             <div class="card-top">
                                 <strong>Prof.ssa Maria Laura Santarelli</strong>
                                 <span class="univ pink-univ">Heritage Nanotech</span>
                             </div>
                             <div class="card-sub">HERITAGE-LAB Nanotech</div>
                         </div>
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #6366F1;">
                             <div class="card-top">
                                 <strong>Dr. Marco Felici</strong>
                                 <span class="univ pink-univ">Photonics Lab</span>
                             </div>
                             <div class="card-sub">Light and Photonics</div>
                         </div>
-                        <div class="list-card workshop">
+                        <div class="list-card workshop" style="--item-color: #A855F7;">
                             <div class="card-top">
                                 <strong>Dr. Tommaso Giovannini</strong>
                                 <span class="univ pink-univ">Tor Vergata / Sapienza</span>
@@ -749,7 +749,7 @@
                     </div>
                     <p class="call-text">
                         Are you a PhD candidate, Postdoc, or Early-Career Scientist? Submit your breakthrough abstract for the official <strong>Evening Poster Gallery & Cocktail Reception</strong>. Gain high-visibility interaction with international speakers and scientific committee peers.<br><br>
-                        <strong style="color: var(--amber);"><i class="fa-solid fa-calendar-check"></i> Submission Deadline: Sept 5, 2026</strong>
+                        <strong style="color: var(--pink);"><i class="fa-solid fa-calendar-check"></i> Submission Deadline: Sept 5, 2026</strong>
                     </p>
                 </div>
 
@@ -770,7 +770,7 @@
                     <h4>Organizers & Contacts</h4>
                     <p>
                         <strong>Francesco Lupicuti:</strong> <a href="mailto:lupicuti.2141621@studenti.uniroma1.it">lupicuti.2141621@studenti.uniroma1.it</a><br>
-                        <strong>Piergiorgio Lazzarino:</strong> <a href="mailto:lazzarino.2120485@studenti.uniroma1.it">lazzarino.2120485@studenti.uniroma1.it</a><br>
+                        <strong>Leonardo Perrini:</strong> <a href="mailto:perrini.2065029@studenti.uniroma1.it">perrini.2065029@studenti.uniroma1.it</a><br>
                         Organized by <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer">Sapienza School of Advanced Studies (SSAS)</a>
                     </p>
                 </div>
@@ -793,15 +793,14 @@
             const toolbar = document.getElementById('action-toolbar');
             if (toolbar) toolbar.style.display = 'none';
 
-            // Create an isolated top-left container for html2pdf so html2canvas never shifts or clips
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 794px; height: 1123px; z-index: 999999; background: #070b14; margin: 0; padding: 0; overflow: hidden;';
-            
+            const origScrollX = window.scrollX || 0;
+            const origScrollY = window.scrollY || 0;
+            window.scrollTo(0, 0);
+
             const clone = element.cloneNode(true);
-            clone.style.cssText = 'box-sizing: border-box !important; width: 794px !important; height: 1123px !important; max-height: 1123px !important; margin: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; position: absolute !important; top: 0 !important; left: 0 !important; background: #070b14 !important;';
+            clone.style.cssText = 'box-sizing: border-box !important; width: 794px !important; height: 1123px !important; max-height: 1123px !important; margin: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; position: fixed !important; top: 0px !important; left: 0px !important; z-index: 9999999 !important; background: #070b14 !important; transform: none !important;';
             
-            wrapper.appendChild(clone);
-            document.body.appendChild(wrapper);
+            document.documentElement.appendChild(clone);
 
             const opt = {
                 margin:       0,
@@ -811,19 +810,26 @@
                     scale: 2, 
                     useCORS: true, 
                     logging: false, 
-                    x: 0,
-                    y: 0,
                     scrollX: 0,
                     scrollY: 0,
+                    x: 0,
+                    y: 0,
                     width: 794, 
                     height: 1123,
+                    windowWidth: 794,
+                    windowHeight: 1123,
                     backgroundColor: '#070b14'
                 },
                 jsPDF:        { unit: 'px', format: [794, 1123], orientation: 'portrait' }
             };
 
             html2pdf().set(opt).from(clone).save().then(() => {
-                document.body.removeChild(wrapper);
+                if (clone.parentNode) clone.parentNode.removeChild(clone);
+                window.scrollTo(origScrollX, origScrollY);
+                if (toolbar) toolbar.style.display = 'flex';
+            }).catch(() => {
+                if (clone.parentNode) clone.parentNode.removeChild(clone);
+                window.scrollTo(origScrollX, origScrollY);
                 if (toolbar) toolbar.style.display = 'flex';
             });
         }

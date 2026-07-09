@@ -49,9 +49,9 @@
             --cyan: #00F0FF;
             --indigo: #6366F1;
             --violet: #A855F7;
-            --coral: #FF5E7E;
-            --amber: #F59E0B;
-            --emerald: #10B981;
+            --coral: #10B981;
+            --amber: #38BDF8;
+            --emerald: #34D399;
 
             --text-main: #F3F4F6;
             --text-muted: #9CA3AF;
@@ -112,7 +112,7 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 1rem 5%;
+            padding: 0.8rem 2%;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(7, 11, 20, 0.4);
             backdrop-filter: blur(16px);
@@ -120,14 +120,15 @@
         }
 
         .navbar.scrolled {
-            padding: 0.75rem 5%;
+            padding: 0.6rem 2%;
             background: rgba(7, 11, 20, 0.85);
             border-bottom: 1px solid var(--border-glow);
             box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1850px;
+            width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -176,7 +177,7 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: clamp(0.8rem, 1.4vw, 2rem);
             align-items: center;
         }
 
@@ -416,16 +417,16 @@
         }
 
         .ws-select-card:hover {
-            border-color: rgba(255, 255, 255, 0.25);
+            border-color: var(--card-color, rgba(255, 255, 255, 0.25));
             transform: translateY(-4px);
             background: var(--bg-card-hover);
         }
 
         /* Highlight borders matching category color */
         .ws-select-card.selected {
-            border-color: var(--cyan);
-            background: rgba(0, 240, 255, 0.04);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.25);
+            border-color: var(--card-color, var(--cyan));
+            background: color-mix(in srgb, var(--card-color, var(--cyan)) 6%, transparent);
+            box-shadow: 0 0 30px color-mix(in srgb, var(--card-color, var(--cyan)) 30%, transparent);
         }
 
         .ws-select-card.selected::after {
@@ -433,7 +434,7 @@
             position: absolute;
             top: 1rem;
             right: 1rem;
-            background: var(--cyan);
+            background: var(--card-color, var(--cyan));
             color: #070B14;
             font-size: 0.75rem;
             font-weight: 800;
@@ -441,7 +442,7 @@
             border-radius: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 10px color-mix(in srgb, var(--card-color, var(--cyan)) 45%, transparent);
         }
 
         .ws-icon {
@@ -577,13 +578,13 @@
         }
 
         .status-dot.available {
-            background: var(--emerald);
-            box-shadow: 0 0 8px var(--emerald);
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
         }
 
         .status-dot.low {
-            background: var(--amber);
-            box-shadow: 0 0 8px var(--amber);
+            background: var(--coral);
+            box-shadow: 0 0 8px var(--coral);
         }
 
         /* Success Card Admission Ticket (Compact, no scrollbar needed) */
@@ -894,9 +895,9 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand">
-                <div class="brand-logo">Ψ</div>
+                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                 <div>
-                    <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
+                    <span class="brand-text" style="line-height: 1.15; display: block;">NANO - Sapienza School<br>of Advanced Studies</span>
                 </div>
             </a>
 
@@ -905,9 +906,9 @@
                 <li><a href="index.html#program" data-i18n="nav_program">Scientific Program</a></li>
                 <li><a href="index.html#speakers" data-i18n="nav_keynotes">Speeches</a></li>
                 <li><a href="index.html#workshops" data-i18n="nav_workshops">Workshops</a></li>
-                <li><a href="workshops.html" style="color: var(--cyan);"><i class="fa-solid fa-vials"></i> <span
-                            data-i18n="nav_lab_signup">Lab Sign-up</span></a></li>
-                <li><a href="posters.html" style="color: var(--coral);"><i class="fa-solid fa-file-arrow-up"></i> Call for Posters</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-vials"></i> <span
+                            data-i18n="nav_lab_signup">Lab<br>Sign up</span></a></li>
+                <li><a href="posters.html" style="color: var(--coral); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-file-arrow-up"></i> <span>Call for<br>Posters</span></a></li>
                 <li><a href="index.html#secretary" data-i18n="nav_secretary">Organizers</a></li>
                 <li><a href="index.html#committee" data-i18n="nav_committee">Committee</a></li>
                 <!-- BEGINNER'S GUIDE TO HTML: LANGUAGE SWITCHER DROPDOWN -->
@@ -957,7 +958,7 @@
 
         <!-- Registration Form Card -->
         <div class="form-card" id="form-container">
-            <form id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
+            <form id="workshop-form" autocomplete="off" onsubmit="handleWorkshopSubmit(event)">
 
                 <!-- Section 1: Attendee Info -->
                 <div class="form-subtitle">
@@ -968,13 +969,13 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Full Name *</label>
-                        <input type="text" class="form-control" id="reg-name" placeholder="Name Surname" required>
+                        <input type="text" class="form-control" id="reg-name" placeholder="Name Surname" autocomplete="off" required>
                     </div>
 
                     <div class="form-group">
                         <label>University / Institution Email *</label>
                         <input type="email" class="form-control" id="reg-email"
-                            placeholder="name@domain.edu / uniroma1.it" required>
+                            placeholder="name@domain.edu / uniroma1.it" autocomplete="off" required>
                     </div>
 
                     <div class="form-group">
@@ -1018,7 +1019,7 @@
                         Session 3: Sept 18 Morning (Reticular Chem & Nanofluidics)
                     </label>
                     <label
-                        style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: var(--emerald); font-weight: 600; font-size: 0.95rem;">
+                        style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: var(--cyan); font-weight: 600; font-size: 0.95rem;">
                         <input type="checkbox" name="ws-sessions" value="Session 4 (Sept 18 Afternoon Workshop)" checked
                             disabled style="cursor: pointer; width: auto;">
                         Session 4: Sept 18 Afternoon (Hands-on Laboratory Workshop Selected Below)
@@ -1035,19 +1036,19 @@
 
                 <div class="ws-select-grid">
                     <!-- Workshop 1: AFM -->
-                    <div class="ws-select-card" data-value="afm" onclick="selectWorkshop('afm')">
+                    <div class="ws-select-card" data-value="afm" onclick="selectWorkshop('afm')" style="--card-color: #10B981;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/placidi.jpg" alt="Ernesto Placidi" class="ws-person-img" style="border-color: var(--cyan);" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/placidi.jpg" alt="Ernesto Placidi" class="ws-person-img" style="border-color: #10B981;" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--cyan);"><a href="https://www.researchgate.net/profile/Ernesto-Placidi" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Ernesto Placidi</a></div>
+                                        <div class="ws-leader-name" style="color: #10B981;"><a href="https://www.researchgate.net/profile/Ernesto-Placidi" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Ernesto Placidi</a></div>
                                         <div class="ws-affil">AFM Lab (Sapienza)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: var(--cyan); margin: 0;"><i class="fa-solid fa-microscope"></i></div>
+                                <div class="ws-icon" style="color: #10B981; margin: 0;"><i class="fa-solid fa-microscope"></i></div>
                             </div>
                             <h4>Atomic Force Microscopy (AFM)</h4>
                             <p class="ws-desc">Hands-on scanning probe microscopy to investigate surface morphology,
@@ -1060,20 +1061,20 @@
                     </div>
 
                     <!-- Workshop 2: Nanomedicine -->
-                    <div class="ws-select-card" data-value="nanomedicine" onclick="selectWorkshop('nanomedicine')">
+                    <div class="ws-select-card" data-value="nanomedicine" onclick="selectWorkshop('nanomedicine')" style="--card-color: #14B8A6;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/fabiano.jpg" alt="M. Gioia Fabiano" title="M. Gioia Fabiano" class="ws-person-img" style="border-color: var(--coral); z-index: 2;" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'">
-                                        <img src="images/workshops/dintino.jpg" alt="Eleonora D’Intino" title="Eleonora D’Intino" class="ws-person-img" style="border-color: var(--coral); margin-left: -12px; z-index: 1;" onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/fabiano.jpg" alt="M. Gioia Fabiano" title="M. Gioia Fabiano" class="ws-person-img" style="border-color: #14B8A6; z-index: 2;" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/dintino.jpg" alt="Eleonora D’Intino" title="Eleonora D’Intino" class="ws-person-img" style="border-color: #14B8A6; margin-left: -12px; z-index: 1;" onerror="this.src='https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--coral);"><a href="https://phd.uniroma1.it/web/MARIA-GIOIA-FABIANO_nT1664856_IT.aspx" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">M. Gioia Fabiano</a> & <a href="https://scholar.google.com/citations?user=lwa0ApUAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Eleonora D’Intino</a></div>
+                                        <div class="ws-leader-name" style="color: #14B8A6;"><a href="https://phd.uniroma1.it/web/MARIA-GIOIA-FABIANO_nT1664856_IT.aspx" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">M. Gioia Fabiano</a> & <a href="https://scholar.google.com/citations?user=lwa0ApUAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Eleonora D’Intino</a></div>
                                         <div class="ws-affil">Nanomedicine Lab (Sapienza)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: var(--coral); margin: 0;"><i class="fa-solid fa-capsules"></i></div>
+                                <div class="ws-icon" style="color: #14B8A6; margin: 0;"><i class="fa-solid fa-capsules"></i></div>
                             </div>
                             <h4>Nanomedicine Experience</h4>
                             <p class="ws-desc">Design, synthesis, and characterization of advanced lipid/polymer
@@ -1086,19 +1087,19 @@
                     </div>
 
                     <!-- Workshop 3: Quantum Well -->
-                    <div class="ws-select-card" data-value="quantum-well" onclick="selectWorkshop('quantum-well')">
+                    <div class="ws-select-card" data-value="quantum-well" onclick="selectWorkshop('quantum-well')" style="--card-color: #00F0FF;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/baldassarre.jpg" alt="Leonetta Baldassarre" class="ws-person-img" style="border-color: var(--amber);" onerror="this.src='https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/baldassarre.jpg" alt="Leonetta Baldassarre" class="ws-person-img" style="border-color: #00F0FF;" onerror="this.src='https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--amber);"><a href="https://scholar.google.com/citations?hl=it&user=5609-D4AAAAJ" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Leonetta Baldassarre</a></div>
+                                        <div class="ws-leader-name" style="color: #00F0FF;"><a href="https://scholar.google.com/citations?hl=it&user=5609-D4AAAAJ" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Leonetta Baldassarre</a></div>
                                         <div class="ws-affil">IR & THz Lab (Sapienza)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: var(--amber); margin: 0;"><i class="fa-solid fa-sun"></i></div>
+                                <div class="ws-icon" style="color: #00F0FF; margin: 0;"><i class="fa-solid fa-sun"></i></div>
                             </div>
                             <h4>Absorption in Quantum Well</h4>
                             <p class="ws-desc">Explore infrared and terahertz spectroscopy, characterizing plasmonics
@@ -1111,19 +1112,19 @@
                     </div>
 
                     <!-- Workshop 4: Nanowires -->
-                    <div class="ws-select-card" data-value="nanowires" onclick="selectWorkshop('nanowires')">
+                    <div class="ws-select-card" data-value="nanowires" onclick="selectWorkshop('nanowires')" style="--card-color: #38BDF8;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/deluca.jpg" alt="Marta De Luca" class="ws-person-img" style="border-color: var(--emerald);" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/deluca.jpg" alt="Marta De Luca" class="ws-person-img" style="border-color: #38BDF8;" onerror="this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--emerald);"><a href="https://www.nanospectroscopylab.com/team/marta" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marta De Luca</a></div>
+                                        <div class="ws-leader-name" style="color: #38BDF8;"><a href="https://www.nanospectroscopylab.com/team/marta" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marta De Luca</a></div>
                                         <div class="ws-affil">Micro-Raman Lab (Sapienza)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: var(--emerald); margin: 0;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                                <div class="ws-icon" style="color: #38BDF8; margin: 0;"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                             </div>
                             <h4>Semiconductor Nanowires</h4>
                             <p class="ws-desc">Investigate the optical and vibrational properties of 1D semiconductor
@@ -1136,19 +1137,19 @@
                     </div>
 
                     <!-- Workshop 5: Heritage Lab -->
-                    <div class="ws-select-card" data-value="heritage-lab" onclick="selectWorkshop('heritage-lab')">
+                    <div class="ws-select-card" data-value="heritage-lab" onclick="selectWorkshop('heritage-lab')" style="--card-color: #3B82F6;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/santarelli.jpg" alt="Maria Laura Santarelli" class="ws-person-img" style="border-color: #60A5FA;" onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/santarelli.jpg" alt="Maria Laura Santarelli" class="ws-person-img" style="border-color: #3B82F6;" onerror="this.src='https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: #60A5FA;"><a href="https://sites.google.com/a/uniroma1.it/marialaurasantarelli-eng/" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Maria Laura Santarelli</a></div>
+                                        <div class="ws-leader-name" style="color: #3B82F6;"><a href="https://sites.google.com/a/uniroma1.it/marialaurasantarelli-eng/" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Maria Laura Santarelli</a></div>
                                         <div class="ws-affil">Heritage Nanotech (Sapienza)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: #60A5FA; margin: 0;"><i class="fa-solid fa-landmark"></i></div>
+                                <div class="ws-icon" style="color: #3B82F6; margin: 0;"><i class="fa-solid fa-landmark"></i></div>
                             </div>
                             <h4>HERITAGE-LAB Nanotech</h4>
                             <p class="ws-desc">Practical application of materials science to historical artifacts:
@@ -1161,19 +1162,19 @@
                     </div>
 
                     <!-- Workshop 6: Photonics -->
-                    <div class="ws-select-card" data-value="photonics" onclick="selectWorkshop('photonics')">
+                    <div class="ws-select-card" data-value="photonics" onclick="selectWorkshop('photonics')" style="--card-color: #6366F1;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/felici.webp" alt="Marco Felici" class="ws-person-img" style="border-color: var(--violet);" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/felici.webp" alt="Marco Felici" class="ws-person-img" style="border-color: #6366F1;" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--violet);"><a href="https://scholar.google.com/citations?user=rQBVLH4AAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marco Felici</a></div>
+                                        <div class="ws-leader-name" style="color: #6366F1;"><a href="https://scholar.google.com/citations?user=rQBVLH4AAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Marco Felici</a></div>
                                         <div class="ws-affil">Photonics Lab (Sapienza)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: var(--violet); margin: 0;"><i class="fa-solid fa-lightbulb"></i></div>
+                                <div class="ws-icon" style="color: #6366F1; margin: 0;"><i class="fa-solid fa-lightbulb"></i></div>
                             </div>
                             <h4>Light and Photonics</h4>
                             <p class="ws-desc">Characterizing electronic and optical behavior of custom nanostructures
@@ -1187,19 +1188,19 @@
 
                     <!-- Workshop 7: Computational Plasmonics -->
                     <div class="ws-select-card" data-value="computational-plasmonics"
-                        onclick="selectWorkshop('computational-plasmonics')">
+                        onclick="selectWorkshop('computational-plasmonics')" style="--card-color: #A855F7;">
                         <div>
                             <div class="ws-header-row">
                                 <div class="ws-leader-box">
                                     <div class="ws-leader-avatars">
-                                        <img src="images/workshops/giovannini.jpg" alt="Tommaso Giovannini" class="ws-person-img" style="border-color: var(--indigo);" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80'">
+                                        <img src="images/workshops/giovannini.jpg" alt="Tommaso Giovannini" class="ws-person-img" style="border-color: #A855F7;" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80'">
                                     </div>
                                     <div class="ws-leader-info">
-                                        <div class="ws-leader-name" style="color: var(--indigo);"><a href="https://sites.google.com/view/tommaso-giovannini/home" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Tommaso Giovannini</a></div>
+                                        <div class="ws-leader-name" style="color: #A855F7;"><a href="https://sites.google.com/view/tommaso-giovannini/home" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Tommaso Giovannini</a></div>
                                         <div class="ws-affil">Computational Lab (Tor Vergata)</div>
                                     </div>
                                 </div>
-                                <div class="ws-icon" style="color: var(--indigo); margin: 0;"><i class="fa-solid fa-laptop-code"></i></div>
+                                <div class="ws-icon" style="color: #A855F7; margin: 0;"><i class="fa-solid fa-laptop-code"></i></div>
                             </div>
                             <h4>Computational Plasmonics</h4>
                             <p class="ws-desc">Perform theoretical simulations and molecular modeling of localized
@@ -1227,7 +1228,7 @@
             <div id="workshop-ticket-card" class="ticket-box" style="display: block; margin: 0 auto 0.8rem;">
             <div class="ticket-header">
                 <div
-                    style="width: 38px; height: 38px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--emerald); font-size: 1.3rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem;">
+                    style="width: 38px; height: 38px; border-radius: 50%; background: rgba(0, 240, 255, 0.2); color: var(--cyan); font-size: 1.3rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.4rem;">
                     <i class="fa-solid fa-check"></i>
                 </div>
                 <h3 style="font-family: var(--font-heading); font-size: 1.35rem; color: #FFF; margin-bottom: 0.15rem;">
@@ -1311,7 +1312,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div class="brand" style="margin-bottom: 1.2rem;">
-                    <div class="brand-logo">Ψ</div>
+                    <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 58px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                     <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
                 </div>
                 <p style="max-width: 400px; margin-bottom: 1.5rem;">
@@ -1448,14 +1449,22 @@
             }
         }
 
-        // Parse query params to auto-populate form
-        // Parse query params and localStorage to auto-populate form when arriving from index.html
+        // Parse query params to auto-populate form ONLY if navigating directly with URL params right now
         window.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('workshop-form');
+            if (form) form.reset();
+
             const params = new URLSearchParams(window.location.search);
-            const name = params.get('name') || localStorage.getItem('prefill_name');
-            const email = params.get('email') || localStorage.getItem('prefill_email');
-            const role = params.get('role') || localStorage.getItem('prefill_role');
-            const select = params.get('select') || localStorage.getItem('prefill_workshop');
+            const name = params.get('name');
+            const email = params.get('email');
+            const role = params.get('role');
+            const select = params.get('select');
+
+            // Clear any lingering prefill from previous site openings
+            localStorage.removeItem('prefill_name');
+            localStorage.removeItem('prefill_email');
+            localStorage.removeItem('prefill_role');
+            localStorage.removeItem('prefill_workshop');
 
             if (name) document.getElementById('reg-name').value = decodeURIComponent(name);
             if (email) document.getElementById('reg-email').value = decodeURIComponent(email);
@@ -1662,7 +1671,7 @@
             fetchWorkshopCountsFromSheet();
 
             const urlParams = new URLSearchParams(window.location.search);
-            const selectParam = urlParams.get('select') || localStorage.getItem('prefill_workshop');
+            const selectParam = urlParams.get('select');
             if (selectParam) {
                 const queryStr = selectParam.toLowerCase().trim();
                 let foundKey = Object.keys(workshopsData).find(k => k === queryStr || workshopsData[k].name.toLowerCase() === queryStr || workshopsData[k].name.toLowerCase().startsWith(queryStr.substring(0, 15)));
@@ -1899,7 +1908,7 @@
             `;
 
             const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 794px; height: 1123px; z-index: 999999; background: #070b14; margin: 0; padding: 0; overflow: hidden;';
+            wrapper.style.cssText = 'position: fixed !important; top: 0px !important; left: 0px !important; width: 794px !important; height: 1123px !important; z-index: 9999999 !important; background: #070b14 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; align-self: flex-start !important;';
             wrapper.appendChild(container);
             document.body.appendChild(wrapper);
 
@@ -1916,6 +1925,8 @@
                     scrollX: 0,
                     width: 794,
                     height: 1123,
+                    windowWidth: 794,
+                    windowHeight: 1123,
                     backgroundColor: '#070b14'
                 },
                 jsPDF: {
@@ -2102,7 +2113,7 @@
                 nav_program: "Scientific Program",
                 nav_keynotes: "Speeches",
                 nav_workshops: "Workshops",
-                nav_lab_signup: "Lab Sign-up",
+                nav_lab_signup: "Lab<br>Sign up",
                 nav_secretary: "Organizers",
                 nav_committee: "Committee",
                 nav_home: "Home Page",
@@ -2116,7 +2127,7 @@
                 nav_program: "Programma Scientifico",
                 nav_keynotes: "Relatori",
                 nav_workshops: "Laboratori",
-                nav_lab_signup: "Iscrizione Lab",
+                nav_lab_signup: "Iscrizione<br>Lab",
                 nav_secretary: "Organizzatori",
                 nav_committee: "Comitato",
                 nav_home: "Pagina Iniziale",
@@ -2130,7 +2141,7 @@
                 nav_program: "Wissenschaftliches Programm",
                 nav_keynotes: "Hauptredner",
                 nav_workshops: "Workshops",
-                nav_lab_signup: "Lab-Anmeldung",
+                nav_lab_signup: "Lab<br>Anmeldung",
                 nav_secretary: "Organisatoren",
                 nav_committee: "Komitee",
                 nav_home: "Startseite",
@@ -2144,7 +2155,7 @@
                 nav_program: "Programme Scientifique",
                 nav_keynotes: "Conférenciers",
                 nav_workshops: "Ateliers",
-                nav_lab_signup: "Inscription Lab",
+                nav_lab_signup: "Inscription<br>Lab",
                 nav_secretary: "Organisateurs",
                 nav_committee: "Comité",
                 nav_home: "Page d'Accueil",
@@ -2158,7 +2169,7 @@
                 nav_program: "Programa Científico",
                 nav_keynotes: "Ponentes",
                 nav_workshops: "Talleres",
-                nav_lab_signup: "Registro Lab",
+                nav_lab_signup: "Registro<br>Lab",
                 nav_secretary: "Organizadores",
                 nav_committee: "Comité",
                 nav_home: "Página Principal",
