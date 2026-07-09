@@ -91,7 +91,7 @@ def create_conference_workbook():
     ws_dash["B5"].fill = PatternFill(start_color="1E293B", end_color="1E293B", fill_type="solid")
     
     sessions = [
-        ("Session 1: Sept 17 Morning (Plenary Keynotes & Optics)", '*Session 1*'),
+        ("Session 1: Sept 17 Morning (Plenary Speeches & Optics)", '*Session 1*'),
         ("Session 2: Sept 17 Afternoon (Synthesis & Nanorestoration)", '*Session 2*'),
         ("Session 3: Sept 18 Morning (Reticular Chem & Nanofluidics)", '*Session 3*'),
         ("Session 4: Sept 18 Afternoon (Hands-on Laboratory Workshop)", '*Session 4*')
