@@ -77,21 +77,49 @@ def sync_db_and_csv():
     try:
         conn = sqlite3.connect(DB_FILE)
         cursor = conn.cursor()
+        
+        # Check if CSV file was modified more recently than the SQLite DB (i.e. human edited or deleted rows in CSV)
+        if os.path.exists(CSV_FILE) and os.path.exists(DB_FILE):
+            try:
+                if os.path.getmtime(CSV_FILE) > os.path.getmtime(DB_FILE) + 1.0:
+                    with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
+                        reader = csv.reader(f)
+                        rows = list(reader)
+                        if len(rows) >= 1:
+                            csv_rows = rows[1:] # skip header
+                            csv_emails = set()
+                            for r in csv_rows:
+                                if len(r) >= 3 and r[2].strip():
+                                    csv_emails.add(r[2].strip())
+                                    
+                            # If we found valid emails in CSV, remove any rows in SQLite that were deleted from CSV
+                            cursor.execute("SELECT email FROM registrations")
+                            db_emails = {row[0] for row in cursor.fetchall()}
+                            deleted_emails = db_emails - csv_emails
+                            for del_email in deleted_emails:
+                                cursor.execute("DELETE FROM registrations WHERE email = ?", (del_email,))
+                                print(f"[BI-DIRECTIONAL SYNC] Detected deletion of {del_email} from CSV. Removed from DB.")
+                                
+                            # Also add/update rows from CSV into SQLite if missing or modified
+                            for r in csv_rows:
+                                if len(r) >= 5 and r[2].strip():
+                                    ts = r[0].strip() if len(r) > 0 and r[0].strip() else get_local_now()
+                                    name = r[1].strip() if len(r) > 1 else "Unknown"
+                                    email = r[2].strip()
+                                    role = r[3].strip() if len(r) > 3 else "Delegate"
+                                    ws = r[4].strip() if len(r) > 4 and r[4].strip() != "None (Plenary Only)" else None
+                                    cursor.execute("""
+                                        INSERT INTO registrations (name, email, role, workshop, registered_at)
+                                        VALUES (?, ?, ?, ?, ?)
+                                        ON CONFLICT(email) DO UPDATE SET name=excluded.name, role=excluded.role, workshop=excluded.workshop
+                                    """, (name, email, role, ws, ts))
+                            conn.commit()
+            except Exception as e:
+                print(f"[BI-DIRECTIONAL SYNC WARNING] Could not sync from CSV: {e}")
+
         cursor.execute("SELECT id, name, email, role, workshop, registered_at FROM registrations ORDER BY id ASC")
         db_rows = cursor.fetchall()
         
-        # Check if CSV exists and has entries that might differ or if we should sync
-        csv_rows = []
-        if os.path.exists(CSV_FILE):
-            try:
-                with open(CSV_FILE, mode='r', encoding='utf-8-sig') as f:
-                    reader = csv.reader(f)
-                    rows = list(reader)
-                    if len(rows) > 1:
-                        csv_rows = rows[1:]
-            except Exception as e:
-                pass
-                
         # Write exact db_rows to CSV file to ensure perfect consistency
         with open(CSV_FILE, mode='w', encoding='utf-8-sig', newline='') as f:
             writer = csv.writer(f)

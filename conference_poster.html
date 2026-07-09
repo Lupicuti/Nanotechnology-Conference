@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nano: Is the future hidden at the nanoscale? | Printable 1-Page Conference Flyer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- HTML2PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #070b14;
+            --card-bg: rgba(18, 26, 45, 0.92);
+            --cyan: #00F0FF;
+            --indigo: #6366F1;
+            --pink: #FF5E7E;
+            --amber: #F59E0B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #070b14;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px 0;
+            overflow-x: hidden;
+        }
+
+        /* Floating Action Toolbar (Web only - hidden in PDF/Print) */
+        .toolbar {
+            position: sticky;
+            top: 15px;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 50px;
+            padding: 10px 22px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .toolbar button {
+            background: linear-gradient(135deg, #00F0FF, #0072FF);
+            color: #000;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 14px;
+            padding: 9px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .toolbar button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.7);
+        }
+
+        .toolbar a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 9px 18px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .toolbar a:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        /* =====================================================================
+           EXACT 1-PAGE A4 POSTER CANVAS (794px × 1123px)
+           ===================================================================== */
+        .poster-sheet {
+            width: 794px;
+            height: 1123px;
+            max-height: 1123px;
+            background: radial-gradient(circle at 15% 15%, rgba(255, 94, 126, 0.2) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.2) 0%, transparent 45%),
+                        linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%);
+            border: 1.5px solid rgba(0, 240, 255, 0.35);
+            border-radius: 8px;
+            padding: 30px 34px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .poster-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: radial-gradient(rgba(0, 240, 255, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .poster-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1.5px solid rgba(0, 240, 255, 0.25);
+            padding-bottom: 12px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--cyan);
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.6);
+        }
+
+        .header-titles .top-line {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #FFF;
+            text-transform: uppercase;
+        }
+
+        .header-titles .sub-line {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .header-date-badge {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid var(--cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 1px;
+        }
+
+        /* Hero Title Banner */
+        .hero-banner {
+            text-align: center;
+            margin: 6px 0;
+        }
+
+        /* Solid white + glowing cyan shadow avoids html2canvas background-clip bugs */
+        .hero-banner h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 30px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            line-height: 1.15;
+            color: #FFFFFF;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+            margin-bottom: 6px;
+        }
+
+        .hero-banner .theme-box {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.1);
+            border: 1.5px solid rgba(0, 240, 255, 0.4);
+            border-radius: 8px;
+            padding: 6px 16px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: var(--cyan);
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+        }
+
+        .hero-banner .subtitle {
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* Side-by-Side Speakers and Workshops Columns */
+        .side-by-side-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            flex: 1;
+            margin: 8px 0;
+        }
+
+        .section-box {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .section-box.highlight {
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #FFF;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+        }
+
+        .section-title span.tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: rgba(0, 240, 255, 0.15);
+            color: var(--cyan);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .section-title span.tag.pink {
+            background: rgba(255, 94, 126, 0.15);
+            color: var(--pink);
+            border-color: rgba(255, 94, 126, 0.3);
+        }
+
+        /* Vertical Stacked Cards */
+        .vertical-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            justify-content: space-around;
+        }
+
+        .list-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 7px;
+            padding: 5px 9px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .list-card .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 11.8px;
+        }
+
+        .list-card.speaker {
+            border-color: rgba(0, 240, 255, 0.22);
+            background: rgba(0, 240, 255, 0.04);
+        }
+
+        .list-card.speaker strong {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .list-card.speaker span.univ {
+            color: var(--text-muted);
+            font-size: 10.5px;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .list-card.speaker .card-sub {
+            font-size: 10px;
+            color: #E2E8F0;
+            font-weight: 500;
+            line-height: 1.25;
+            font-style: italic;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list-card.workshop {
+            border-color: rgba(255, 94, 126, 0.22);
+            background: rgba(255, 94, 126, 0.04);
+        }
+
+        .list-card.workshop strong {
+            color: #FFF;
+            font-weight: 700;
+        }
+
+        .list-card.workshop span.univ.pink-univ {
+            color: var(--pink);
+            font-size: 10.5px;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .list-card.workshop .card-sub {
+            font-size: 10.2px;
+            color: #CBD5E1;
+            font-weight: 600;
+            line-height: 1.25;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .list-card.more-tag {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(255, 94, 126, 0.25));
+            border-color: var(--amber);
+            color: #FFF;
+            font-size: 11.5px;
+            font-weight: 800;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+            padding: 7px 10px;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+        }
+
+        /* Bottom Grid: Scientific Committee & Call for Posters */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.22fr 0.78fr;
+            gap: 14px;
+            margin-bottom: 8px;
+        }
+
+        .committee-box, .call-box-poster {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .committee-box {
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.06);
+        }
+
+        .call-box-poster {
+            border-color: rgba(245, 158, 11, 0.35);
+        }
+
+        .section-title span.tag.indigo {
+            background: rgba(99, 102, 241, 0.15);
+            color: #A5B4FC;
+            border-color: rgba(99, 102, 241, 0.35);
+        }
+
+        .section-title span.tag.amber {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--amber);
+            border-color: rgba(245, 158, 11, 0.35);
+        }
+
+        .committee-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4.5px;
+            margin-top: 2px;
+        }
+
+        .comm-pill {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.28);
+            border-radius: 5px;
+            padding: 3px 6.5px;
+            font-size: 10px;
+            color: #E2E8F0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .comm-pill i {
+            color: var(--indigo);
+            font-size: 9px;
+        }
+
+        .comm-pill strong {
+            color: #FFF;
+        }
+
+        .call-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        .call-text strong {
+            color: #FFF;
+        }
+
+        /* Footer Contacts & QR Code Bar */
+        .footer-contacts {
+            background: rgba(10, 16, 29, 0.95);
+            border: 1.5px solid rgba(0, 240, 255, 0.3);
+            border-radius: 12px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-col {
+            flex: 1;
+        }
+
+        .contact-col h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12.5px;
+            font-weight: 800;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .contact-col p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        .contact-col p strong {
+            color: #FFF;
+        }
+
+        .contact-col a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        .qr-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 7px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .qr-img {
+            width: 68px;
+            height: 68px;
+            background: #FFF;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+        .qr-text {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            line-height: 1.3;
+            max-width: 135px;
+        }
+
+        .qr-text strong {
+            color: var(--cyan);
+            font-size: 12px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* Print / PDF exact page overrides */
+        @media print {
+            body {
+                background: #070b14 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .toolbar {
+                display: none !important;
+            }
+            .poster-sheet {
+                width: 100% !important;
+                height: 100vh !important;
+                max-height: 100vh !important;
+                margin: 0 !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Action Toolbar (Web only - not in PDF/Print) -->
+    <div class="toolbar" id="action-toolbar">
+        <button onclick="downloadPosterPdf()">
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download 1-Page Printable PDF
+        </button>
+        <a href="index.html">
+            Visit Conference Portal
+        </a>
+    </div>
+
+    <!-- EXACT 1-PAGE A4 POSTER CANVAS -->
+    <div class="poster-sheet" id="poster-canvas">
+        <div class="poster-content">
+            
+            <!-- Top Header Bar -->
+            <div class="header-bar">
+                <div class="header-brand">
+                    <div class="header-logo">Ψ</div>
+                    <div class="header-titles">
+                        <div class="top-line">NANO - Sapienza School of Advanced Studies</div>
+                        <div class="sub-line">International Interdisciplinary Conference on Quantum Technology & Nanoscale Engineering</div>
+                    </div>
+                </div>
+                <div class="header-date-badge">
+                    SEPT 17–18, 2026 • ROME
+                </div>
+            </div>
+
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <h1>Nano: Is the future hidden at the nanoscale?</h1>
+                <div class="theme-box">SAPIENZA NANO & TECH 2026</div>
+                <div class="subtitle">
+                    A 2-Day Scientific Immersion Organized by the Sapienza School of Advanced Studies (SSAS)<br>
+                    <strong>Plenary Speeches • Hands-On Laboratory Workshops • Poster Exhibition</strong>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Speakers & Workshops Grid -->
+            <div class="side-by-side-grid">
+                
+                <!-- Left Column: Speeches -->
+                <div class="section-box highlight">
+                    <div class="section-title">
+                        <span>Distinguished Speeches</span>
+                        <span class="tag">Global Leaders</span>
+                    </div>
+                    <div class="vertical-list">
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof. Carlo Beenakker</strong>
+                                <span class="univ">Leiden University</span>
+                            </div>
+                            <div class="card-sub">Mesoscopic Physics & Majorana Fermions in Quantum Transport</div>
+                        </div>
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof. Kazu Suenaga</strong>
+                                <span class="univ">Osaka University / AIST</span>
+                            </div>
+                            <div class="card-sub">Single-Atom Imaging & EELS in Low-Dimensional Nanomaterials</div>
+                        </div>
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof. Maximilian Haider</strong>
+                                <span class="univ">CEOS GmbH • MORE-TEM PI</span>
+                            </div>
+                            <div class="card-sub">Aberration-Corrected Electron Microscopy & Sub-Angstrom Optics</div>
+                        </div>
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof. Francesco De Angelis</strong>
+                                <span class="univ">Istituto Italiano di Tecnologia</span>
+                            </div>
+                            <div class="card-sub">3D Plasmonic Nanostructures & Advanced Optical Biosensors</div>
+                        </div>
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof.ssa Camilla Coletti</strong>
+                                <span class="univ">Istituto Italiano di Tecnologia</span>
+                            </div>
+                            <div class="card-sub">Scalable CVD Synthesis of Pristine 2D Heterostructures</div>
+                        </div>
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof.ssa Giulia Serrano</strong>
+                                <span class="univ">University of Florence</span>
+                            </div>
+                            <div class="card-sub">Surface Science & Molecular Magnetism for Spintronics</div>
+                        </div>
+                        <div class="list-card speaker">
+                            <div class="card-top">
+                                <strong>Prof. Alessandro Tredicucci</strong>
+                                <span class="univ">University of Pisa</span>
+                            </div>
+                            <div class="card-sub">Terahertz Photonics & Quantum Cascade Polaritonics</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Laboratory Workshops -->
+                <div class="section-box">
+                    <div class="section-title">
+                        <span>Practical Workshops</span>
+                        <span class="tag pink">Experimental Training</span>
+                    </div>
+                    <div class="vertical-list">
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>Dr. Ernesto Placidi</strong>
+                                <span class="univ pink-univ">Sapienza Physics</span>
+                            </div>
+                            <div class="card-sub">Atomic Force Microscopy (AFM)</div>
+                        </div>
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>M. Gioia Fabiano & E. D’Intino</strong>
+                                <span class="univ pink-univ">Drug Technologies</span>
+                            </div>
+                            <div class="card-sub">Nanomedicine Experience</div>
+                        </div>
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>Dr.ssa Leonetta Baldassarre</strong>
+                                <span class="univ pink-univ">IR & THz Facility</span>
+                            </div>
+                            <div class="card-sub">Absorption in Quantum Well</div>
+                        </div>
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>Dr.ssa Marta De Luca</strong>
+                                <span class="univ pink-univ">Micro-Raman Lab</span>
+                            </div>
+                            <div class="card-sub">Semiconductor Nanowires</div>
+                        </div>
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>Prof.ssa Maria Laura Santarelli</strong>
+                                <span class="univ pink-univ">Heritage Nanotech</span>
+                            </div>
+                            <div class="card-sub">HERITAGE-LAB Nanotech</div>
+                        </div>
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>Dr. Marco Felici</strong>
+                                <span class="univ pink-univ">Photonics Lab</span>
+                            </div>
+                            <div class="card-sub">Light and Photonics</div>
+                        </div>
+                        <div class="list-card workshop">
+                            <div class="card-top">
+                                <strong>Dr. Tommaso Giovannini</strong>
+                                <span class="univ pink-univ">Tor Vergata / Sapienza</span>
+                            </div>
+                            <div class="card-sub">Computational Plasmonics</div>
+                        </div>
+                        <div class="list-card more-tag">
+                            ✨ ...and many more hands-on training sessions!
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Grid: Scientific Committee & Call for Posters -->
+            <div class="bottom-grid">
+                
+                <!-- Scientific Committee Box -->
+                <div class="section-box committee-box">
+                    <div class="section-title">
+                        <span>Scientific Committee</span>
+                        <span class="tag indigo">Sapienza Leadership</span>
+                    </div>
+                    <div class="committee-pills">
+                        <div class="comm-pill"><i class="fa-solid fa-dna"></i> <span><strong>Michele Ortolani</strong> (Biophysics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-dna"></i> <span><strong>Valeria Giliberti</strong> (Biophysics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-dna"></i> <span><strong>Roberto Di Leonardo</strong> (Biophysics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Bernard Van Heck</strong> (Physics & Optics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Marta De Luca</strong> (Physics & Optics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Jose Lorenzana</strong> (Physics & Optics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-atom"></i> <span><strong>Fabio Sciarrino</strong> (Physics & Optics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-cubes"></i> <span><strong>Paola D’Angelo</strong> (MOFs & Chem)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-water"></i> <span><strong>Mirko Gallo</strong> (Nanofluidics)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-heart-pulse"></i> <span><strong>Maria Carafa</strong> (Nanomedicine)</span></div>
+                        <div class="comm-pill"><i class="fa-solid fa-monument"></i> <span><strong>M. Laura Santarelli</strong> (Nanorestoration)</span></div>
+                    </div>
+                </div>
+
+                <!-- Call for Posters Box -->
+                <div class="section-box call-box-poster">
+                    <div class="section-title">
+                        <span>Call for Posters</span>
+                        <span class="tag amber">Sept 5 Deadline</span>
+                    </div>
+                    <p class="call-text">
+                        Are you a PhD candidate, Postdoc, or Early-Career Scientist? Submit your breakthrough abstract for the official <strong>Evening Poster Gallery & Cocktail Reception</strong>. Gain high-visibility interaction with international speakers and scientific committee peers.<br><br>
+                        <strong style="color: var(--amber);"><i class="fa-solid fa-calendar-check"></i> Submission Deadline: Sept 5, 2026</strong>
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Footer Contacts & QR Code Bar -->
+            <div class="footer-contacts">
+                <div class="contact-col">
+                    <h4>Conference Venue</h4>
+                    <p>
+                        <strong>Aula Amaldi & San Pietro in Vincoli</strong><br>
+                        Edificio Guglielmo Marconi - Dipartimento di Fisica<br>
+                        Sapienza Università di Roma, Piazzale Aldo Moro 5, Rome
+                    </p>
+                </div>
+
+                <div class="contact-col">
+                    <h4>Organizers & Contacts</h4>
+                    <p>
+                        <strong>Francesco Lupicuti:</strong> <a href="mailto:lupicuti.2141621@studenti.uniroma1.it">lupicuti.2141621@studenti.uniroma1.it</a><br>
+                        <strong>Piergiorgio Lazzarino:</strong> <a href="mailto:lazzarino.2120485@studenti.uniroma1.it">lazzarino.2120485@studenti.uniroma1.it</a><br>
+                        Organized by <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer">Sapienza School of Advanced Studies (SSAS)</a>
+                    </p>
+                </div>
+
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Flupicuti.github.io%2FNanotechnology-Conference%2F&color=000000&bgcolor=FFFFFF" alt="QR Code" class="qr-img">
+                    <div class="qr-text">
+                        <strong>FREE ENTRY</strong>
+                        Scan QR Code or visit website to register & secure your pass!
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function downloadPosterPdf() {
+            const element = document.getElementById('poster-canvas');
+            const toolbar = document.getElementById('action-toolbar');
+            if (toolbar) toolbar.style.display = 'none';
+
+            // Create an isolated top-left container for html2pdf so html2canvas never shifts or clips
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = 'position: fixed; top: 0; left: 0; width: 794px; height: 1123px; z-index: 999999; background: #070b14; margin: 0; padding: 0; overflow: hidden;';
+            
+            const clone = element.cloneNode(true);
+            clone.style.cssText = 'box-sizing: border-box !important; width: 794px !important; height: 1123px !important; max-height: 1123px !important; margin: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; position: absolute !important; top: 0 !important; left: 0 !important; background: #070b14 !important;';
+            
+            wrapper.appendChild(clone);
+            document.body.appendChild(wrapper);
+
+            const opt = {
+                margin:       0,
+                filename:     'Nano_Is_the_future_hidden_at_the_nanoscale_Poster.pdf',
+                image:        { type: 'jpeg', quality: 1.0 },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true, 
+                    logging: false, 
+                    x: 0,
+                    y: 0,
+                    scrollX: 0,
+                    scrollY: 0,
+                    width: 794, 
+                    height: 1123,
+                    backgroundColor: '#070b14'
+                },
+                jsPDF:        { unit: 'px', format: [794, 1123], orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(clone).save().then(() => {
+                document.body.removeChild(wrapper);
+                if (toolbar) toolbar.style.display = 'flex';
+            });
+        }
+    </script>
+</body>
+</html>
