@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nanos: Is the future hidden at the nanoscale? | Printable 1-Page Conference Flyer</title>
+    <title>Nanos: Can the invisible reshape our future? | Printable 1-Page Conference Flyer</title>
     <!-- Google Fonts -->
     <!-- OpenGraph / Social Media Preview Cards -->
     <meta property="og:title" content="Conference Poster | Nanos 2026">
@@ -510,7 +510,7 @@
             <!-- Hero Banner / Main Title -->
             <div class="hero-banner" style="margin: 6px 0 14px; padding: 12px 16px; background: linear-gradient(135deg, rgba(18, 26, 45, 0.7), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);">
                 <h1 style="font-size: 28px; margin-bottom: 6px; color: #FFF; line-height: 1.2;">
-                    Nanos: Is the future hidden at the nanoscale?
+                    Nanos: Can the invisible reshape our future?
                 </h1>
                 <div class="subtitle" style="font-size: 13px; color: #E2E8F0; margin-top: 4px;">
                     A 2-Day Scientific Immersion • <strong style="color: #00F0FF;">Plenary Speeches</strong> & <strong style="color: #6366F1;">Hands-On Laboratory Workshops</strong>
@@ -712,7 +712,7 @@
 
             const opt = {
                 margin:       0,
-                filename:     'Nanos_Is_the_future_hidden_at_the_nanoscale_Poster.pdf',
+                filename:     'Nanos_Can_the_invisible_reshape_our_future_Poster.pdf',
                 image:        { type: 'jpeg', quality: 1.0 },
                 html2canvas:  { 
                     scale: 2, 
@@ -732,16 +732,25 @@
             };
 
             setTimeout(() => {
-                html2pdf().set(opt).from(clone).save().then(() => {
+                if (typeof html2pdf !== 'undefined') {
+                    html2pdf().set(opt).from(clone).save().then(() => {
+                        if (clone.parentNode) clone.parentNode.removeChild(clone);
+                        window.scrollTo(origScrollX, origScrollY);
+                        if (toolbar) toolbar.style.display = 'flex';
+                    }).catch(err => {
+                        console.warn('html2pdf save failed, triggering print dialog fallback:', err);
+                        if (clone.parentNode) clone.parentNode.removeChild(clone);
+                        window.scrollTo(origScrollX, origScrollY);
+                        if (toolbar) toolbar.style.display = 'flex';
+                        window.print();
+                    });
+                } else {
                     if (clone.parentNode) clone.parentNode.removeChild(clone);
                     window.scrollTo(origScrollX, origScrollY);
                     if (toolbar) toolbar.style.display = 'flex';
-                }).catch(() => {
-                    if (clone.parentNode) clone.parentNode.removeChild(clone);
-                    window.scrollTo(origScrollX, origScrollY);
-                    if (toolbar) toolbar.style.display = 'flex';
-                });
-            }, 400);
+                    window.print();
+                }
+            }, 350);
         }
     </script>
 </body>

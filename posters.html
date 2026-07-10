@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sapienza Conference 2026 | Scientific Poster Submission & Registration</title>
+    <title>Nanos: Can the invisible reshape our future? | Scientific Poster Submission & Registration</title>
     <meta name="description"
         content="Submit your research abstract and register for the Scientific Poster Session at the Sapienza Nanos & Tech 2026 Conference.">
 
@@ -115,13 +115,23 @@
 
         /* Navbar */
         .navbar {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            background: rgba(7, 11, 20, 0.85);
+            padding: 0.8rem 2%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(7, 11, 20, 0.4);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-light);
-            padding: 0.8rem 2%;
+        }
+
+        .navbar.scrolled {
+            padding: 0.6rem 2%;
+            background: rgba(7, 11, 20, 0.85);
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
         }
 
         .nav-container {
@@ -136,47 +146,46 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.75rem;
             text-decoration: none;
-            color: var(--text-main);
         }
 
         .brand-logo {
             width: 42px;
             height: 42px;
-            background: linear-gradient(135deg, var(--coral), var(--violet));
-            border-radius: 12px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #FFF;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            font-size: 1.25rem;
+            color: #000;
+            font-weight: 800;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
         }
 
         .brand-text {
             font-family: var(--font-heading);
             font-weight: 700;
-            font-size: 1.25rem;
-            line-height: 1.15;
+            font-size: 1.2rem;
             letter-spacing: -0.5px;
-            display: block;
+            background: linear-gradient(90deg, #FFF, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .brand-sub {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             display: block;
-            text-transform: uppercase;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: clamp(0.8rem, 1.4vw, 2rem);
             list-style: none;
+            gap: clamp(0.8rem, 1.4vw, 2rem);
             align-items: center;
         }
 
@@ -185,11 +194,84 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
+            transition: color 0.2s;
+            position: relative;
         }
 
         .nav-links a:hover {
-            color: var(--coral);
+            color: var(--cyan);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cyan);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFF;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Language Switcher Dropdown */
+        .lang-switcher-container {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 0.5rem;
+        }
+
+        .lang-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(18, 26, 45, 0.8);
+            border: 1px solid var(--border-glow);
+            border-radius: 30px;
+            color: #FFF;
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.5rem 2.2rem 0.5rem 1rem;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+        }
+
+        .lang-select:hover,
+        .lang-select:focus {
+            background: rgba(28, 40, 68, 0.95);
+            border-color: var(--cyan);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .lang-select option {
+            background: #070B14;
+            color: #FFF;
+            padding: 0.5rem;
+        }
+
+        .lang-icon {
+            position: absolute;
+            right: 0.8rem;
+            pointer-events: none;
+            color: var(--cyan);
+            font-size: 0.75rem;
         }
 
         .btn {
@@ -197,41 +279,46 @@
             align-items: center;
             gap: 0.6rem;
             padding: 0.75rem 1.6rem;
-            border-radius: 100px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
             font-weight: 600;
             font-size: 0.95rem;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
             border: none;
+            outline: none;
         }
 
         .btn-glow {
-            background: linear-gradient(135deg, var(--coral), var(--violet));
-            color: #FFF;
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.35);
+            background: linear-gradient(135deg, var(--cyan), var(--indigo));
+            color: #070B14;
+            font-weight: 700;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
         }
 
         .btn-glow:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(16, 185, 129, 0.55);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+            color: #000;
         }
 
         .btn-outline {
-            background: transparent;
-            color: var(--cyan);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
             border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
         }
 
         .btn-outline:hover {
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 240, 255, 0.12);
             border-color: var(--cyan);
             transform: translateY(-2px);
         }
 
         /* Header Section */
         .header-section {
-            padding: 4rem 5% 2rem;
+            padding: 9rem 5% 3rem;
             text-align: center;
             max-width: 900px;
             margin: 0 auto;
@@ -377,10 +464,37 @@
             font-size: 0.85rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
             .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(7, 11, 20, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-glow);
+                padding: 2rem;
+                gap: 1.5rem;
+                z-index: 999;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+                text-align: center;
             }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .main-container {
                 grid-template-columns: 1fr;
             }
@@ -925,7 +1039,9 @@
             const qrTarget = container.querySelector('#pass-local-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
-                    new QRCode(qrTarget, {
+                    qrTarget.innerHTML = '';
+                    const tempDiv = document.createElement('div');
+                    new QRCode(tempDiv, {
                         text: passId + '|' + name,
                         width: 96,
                         height: 96,
@@ -933,20 +1049,34 @@
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
                     });
+                    setTimeout(() => {
+                        const canvasEl = tempDiv.querySelector('canvas');
+                        const imgEl = tempDiv.querySelector('img');
+                        let dataUrl = '';
+                        if (canvasEl && canvasEl.toDataURL) dataUrl = canvasEl.toDataURL('image/png');
+                        else if (imgEl && imgEl.src && imgEl.src.startsWith('data:')) dataUrl = imgEl.src;
+                        
+                        if (dataUrl) {
+                            qrTarget.innerHTML = `<img src="${dataUrl}" style="width: 96px; height: 96px; display: block; border-radius: 6px;">`;
+                        } else {
+                            qrTarget.innerHTML = `<div style="width: 96px; height: 96px; background: #FFF; color: #000; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
+                        }
+                    }, 50);
                 } catch (e) {
-                    qrTarget.innerHTML = `<span style="font-size: 10px; color:#000;">${passId}</span>`;
+                    qrTarget.innerHTML = `<div style="width: 96px; height: 96px; background: #FFF; color: #000; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
                 }
             } else if (qrTarget) {
-                qrTarget.innerHTML = `<span style="font-size: 10px; color:#000;">${passId}</span>`;
+                qrTarget.innerHTML = `<div style="width: 96px; height: 96px; background: #FFF; color: #000; font-weight: 800; font-size: 10px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
             }
 
             const opt = {
                 margin: 0,
-                filename: `SSAS_Poster_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                filename: `SSAS_Poster_Pass_${name.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
+                    allowTaint: true,
                     x: 0,
                     y: 0,
                     scrollY: 0,
@@ -964,16 +1094,23 @@
                 }
             };
 
-            // Allow 400ms for browser layout & canvas rendering to ensure high-fidelity export
             setTimeout(() => {
-                html2pdf().set(opt).from(container).save().then(() => {
+                if (typeof html2pdf !== 'undefined') {
+                    html2pdf().set(opt).from(container).save().then(() => {
+                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        window.scrollTo(origScrollX, origScrollY);
+                    }).catch(err => {
+                        console.warn('html2pdf save failed, triggering print dialog fallback:', err);
+                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        window.scrollTo(origScrollX, origScrollY);
+                        window.print();
+                    });
+                } else {
                     if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
                     window.scrollTo(origScrollX, origScrollY);
-                }).catch(() => {
-                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                    window.scrollTo(origScrollX, origScrollY);
-                });
-            }, 400);
+                    window.print();
+                }
+            }, 350);
         }
 
         // Toggle mobile menu

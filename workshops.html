@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sapienza Conference 2026 | Workshop & Lab Registration</title>
+    <title>Nanos: Can the invisible reshape our future? | Workshop & Lab Registration</title>
     <meta name="description"
         content="Register for parallel hands-on laboratory workshops at the Sapienza Conference. Choose from AFM, Nanomedicine, Quantum Well Spectroscopy, Semiconductor Nanowires, and more.">
 
@@ -1462,22 +1462,16 @@
             }
         }
 
-        // Parse query params to auto-populate form ONLY if navigating directly with URL params right now
+        // Parse query params or localStorage to auto-populate form
         window.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('workshop-form');
             if (form) form.reset();
 
             const params = new URLSearchParams(window.location.search);
-            const name = params.get('name');
-            const email = params.get('email');
-            const role = params.get('role');
-            const select = params.get('select');
-
-            // Clear any lingering prefill from previous site openings
-            localStorage.removeItem('prefill_name');
-            localStorage.removeItem('prefill_email');
-            localStorage.removeItem('prefill_role');
-            localStorage.removeItem('prefill_workshop');
+            const name = params.get('name') || localStorage.getItem('prefill_name');
+            const email = params.get('email') || localStorage.getItem('prefill_email');
+            const role = params.get('role') || localStorage.getItem('prefill_role');
+            const select = params.get('select') || localStorage.getItem('prefill_workshop');
 
             if (name) document.getElementById('reg-name').value = decodeURIComponent(name);
             if (email) document.getElementById('reg-email').value = decodeURIComponent(email);
@@ -1492,7 +1486,7 @@
                 }
             }
             if (select) {
-                const queryStr = select.toLowerCase().trim();
+                const queryStr = decodeURIComponent(select).toLowerCase().trim();
                 let foundKey = Object.keys(workshopsData).find(k => k === queryStr || workshopsData[k].name.toLowerCase() === queryStr || workshopsData[k].name.toLowerCase().startsWith(queryStr.substring(0, 15)));
                 if (foundKey) {
                     selectWorkshop(foundKey);
@@ -1502,6 +1496,12 @@
                     }, 200);
                 }
             }
+            
+            // Clear prefill after reading so subsequent independent registrations are clean
+            localStorage.removeItem('prefill_name');
+            localStorage.removeItem('prefill_email');
+            localStorage.removeItem('prefill_role');
+            localStorage.removeItem('prefill_workshop');
         });
 
         // ==========================================================
@@ -1929,7 +1929,9 @@
             const qrTarget = container.querySelector('#pass-local-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
-                    new QRCode(qrTarget, {
+                    qrTarget.innerHTML = '';
+                    const tempDiv = document.createElement('div');
+                    new QRCode(tempDiv, {
                         text: passId + '|' + name + '|' + workshop,
                         width: 114,
                         height: 114,
@@ -1937,20 +1939,34 @@
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
                     });
+                    setTimeout(() => {
+                        const canvasEl = tempDiv.querySelector('canvas');
+                        const imgEl = tempDiv.querySelector('img');
+                        let dataUrl = '';
+                        if (canvasEl && canvasEl.toDataURL) dataUrl = canvasEl.toDataURL('image/png');
+                        else if (imgEl && imgEl.src && imgEl.src.startsWith('data:')) dataUrl = imgEl.src;
+                        
+                        if (dataUrl) {
+                            qrTarget.innerHTML = `<img src="${dataUrl}" style="width: 114px; height: 114px; display: block; border-radius: 6px;">`;
+                        } else {
+                            qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
+                        }
+                    }, 50);
                 } catch (e) {
-                    qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+                    qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
                 }
             } else if (qrTarget) {
-                qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+                qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
             }
 
             const opt = {
                 margin: 0,
-                filename: `SSAS_Workshop_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                filename: `SSAS_Workshop_Pass_${name.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
+                    allowTaint: true,
                     x: 0,
                     y: 0,
                     scrollY: 0,
@@ -1968,16 +1984,23 @@
                 }
             };
 
-            // Allow 400ms for browser layout & canvas rendering to ensure high-fidelity export
             setTimeout(() => {
-                html2pdf().set(opt).from(container).save().then(() => {
+                if (typeof html2pdf !== 'undefined') {
+                    html2pdf().set(opt).from(container).save().then(() => {
+                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        window.scrollTo(origScrollX, origScrollY);
+                    }).catch(err => {
+                        console.warn('html2pdf save failed, triggering print dialog fallback:', err);
+                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        window.scrollTo(origScrollX, origScrollY);
+                        window.print();
+                    });
+                } else {
                     if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
                     window.scrollTo(origScrollX, origScrollY);
-                }).catch(() => {
-                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                    window.scrollTo(origScrollX, origScrollY);
-                });
-            }, 400);
+                    window.print();
+                }
+            }, 350);
         }
 
         // Add Reserved Workshop to Google Calendar

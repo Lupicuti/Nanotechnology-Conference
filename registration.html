@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sapienza Conference 2026 | Conference Pass Registration</title>
+    <title>Nanos: Can the invisible reshape our future? | Conference Pass Registration</title>
     <meta name="description"
         content="Register for your free digital pass to attend the Sapienza Nanos & Tech 2026 Conference at Aula Amaldi, Physics Dept, Rome.">
 
@@ -96,13 +96,23 @@
 
         /* Navbar */
         .navbar {
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            background: rgba(7, 11, 20, 0.85);
+            padding: 0.8rem 2%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(7, 11, 20, 0.4);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border-light);
-            padding: 0.8rem 2%;
+        }
+
+        .navbar.scrolled {
+            padding: 0.6rem 2%;
+            background: rgba(7, 11, 20, 0.85);
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
         }
 
         .nav-container {
@@ -117,47 +127,46 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.75rem;
             text-decoration: none;
-            color: var(--text-main);
         }
 
         .brand-logo {
             width: 42px;
             height: 42px;
+            border-radius: 10px;
             background: linear-gradient(135deg, var(--cyan), var(--indigo));
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-mono);
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: #FFF;
+            font-size: 1.25rem;
+            color: #000;
+            font-weight: 800;
             box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
         }
 
         .brand-text {
             font-family: var(--font-heading);
             font-weight: 700;
-            font-size: 1.25rem;
-            line-height: 1.15;
+            font-size: 1.2rem;
             letter-spacing: -0.5px;
-            display: block;
+            background: linear-gradient(90deg, #FFF, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .brand-sub {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             display: block;
-            text-transform: uppercase;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: clamp(0.8rem, 1.4vw, 2rem);
             list-style: none;
+            gap: clamp(0.8rem, 1.4vw, 2rem);
             align-items: center;
         }
 
@@ -166,11 +175,36 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
+            transition: color 0.2s;
+            position: relative;
         }
 
         .nav-links a:hover {
             color: var(--cyan);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--cyan);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFF;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
         .btn {
@@ -178,34 +212,39 @@
             align-items: center;
             gap: 0.6rem;
             padding: 0.75rem 1.6rem;
-            border-radius: 100px;
+            border-radius: 50px;
+            font-family: var(--font-heading);
             font-weight: 600;
             font-size: 0.95rem;
+            text-decoration: none;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-decoration: none;
             border: none;
+            outline: none;
         }
 
         .btn-glow {
             background: linear-gradient(135deg, var(--cyan), var(--indigo));
-            color: #000;
+            color: #070B14;
+            font-weight: 700;
             box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
         }
 
         .btn-glow:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.55);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.6);
+            color: #000;
         }
 
         .btn-outline {
-            background: transparent;
-            color: var(--cyan);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
             border: 1px solid var(--border-glow);
+            backdrop-filter: blur(10px);
         }
 
         .btn-outline:hover {
-            background: rgba(0, 240, 255, 0.1);
+            background: rgba(0, 240, 255, 0.12);
             border-color: var(--cyan);
             transform: translateY(-2px);
         }
@@ -213,7 +252,7 @@
         /* Main Container */
         .main-container {
             max-width: 800px;
-            margin: 3rem auto 5rem;
+            margin: 8rem auto 5rem;
             padding: 0 5%;
             flex: 1;
         }
@@ -307,10 +346,37 @@
             font-size: 0.85rem;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
             .nav-links {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(7, 11, 20, 0.95);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border-glow);
+                padding: 2rem;
+                gap: 1.5rem;
+                z-index: 999;
+                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8);
+                text-align: center;
             }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
             .reg-card {
                 padding: 1.8rem;
             }
@@ -323,7 +389,7 @@
     <canvas id="quantum-canvas"></canvas>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
                 <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 52px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
@@ -335,16 +401,25 @@
             </a>
 
             <ul class="nav-links">
-                <li><a href="index.html#program">Program</a></li>
-                <li><a href="index.html#speakers">Speakers</a></li>
-                <li><a href="workshops.html" style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-vials"></i> <span data-i18n="nav_lab_signup">Lab<br>Sign up</span></a></li>
+                <li><a href="index.html#about" data-i18n="nav_about">About</a></li>
+                <li><a href="index.html#program" data-i18n="nav_program">Scientific Program</a></li>
+                <li><a href="index.html#speakers" data-i18n="nav_keynotes">Speeches</a></li>
+                <li><a href="index.html#workshops" data-i18n="nav_workshops">Workshops</a></li>
+                <li><a href="workshops.html" style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-vials"></i> <span
+                            data-i18n="nav_lab_signup">Lab<br>Sign up</span></a></li>
                 <li><a href="posters.html" style="color: var(--coral); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-file-arrow-up"></i> <span>Call for<br>Posters</span></a></li>
+                <li><a href="index.html#secretary" data-i18n="nav_secretary">Organizers</a></li>
+                <li><a href="index.html#committee" data-i18n="nav_committee">Committee</a></li>
                 <li>
-                    <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1.2rem;">
-                        <i class="fa-solid fa-arrow-left"></i> Home Page
+                    <a href="index.html" class="btn btn-glow" style="padding: 0.5rem 1.2rem; text-decoration: none;">
+                        <i class="fa-solid fa-arrow-left"></i> <span data-i18n="nav_home">Home Page</span>
                     </a>
                 </li>
             </ul>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
 
@@ -485,6 +560,9 @@
                     <button onclick="downloadTicketPDF()" class="btn btn-glow" style="padding: 0.8rem 1.8rem;">
                         <i class="fa-solid fa-file-pdf"></i> Download Ticket (.PDF)
                     </button>
+                    <button onclick="goToWorkshopsWithPrefill()" class="btn btn-outline" style="padding: 0.8rem 1.6rem; color: var(--cyan); border-color: var(--cyan);">
+                        <i class="fa-solid fa-vials"></i> Choose / Reserve Workshop
+                    </button>
                     <button onclick="window.location.href='index.html'" class="btn btn-outline" style="padding: 0.8rem 1.6rem; color: #FFF; border-color: var(--border-glow);">
                         <i class="fa-solid fa-house"></i> Return to Homepage
                     </button>
@@ -620,15 +698,31 @@
             }
         }
 
-        function redirectToWorkshopsPage(selectedWorkshop = '') {
-            const name = document.getElementById('reg-name')?.value || '';
-            const email = document.getElementById('reg-email')?.value || '';
-            const role = document.getElementById('reg-role')?.value || '';
+        function goToWorkshopsWithPrefill(selectedWorkshop = '') {
+            const nameEl = document.getElementById('conf-name-display');
+            const emailEl = document.getElementById('conf-email-display');
+            const roleEl = document.getElementById('conf-role-display');
+            
+            const name = (nameEl && nameEl.innerText !== 'Name Surname') ? nameEl.innerText : (document.getElementById('reg-name')?.value || '');
+            const email = (emailEl && emailEl.innerText !== 'Email') ? emailEl.innerText : (document.getElementById('reg-email')?.value || '');
+            const role = (roleEl && roleEl.innerText !== 'Role') ? roleEl.innerText : (document.getElementById('reg-role')?.value || '');
+            
             if (name) localStorage.setItem('prefill_name', name);
             if (email) localStorage.setItem('prefill_email', email);
             if (role) localStorage.setItem('prefill_role', role);
             if (selectedWorkshop) localStorage.setItem('prefill_workshop', selectedWorkshop);
-            window.location.href = 'workshops.html#workshops-grid';
+            
+            const params = new URLSearchParams();
+            if (name) params.append('name', name);
+            if (email) params.append('email', email);
+            if (role) params.append('role', role);
+            if (selectedWorkshop) params.append('select', selectedWorkshop);
+            
+            window.location.href = 'workshops.html' + (params.toString() ? '?' + params.toString() : '') + '#workshops-grid';
+        }
+
+        function redirectToWorkshopsPage(selectedWorkshop = '') {
+            goToWorkshopsWithPrefill(selectedWorkshop);
         }
 
         function handleWsSelectChange(selectEl) {
@@ -731,8 +825,6 @@
             const wsText = (wsEl && wsEl.style.display !== 'none') ? wsEl.innerText : '';
             const passIdEl = document.getElementById('conf-order-num');
             const passId = passIdEl ? passIdEl.innerText.replace('Pass ', '') : '#SAPIENZA-2026';
-            const qrImg = document.getElementById('conf-qr-img');
-            const qrSrc = qrImg && qrImg.src ? qrImg.src : 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=' + encodeURIComponent(passId + '|' + name);
 
             const origScrollX = window.scrollX || 0;
             const origScrollY = window.scrollY || 0;
@@ -820,11 +912,12 @@
             wrapper.appendChild(container);
             document.body.appendChild(wrapper);
 
-            // Render 100% local QR Code directly into the DOM to guarantee zero CORS tainting
             const qrTarget = container.querySelector('#pass-local-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
-                    new QRCode(qrTarget, {
+                    qrTarget.innerHTML = '';
+                    const tempDiv = document.createElement('div');
+                    new QRCode(tempDiv, {
                         text: passId + '|' + name,
                         width: 114,
                         height: 114,
@@ -832,20 +925,34 @@
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
                     });
+                    setTimeout(() => {
+                        const canvasEl = tempDiv.querySelector('canvas');
+                        const imgEl = tempDiv.querySelector('img');
+                        let dataUrl = '';
+                        if (canvasEl && canvasEl.toDataURL) dataUrl = canvasEl.toDataURL('image/png');
+                        else if (imgEl && imgEl.src && imgEl.src.startsWith('data:')) dataUrl = imgEl.src;
+                        
+                        if (dataUrl) {
+                            qrTarget.innerHTML = `<img src="${dataUrl}" style="width: 114px; height: 114px; display: block; border-radius: 6px;">`;
+                        } else {
+                            qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
+                        }
+                    }, 50);
                 } catch (e) {
-                    qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+                    qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
                 }
             } else if (qrTarget) {
-                qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+                qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
             }
 
             const opt = {
                 margin: 0,
-                filename: `SSAS_Conference_Pass_${name.replace(/\s+/g, '_')}.pdf`,
+                filename: `SSAS_Conference_Pass_${name.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.99 },
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
+                    allowTaint: true,
                     x: 0,
                     y: 0,
                     scrollY: 0,
@@ -863,17 +970,50 @@
                 }
             };
 
-            // Allow 400ms for browser layout & canvas rendering to ensure high-fidelity export
             setTimeout(() => {
-                html2pdf().set(opt).from(container).save().then(() => {
+                if (typeof html2pdf !== 'undefined') {
+                    html2pdf().set(opt).from(container).save().then(() => {
+                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        window.scrollTo(origScrollX, origScrollY);
+                    }).catch(err => {
+                        console.warn('html2pdf save failed, triggering print dialog fallback:', err);
+                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        window.scrollTo(origScrollX, origScrollY);
+                        window.print();
+                    });
+                } else {
                     if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
                     window.scrollTo(origScrollX, origScrollY);
-                }).catch(() => {
-                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                    window.scrollTo(origScrollX, origScrollY);
-                });
-            }, 400);
+                    window.print();
+                }
+            }, 350);
         }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks) navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu when links are clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks) navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (nav) {
+                if (window.scrollY > 40) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
     </script>
 </body>
 </html>
