@@ -706,43 +706,45 @@
             window.scrollTo(0, 0);
 
             const clone = element.cloneNode(true);
-            clone.style.cssText = 'box-sizing: border-box !important; width: 794px !important; height: 1123px !important; max-height: 1123px !important; margin: 0 !important; border: none !important; border-radius: 0 !important; box-shadow: none !important; position: fixed !important; top: 0px !important; left: 0px !important; z-index: 9999999 !important; background: #070b14 !important; transform: none !important;';
+            clone.style.cssText = 'position: absolute; top: 0; left: 0; width: 794px; min-height: 1123px; background: #070b14; color: #FFF; font-family: "Plus Jakarta Sans", sans-serif; box-sizing: border-box; z-index: 9999999; overflow: hidden; margin: 0; border: none; box-shadow: none; transform: none;';
             
-            document.documentElement.appendChild(clone);
-
-            const opt = {
-                margin:       0,
-                filename:     'Nanos_Can_the_invisible_reshape_our_future_Poster.pdf',
-                image:        { type: 'jpeg', quality: 1.0 },
-                html2canvas:  { 
-                    scale: 2, 
-                    useCORS: true, 
-                    logging: false, 
-                    scrollX: 0,
-                    scrollY: 0,
-                    x: 0,
-                    y: 0,
-                    width: 794, 
-                    height: 1123,
-                    windowWidth: 794,
-                    windowHeight: 1123,
-                    backgroundColor: '#070b14'
-                },
-                jsPDF:        { unit: 'px', format: [794, 1123], orientation: 'portrait' }
-            };
+            document.body.appendChild(clone);
 
             setTimeout(() => {
+                const opt = {
+                    margin: 0,
+                    filename: 'Nanos_Can_the_invisible_reshape_our_future_Poster.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        x: 0,
+                        y: 0,
+                        scrollX: 0,
+                        scrollY: 0,
+                        width: 794,
+                        height: 1123,
+                        windowWidth: 794,
+                        windowHeight: 1123,
+                        backgroundColor: '#070b14'
+                    },
+                    jsPDF: {
+                        unit: 'px',
+                        format: [794, 1123],
+                        orientation: 'portrait'
+                    }
+                };
+
                 if (typeof html2pdf !== 'undefined') {
                     html2pdf().set(opt).from(clone).save().then(() => {
                         if (clone.parentNode) clone.parentNode.removeChild(clone);
                         window.scrollTo(origScrollX, origScrollY);
                         if (toolbar) toolbar.style.display = 'flex';
-                    }).catch(err => {
-                        console.warn('html2pdf save failed, triggering print dialog fallback:', err);
+                    }).catch(() => {
                         if (clone.parentNode) clone.parentNode.removeChild(clone);
                         window.scrollTo(origScrollX, origScrollY);
                         if (toolbar) toolbar.style.display = 'flex';
-                        window.print();
                     });
                 } else {
                     if (clone.parentNode) clone.parentNode.removeChild(clone);
@@ -750,7 +752,7 @@
                     if (toolbar) toolbar.style.display = 'flex';
                     window.print();
                 }
-            }, 350);
+            }, 300);
         }
     </script>
 </body>

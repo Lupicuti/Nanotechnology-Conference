@@ -201,7 +201,8 @@
             position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--cyan);
         }
 
@@ -213,10 +214,11 @@
             width: 0;
             height: 2px;
             background: var(--cyan);
-            transition: width 0.3s;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -2892,15 +2894,46 @@
             });
         });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
+        // Navbar scroll effect & Section Scroll Spy (Underlines active section in navbar)
+        function updateActiveNavSection() {
             const nav = document.getElementById('navbar');
+            if (!nav) return;
             if (window.scrollY > 40) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
             }
-        });
+
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 220; // Offset for fixed navbar
+
+            let currentSection = '';
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                if (scrollPos >= top && scrollPos < top + height) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            // If scrolled to near the bottom of page, highlight venue
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+                currentSection = 'venue';
+            }
+
+            // Apply .active class to current section's navbar link
+            document.querySelectorAll('.nav-links a[href^="#"]').forEach(link => {
+                link.classList.remove('active');
+                const targetId = link.getAttribute('href').substring(1);
+                if (currentSection && targetId === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavSection);
+        window.addEventListener('load', updateActiveNavSection);
+        setTimeout(updateActiveNavSection, 100);
 
         // Tab Switcher for Program
         function switchDay(dayNum, btnElement) {
@@ -3165,42 +3198,27 @@
             .catch(e => console.warn('Could not fetch initial sheet count:', e));
 
         // Generate and Download Official Digital Pass (.PDF) full screen edge-to-edge
+        // Generate and Download Official Digital Pass (.PDF) full screen edge-to-edge
         function downloadPlenaryPassPdf() {
             const name = document.getElementById('pass-name-display').innerText || 'Attendee';
             const email = document.getElementById('pass-email-display').innerText || '';
             const passId = document.getElementById('pass-id-display').innerText || '#SAPIENZA-2026-GENERAL';
-            const qrImg = document.getElementById('pass-qr-display');
-            const qrSrc = qrImg && qrImg.src ? qrImg.src : 'https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=' + encodeURIComponent(passId + '|' + name);
 
             const origScrollX = window.scrollX || 0;
             const origScrollY = window.scrollY || 0;
             window.scrollTo(0, 0);
 
             const container = document.createElement('div');
-            container.style.width = '794px';
-            container.style.height = '1123px';
-            container.style.boxSizing = 'border-box';
-            container.style.padding = '60px 50px';
-            container.style.background = 'radial-gradient(circle at 15% 20%, rgba(0, 240, 255, 0.22) 0%, transparent 45%), radial-gradient(circle at 85% 80%, rgba(99, 102, 241, 0.22) 0%, transparent 45%), linear-gradient(135deg, #070b14 0%, #0f172a 50%, #070b14 100%)';
-            container.style.display = 'flex';
-            container.style.flexDirection = 'column';
-            container.style.justifyContent = 'center';
-            container.style.alignItems = 'center';
-            container.style.position = 'absolute';
-            container.style.top = '0px';
-            container.style.left = '0px';
-            container.style.zIndex = '999999';
-            container.style.color = '#FFF';
-            container.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+            container.style.cssText = 'position: absolute; top: 0; left: 0; width: 794px; min-height: 1123px; background: #070b14; color: #FFF; font-family: "Plus Jakarta Sans", sans-serif; padding: 60px 50px; box-sizing: border-box; z-index: 9999999; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden;';
 
             container.innerHTML = `
-                <div style="text-align: center; margin-bottom: 30px;">
+                <div style="text-align: center; margin-bottom: 30px; width: 100%;">
                     <div style="font-size: 44px; font-weight: 800; color: #00F0FF; margin-bottom: 6px;">Ψ</div>
                     <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: 1.5px; color: #FFF; margin: 0;">SAPIENZA NANOS & TECH 2026</h2>
                     <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 2px; margin-top: 6px;">Sapienza School of Advanced Studies • Rome, Italy</div>
                 </div>
 
-                <div style="width: 630px; background: rgba(18, 26, 45, 0.95); border: 2px solid #00F0FF; border-radius: 20px; padding: 40px 45px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.3); text-align: left; margin: 20px 0;">
+                <div style="width: 630px; background: rgba(18, 26, 45, 0.95); border: 2px solid #00F0FF; border-radius: 20px; padding: 40px 45px; box-sizing: border-box; text-align: left; margin: 20px 0; box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.12); padding-bottom: 18px; margin-bottom: 25px;">
                         <div>
                             <span style="font-size: 11px; font-weight: 700; color: #00F0FF; text-transform: uppercase; letter-spacing: 1.5px; display: block;">Official Conference Pass</span>
@@ -3226,9 +3244,7 @@
                                 <div style="font-size: 14px; font-weight: 600; color: #00F0FF;">Aula Amaldi, Physics Dept (Edificio Marconi)<br>Piazzale Aldo Moro 5, Rome</div>
                             </div>
                         </div>
-                        <div id="pass-local-qr" style="width: 130px; height: 130px; background: #FFF; padding: 6px; border-radius: 12px; border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;">
-                            <!-- QR generated dynamically below without CORS issues -->
-                        </div>
+                        <div id="pass-local-qr" style="width: 130px; height: 130px; background: #FFF; padding: 6px; border-radius: 12px; border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;"></div>
                     </div>
 
                     <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.12); padding-top: 20px;">
@@ -3236,9 +3252,7 @@
                             <div style="font-size: 13px; font-weight: 700; color: #FFF;">September 17-18, 2026 • 2-Day Conference</div>
                             <div style="font-size: 11px; color: #94A3B8;">Plenary Speeches, Workshops & Networking</div>
                         </div>
-                        <div style="font-size: 26px; color: #00F0FF; opacity: 0.9;">
-                            ★
-                        </div>
+                        <div style="font-size: 26px; color: #00F0FF; opacity: 0.9;">★</div>
                     </div>
                 </div>
 
@@ -3247,18 +3261,12 @@
                 </div>
             `;
 
-            const wrapper = document.createElement('div');
-            wrapper.style.cssText = 'position: fixed !important; top: 0px !important; left: 0px !important; width: 794px !important; height: 1123px !important; z-index: 9999999 !important; background: #070b14 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; align-self: flex-start !important;';
-            wrapper.appendChild(container);
-            document.body.appendChild(wrapper);
+            document.body.appendChild(container);
 
-            // Render 100% local QR Code directly into the DOM to guarantee zero CORS tainting
             const qrTarget = container.querySelector('#pass-local-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
-                    qrTarget.innerHTML = '';
-                    const tempDiv = document.createElement('div');
-                    new QRCode(tempDiv, {
+                    new QRCode(qrTarget, {
                         text: passId + '|' + name,
                         width: 114,
                         height: 114,
@@ -3266,68 +3274,49 @@
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
                     });
-                    setTimeout(() => {
-                        const canvasEl = tempDiv.querySelector('canvas');
-                        const imgEl = tempDiv.querySelector('img');
-                        let dataUrl = '';
-                        if (canvasEl && canvasEl.toDataURL) dataUrl = canvasEl.toDataURL('image/png');
-                        else if (imgEl && imgEl.src && imgEl.src.startsWith('data:')) dataUrl = imgEl.src;
-                        
-                        if (dataUrl) {
-                            qrTarget.innerHTML = `<img src="${dataUrl}" style="width: 114px; height: 114px; display: block; border-radius: 6px;">`;
-                        } else {
-                            qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
-                        }
-                    }, 50);
-                } catch (e) {
-                    qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
-                }
-            } else if (qrTarget) {
-                qrTarget.innerHTML = `<div style="width: 114px; height: 114px; background: #FFF; color: #000; font-weight: 800; font-size: 11px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 6px;">PASS QR<br>${passId}</div>`;
+                } catch (e) {}
             }
 
-            const opt = {
-                margin: 0,
-                filename: `SSAS_Conference_Pass_${name.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`,
-                image: { type: 'jpeg', quality: 0.99 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    x: 0,
-                    y: 0,
-                    scrollY: 0,
-                    scrollX: 0,
-                    width: 794,
-                    height: 1123,
-                    windowWidth: 794,
-                    windowHeight: 1123,
-                    backgroundColor: '#070b14'
-                },
-                jsPDF: {
-                    unit: 'px',
-                    format: [794, 1123],
-                    orientation: 'portrait'
-                }
-            };
-
             setTimeout(() => {
+                const opt = {
+                    margin: 0,
+                    filename: `SSAS_Conference_Pass_${name.replace(/[^a-zA-Z0-9_-]/g, '_')}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        x: 0,
+                        y: 0,
+                        scrollX: 0,
+                        scrollY: 0,
+                        width: 794,
+                        height: 1123,
+                        windowWidth: 794,
+                        windowHeight: 1123,
+                        backgroundColor: '#070b14'
+                    },
+                    jsPDF: {
+                        unit: 'px',
+                        format: [794, 1123],
+                        orientation: 'portrait'
+                    }
+                };
+
                 if (typeof html2pdf !== 'undefined') {
                     html2pdf().set(opt).from(container).save().then(() => {
-                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                        if (container.parentNode) container.parentNode.removeChild(container);
                         window.scrollTo(origScrollX, origScrollY);
-                    }).catch(err => {
-                        console.warn('html2pdf save failed, triggering print dialog fallback:', err);
-                        if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                    }).catch(() => {
+                        if (container.parentNode) container.parentNode.removeChild(container);
                         window.scrollTo(origScrollX, origScrollY);
-                        window.print();
                     });
                 } else {
-                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                    if (container.parentNode) container.parentNode.removeChild(container);
                     window.scrollTo(origScrollX, origScrollY);
                     window.print();
                 }
-            }, 350);
+            }, 300);
         }
 
         // Add to Google Calendar integration

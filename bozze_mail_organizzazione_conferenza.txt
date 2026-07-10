@@ -4,11 +4,12 @@ Oggetto: Pubblicazione sito web ufficiale della conferenza SSAS - Richiesta di f
 
 Gentilissimi membri del comitato scientifico,
 
-siamo lieti di comunicarvi che abbiamo pubblicato online il sito web ufficiale della conferenza. Vi segnaliamo che il portale non è ancora nella sua versione definitiva e sarà soggetto ad alcune modifiche nei contenuti, ma l'attuale struttura di base rimarrà invariata. All'interno del sito sono ora disponibili il programma dettagliato delle due giornate, i profili dei relatori, la descrizione dei workshop e il modulo di registrazione per i partecipanti.
+siamo lieti di comunicarvi che abbiamo pubblicato online il sito web ufficiale della conferenza. Vi segnaliamo che il portale non è ancora nella sua versione definitiva e sarà soggetto ad alcune modifiche, ma l'attuale struttura di base rimarrà invariata. All'interno del sito sono ora disponibili il programma dettagliato delle due giornate, i profili dei relatori, la descrizione dei workshop e il modulo di registrazione per i partecipanti.
+
+Vi invitiamo a visitare il portale al seguente link: https://lupicuti.github.io/Nanotechnology-Conference/
+Chiaramente, nei prossimi giorni provvederemo all'acquisto di un dominio web dedicato e definitivo (es. sapienza-nanotech.com o simile). Qualsiasi vostro suggerimento o consiglio per migliorare la struttura e i contenuti sarà per noi preziosissimo.
 
 Vi segnaliamo inoltre che abbiamo previsto una poster session dedicata a dottorandi e giovani ricercatori. A tal fine, abbiamo attivato sul sito una sezione interattiva ("Call for Abstracts") per l'invio delle candidature. Qualora l'iniziativa fosse di vostro gradimento, vi invitiamo a condividere il link con i dottorandi e i giovani ricercatori dei vostri gruppi, fermo restando che provvederemo in seguito a una comunicazione ufficiale tramite i coordinatori delle scuole di dottorato.
-
-Vi invitiamo a visitare il sito: qualsiasi vostro suggerimento o consiglio per migliorare la struttura e i contenuti sarà per noi preziosissimo.
 
 Restiamo a completa disposizione e vi ringraziamo di cuore per il continuo e prezioso supporto.
 
@@ -18,23 +19,39 @@ Francesco Lupicuti e Leonardo Perrini
 
 ================================================================================
 Mail 2: Al direttore SSAS, alla segreteria e ai professori di riferimento
-Oggetto: Aggiornamento sito web conferenza SSAS, logistica e stima dei costi
+Oggetto: Aggiornamento sito web conferenza SSAS, logistica, preventivo e stima dei costi
 
 Gentile direttore, gentili professori e professoresse, gentile segreteria,
 
-vi scriviamo per aggiornarvi che il sito web della conferenza è ora online, completo di informazioni logistiche, scientifiche e modulo per le prenotazioni. Ci teniamo a precisare che il portale non è ancora definitivo e subirà alcune modifiche, sebbene la struttura generale resterà questa.
+vi scriviamo per aggiornarvi che il sito web della conferenza è ora online, completo di informazioni logistiche, scientifiche e modulo per le prenotazioni. Il sito è attualmente consultabile al link https://lupicuti.github.io/Nanotechnology-Conference/ (provvederemo a breve all'acquisto di un dominio web dedicato e formale). Ci teniamo a precisare che il portale non è ancora definitivo e subirà alcune modifiche di dettaglio, sebbene la struttura generale resterà questa.
 
 Come noterete dal programma, abbiamo previsto una poster session per dottorandi e giovani ricercatori, con una sezione di candidatura ("Call for Abstracts") già attiva sul portale. A questo proposito, vi chiediamo se possiate fornirci i contatti dei coordinatori delle scuole di dottorato delle varie facoltà, così da potergli inviare una comunicazione ufficiale e diffondere l'invito in modo capillare.
 
-Per agevolare le valutazioni sul budget della Scuola, abbiamo allegato un documento PDF riepilogativo che include:
+Per agevolare le valutazioni sul budget e sui fondi della Scuola, abbiamo allegato un documento PDF riepilogativo con il preventivo dettagliato delle spese, suddiviso nelle seguenti voci fondamentali:
 
-I contatti dei 7 relatori plenari confermati (professori Beenakker, Suenaga, Haider, De Angelis, Coletti, Serrano e Tredicucci) e il dettaglio delle rispettive necessità logistiche (voli, treni, pernottamenti). Le stime si basano su tariffe di hotel 4 stelle in zona Sapienza e compagnie aeree/treni ad alta velocità, con un margine prudenziale di 20-30 euro per voce.
+1. Ospitalità e Logistica dei 7 Relatori Plenari Confermati (professori Beenakker, Suenaga, Haider, De Angelis, Coletti, Serrano e Tredicucci):
+Abbiamo inserito nel preventivo due distinte opzioni per il pernottamento, al fine di valutare insieme la soluzione migliore:
+- Opzione A (Attuale / Standard): Copertura di 1 sola notte di pernottamento per relatore (o in base al loro intervento essenziale).
+- Opzione B (Full Conference / 2 Notti): Copertura di 2 notti di pernottamento per tutti gli speaker. Questa soluzione permetterebbe a tutti i relatori di assistere all'intera durata della conferenza (17 e 18 settembre), favorendo la massima interazione scientifica, il networking e il confronto continuo con studenti e giovani ricercatori per tutti i due giorni.
+Le stime si basano su tariffe di hotel 4 stelle in zona Sapienza e compagnie aeree/treni ad alta velocità, con un margine prudenziale di 20-30 euro per voce.
 
-Il preventivo per 2 eventuali relatori supplementari, diviso in due opzioni: "Low Budget" (dall'Italia, solo treno) o "International" (dall'estero, volo e 1 notte). Prima di invitarli formalmente, vorremmo confrontarci con voi sul budget residuo per scegliere l'opzione più sostenibile.
+2. Relatori Supplementari:
+Abbiamo inserito il preventivo per 2 eventuali relatori supplementari, diviso in "Low Budget" (dall'Italia, solo treno) o "International" (dall'estero, volo e notte). Prima di invitarli formalmente, vorremmo confrontarci con voi sul budget residuo.
 
-Nel documento segnaliamo anche la necessità di prevedere un servizio navetta tra la Città Universitaria e la facoltà di Ingegneria (San Pietro in Vincoli) per i workshop del 18 settembre. Vi facciamo inoltre presente che per alcune attività pratiche potrebbero essere necessarie le aule della Scuola; vi invieremo i dettagli esatti non appena avremo confermato il numero dei workshop.
+3. Spese Tipografiche e Materiale Promozionale:
+Sarà necessario coprire i costi per la stampa di tutto il materiale visivo e di supporto, tra cui:
+- Locandine promozionali e flyer da distribuire nei dipartimenti;
+- Banners e roll-up da posizionare all'ingresso dell'Aula Amaldi e nell'atrio;
+- Stampa dei poster scientifici per la poster session e dei badge/pass per gli accreditamenti.
 
-Per noi è fondamentale sapere se queste stime logistiche siano in linea con le disponibilità, in modo da quantificare il budget residuo per coprire le restanti spese (catering e materiale tipografico).
+4. Catering, Coffee Break e Lunch Break:
+Nel preventivo abbiamo inserito la copertura per i vari buffet dei coffee break (di mattina e pomeriggio per entrambe le giornate). Per quanto riguarda invece il Lunch Break (pranzo a buffet), in base alla disponibilità effettiva dei fondi residui, dovremo scegliere insieme tra due modalità:
+- Opzione Lunch Completo: offrire il pranzo a buffet a tutti i partecipanti e delegati registrati alla conferenza;
+- Opzione Lunch Ristretto: riservare il pranzo a buffet esclusivamente agli speaker plenari, ai membri del comitato scientifico, agli organizzatori e allo staff di supporto.
+
+Infine, segnaliamo anche la necessità di prevedere un servizio navetta tra la Città Universitaria e la facoltà di Ingegneria (San Pietro in Vincoli) per i workshop del 18 settembre pomeridiani, nonché l'utilizzo di alcune aule della Scuola per le attività pratiche.
+
+Per noi è fondamentale confrontarci con voi per verificare che queste stime siano in linea con le disponibilità e decidere insieme quali opzioni (1 vs 2 notti per gli speaker e Lunch Completo vs Ristretto) adottare per la riuscita perfetta dell'evento.
 
 Ringraziandovi come sempre per il supporto operativo, restiamo a disposizione per qualsiasi chiarimento.
 
@@ -48,17 +65,17 @@ Oggetto: Conferenza SSAS - Richiesta dettagli e capienza massima per i workshop
 
 Gentilissimi professori e ricercatori responsabili dei workshop,
 
-vi ringraziamo innanzitutto per la disponibilità a ospitare le sessioni pratiche durante la nostra conferenza. Per finalizzare il sito web e gestire le iscrizioni degli studenti, vi chiediamo gentilmente di inviarci, non appena possibile, le seguenti informazioni:
+vi ringraziamo innanzitutto per la disponibilità a ospitare le sessioni pratiche durante la nostra conferenza. Siamo lieti di comunicarvi che abbiamo pubblicato online la struttura del sito web ufficiale: https://lupicuti.github.io/Nanotechnology-Conference/ (precisando che a breve acquisteremo anche un dominio dedicato).
 
-Titolo definitivo dell'attività o della sessione pratica.
+Per finalizzare le pagine relative ai workshop e gestire le iscrizioni degli studenti sul portale, vi chiediamo gentilmente di inviarci, non appena possibile, le seguenti informazioni:
 
-Breve descrizione (un paio di righe sui temi affrontati o le strumentazioni mostrate).
+1. Titolo definitivo dell'attività o della sessione pratica.
+2. Breve descrizione (un paio di righe sui temi affrontati o le strumentazioni mostrate).
+3. Capienza massima per turno nel vostro laboratorio.
 
-Capienza massima per turno nel vostro laboratorio.
+Qualora il numero di posti fosse limitato per ragioni di spazio o sicurezza, non c'è alcun problema: in base alle iscrizioni ci organizzeremo per dividere gli studenti su più turni nel corso del pomeriggio del 18 settembre.
 
-Qualora il numero di posti fosse limitato per ragioni di spazio o sicurezza, non c'è alcun problema: in base alle iscrizioni ci organizzeremo per dividere gli studenti su più turni nel corso del pomeriggio.
-
-Restiamo in attesa di un vostro gentile riscontro e vi ringraziamo per la collaborazione.
+Restiamo in attesa di un vostro gentile riscontro e vi ringraziamo per la preziosa collaborazione.
 
 Cordiali saluti,
 
@@ -72,13 +89,13 @@ Chiarissimo prof. Casciola,
 
 le scriviamo per aggiornarla sull'organizzazione della conferenza della Scuola Superiore di Studi Avanzati (SSAS), di cui conosce già i primi dettagli.
 
-Siamo felici di comunicarle che abbiamo pubblicato online il sito web ufficiale, dove è disponibile il programma delle due giornate con i relatori confermati e le sessioni di laboratorio. Le segnaliamo che il portale non è ancora nella sua veste definitiva e sarà sottoposto ad alcune modifiche, ma la sua struttura rimarrà questa.
+Siamo felici di comunicarle che abbiamo pubblicato online il sito web ufficiale: https://lupicuti.github.io/Nanotechnology-Conference/ (in attesa di acquistare a breve un dominio web dedicato e formale). Sul portale è già consultabile il programma delle due giornate con i relatori plenari confermati e le sessioni di laboratorio. Le segnaliamo che il sito non è ancora nella sua veste definitiva e sarà sottoposto ad alcune modifiche di dettaglio, ma la sua struttura e impostazione resteranno queste.
 
-Saremmo davvero lieti se potesse prendere visione del sito e indicarci eventuali suggerimenti per ulteriori relatori o workshop legati alle eccellenze dell'ingegneria in Sapienza, che arricchirebbero notevolmente il programma.
+Saremmo davvero lieti se potesse prendere visione del portale e indicarci eventuali suggerimenti per ulteriori relatori o workshop legati alle eccellenze dell'ingegneria in Sapienza, che arricchirebbero notevolmente il programma.
 
-Facendo poi seguito alla sua gradita proposta di un incontro operativo per confrontarci sul coinvolgimento dell'Area di Ingegneria, le confermiamo la nostra totale disponibilità: saremo ben felici di incontrarla nelle date e negli orari per lei più comodi.
+Facendo poi seguito alla sua gradita proposta di un incontro operativo per confrontarci sul coinvolgimento dell'Area di Ingegneria e sulle questioni logistiche, le confermiamo la nostra totale disponibilità: saremo ben felici di incontrarla nelle date e negli orari per lei più comodi.
 
-Ringraziandola per la disponibilità e per il supporto alle iniziative degli studenti, restiamo in attesa di un suo riscontro.
+Ringraziandola per la disponibilità e per il costante supporto alle iniziative degli studenti, restiamo in attesa di un suo riscontro.
 
 Cordiali saluti,
 
@@ -92,19 +109,20 @@ Dear professors and keynote speakers,
 
 On behalf of the students of the Sapienza School of Advanced Studies (SSAS) and the organizing committee, we would like to express our warmest gratitude for accepting our invitation to speak at our upcoming conference on nanotechnology, scheduled for September 17-18, 2026, at the Aula Amaldi, Sapienza University of Rome.
 
-Each of you will soon receive an official institutional invitation letter directly from the director and secretariat of our School, containing all operational details concerning travel arrangements, hotel accommodations, and logistical support.
+We are pleased to share with you our preliminary conference website at: https://lupicuti.github.io/Nanotechnology-Conference/ (please note that we will soon purchase an official dedicated custom domain).
+
+Each of you will soon receive an official institutional invitation letter directly from the director and secretariat of our School, containing all operational details concerning travel arrangements, hotel accommodations (with options covered for the duration of the conference), and logistical support.
 
 In the meantime, to finalize our scientific program and update the official website, we would be extremely grateful if you could kindly share with us at your earliest convenience:
 
-Talk title: the preliminary or final title of your 40-minute presentation.
-
-Brief abstract: a short summary of 3-4 lines highlighting the core topics of your lecture.
+1. Talk title: the preliminary or final title of your 40-minute presentation.
+2. Brief abstract: a short summary of 3-4 lines highlighting the core topics of your lecture.
 
 We are confident that your presence will provide an exceptional educational experience for all attending students and young researchers.
 
 We remain at your disposal for any assistance and thank you once again for your invaluable contribution.
 
-Per i relatori italiani: cogliamo l'occasione per ringraziarvi caldamente per la disponibilità. Come anticipato in inglese, riceverete a breve la lettera d'invito formale dalla direzione e dalla segreteria SSAS con tutte le indicazioni logistiche per voli, treni e pernottamento. Nel frattempo vi chiediamo cortesemente di inviarci, non appena possibile, il titolo definitivo o preliminare e un breve abstract di 3-4 righe del vostro intervento plenario per la pubblicazione sul sito web ufficiale.
+Per i relatori italiani: cogliamo l'occasione per ringraziarvi caldamente per la disponibilità. Come anticipato in inglese, potete già consultare il portale della conferenza al link https://lupicuti.github.io/Nanotechnology-Conference/ (a breve con dominio formale dedicato). Riceverete presto la lettera d'invito formale dalla direzione e dalla segreteria SSAS con tutte le indicazioni logistiche per voli, treni e pernottamento (copertura alberghiera per l'evento). Nel frattempo vi chiediamo cortesemente di inviarci, non appena possibile, il titolo definitivo o preliminare e un breve abstract di 3-4 righe del vostro intervento plenario per l'inserimento sul sito web ufficiale.
 
 Kindest regards / Cordiali saluti,
 
