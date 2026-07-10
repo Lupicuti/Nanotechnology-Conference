@@ -551,7 +551,7 @@
             <a href="index.html" class="brand">
                 <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                 <div>
-                    <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
+                    <span class="brand-text">Nanos - Sapienza School of Advanced Studies</span>
                 </div>
             </a>
             <a href="index.html" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
@@ -608,8 +608,18 @@
 
     <!-- Main Container -->
     <main class="dashboard-container">
-        <div class="data-card">
+        <!-- Dashboard Tabs Switcher -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+            <button id="tab-btn-delegates" class="btn btn-glow" onclick="switchDashboardTab('delegates')" style="padding: 0.8rem 1.6rem; font-size: 1rem;">
+                <i class="fa-solid fa-users"></i> General Conference Delegates
+            </button>
+            <button id="tab-btn-posters" class="btn btn-outline" onclick="switchDashboardTab('posters')" style="padding: 0.8rem 1.6rem; font-size: 1rem; border-color: var(--coral); color: var(--coral);">
+                <i class="fa-solid fa-file-circle-plus"></i> Call for Posters Submissions
+            </button>
+        </div>
 
+        <!-- Section 1: Delegates Table -->
+        <div id="delegates-section" class="data-card">
             <div class="card-header-row">
                 <h3 class="card-title">
                     <i class="fa-solid fa-table-list" style="color: var(--cyan);"></i> Registered Delegates List
@@ -649,7 +659,60 @@
                     </tbody>
                 </table>
             </div>
+        </div>
 
+        <!-- Section 2: Posters Submissions Table -->
+        <div id="posters-section" class="data-card" style="display: none;">
+            <div class="card-header-row" style="flex-direction: column; align-items: flex-start; gap: 1rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 1rem;">
+                    <h3 class="card-title">
+                        <i class="fa-solid fa-file-arrow-up" style="color: var(--coral);"></i> Call for Posters Submissions
+                        <span id="posters-source-badge"
+                            style="font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; font-weight: 600; margin-left: 1rem; background: rgba(16, 185, 129, 0.12); color: var(--coral);">LocalStorage / Google Sheets</span>
+                    </h3>
+                    <div class="search-container">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" class="search-input" id="posters-search-box"
+                            placeholder="Search abstracts by title, author, or topic..." onkeyup="filterPostersTable()">
+                    </div>
+                </div>
+
+                <div style="width: 100%; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1rem; margin-top: 0.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                    <i class="fa-brands fa-google" style="color: var(--cyan); font-size: 1.3rem;"></i>
+                    <div style="flex: 1; min-width: 250px;">
+                        <label style="font-size: 0.8rem; color: #94A3B8; display: block; margin-bottom: 0.3rem;">Connect live Google Sheets CSV for Poster Answers:</label>
+                        <input type="text" id="poster-csv-input" placeholder="Paste your Poster Google Sheet published CSV URL here (e.g. https://docs.google.com/spreadsheets/d/e/.../pub?output=csv)" style="width: 100%; background: #0b1120; border: 1px solid rgba(255,255,255,0.15); color: #FFF; padding: 0.5rem 0.8rem; border-radius: 8px; font-size: 0.85rem;">
+                    </div>
+                    <button onclick="saveAndSyncPosterCsv()" class="btn btn-glow" style="padding: 0.6rem 1.2rem; font-size: 0.88rem; align-self: flex-end;">
+                        <i class="fa-solid fa-sync"></i> Save & Sync
+                    </button>
+                </div>
+            </div>
+
+            <!-- Posters Table -->
+            <div class="table-responsive" style="margin-top: 1.5rem;">
+                <table id="posters-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px;">#</th>
+                            <th>Candidate Name</th>
+                            <th>Email Address</th>
+                            <th>University / Affiliation</th>
+                            <th>Scientific Theme</th>
+                            <th>Poster Title & Abstract</th>
+                            <th style="width: 140px;">Submitted</th>
+                            <th style="width: 100px; text-align: center;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="posters-table-body">
+                        <tr>
+                            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                                Loading poster submissions...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 
@@ -1112,16 +1175,207 @@
         function formatDate(timestampStr) {
             if (!timestampStr) return '-';
             try {
-                // Parse SQLite datetime 'YYYY-MM-DD HH:MM:SS'
-                // Or just show simplified format
                 return timestampStr.split(' ')[0];
             } catch (e) {
                 return timestampStr;
             }
         }
 
-        // Load registrations on page load
-        window.addEventListener('DOMContentLoaded', loadRegistrations);
+        let postersData = [];
+        let activeTab = 'delegates';
+
+        function switchDashboardTab(tab) {
+            activeTab = tab;
+            const delegatesSec = document.getElementById('delegates-section');
+            const postersSec = document.getElementById('posters-section');
+            const btnDelegates = document.getElementById('tab-btn-delegates');
+            const btnPosters = document.getElementById('tab-btn-posters');
+
+            if (tab === 'delegates') {
+                delegatesSec.style.display = 'block';
+                postersSec.style.display = 'none';
+                btnDelegates.className = 'btn btn-glow';
+                btnDelegates.style.color = '#FFF';
+                btnPosters.className = 'btn btn-outline';
+                btnPosters.style.borderColor = 'var(--coral)';
+                btnPosters.style.color = 'var(--coral)';
+            } else {
+                delegatesSec.style.display = 'none';
+                postersSec.style.display = 'block';
+                btnPosters.className = 'btn btn-glow';
+                btnPosters.style.background = 'linear-gradient(135deg, var(--coral), var(--violet))';
+                btnPosters.style.borderColor = 'transparent';
+                btnPosters.style.color = '#FFF';
+                btnDelegates.className = 'btn btn-outline';
+                btnDelegates.style.borderColor = 'var(--cyan)';
+                btnDelegates.style.color = 'var(--cyan)';
+                loadPosterSubmissions();
+            }
+        }
+
+        function saveAndSyncPosterCsv() {
+            const inputVal = document.getElementById('poster-csv-input').value.trim();
+            if (inputVal) {
+                localStorage.setItem('POSTER_GOOGLE_SHEET_CSV_URL', inputVal);
+            } else {
+                localStorage.removeItem('POSTER_GOOGLE_SHEET_CSV_URL');
+            }
+            loadPosterSubmissions();
+        }
+
+        function loadPosterSubmissions() {
+            const savedUrl = localStorage.getItem('POSTER_GOOGLE_SHEET_CSV_URL') || '';
+            const inputEl = document.getElementById('poster-csv-input');
+            if (inputEl && savedUrl) inputEl.value = savedUrl;
+
+            const badge = document.getElementById('posters-source-badge');
+
+            if (savedUrl && savedUrl.includes('http')) {
+                if (badge) badge.innerText = 'Syncing Google Sheets...';
+                fetch(savedUrl)
+                    .then(res => {
+                        if (!res.ok) throw new Error('Failed to load Poster CSV');
+                        return res.text();
+                    })
+                    .then(csvText => {
+                        if (badge) {
+                            badge.innerText = 'Connected: Google Sheets';
+                            badge.style.background = 'rgba(0, 240, 255, 0.12)';
+                            badge.style.color = 'var(--cyan)';
+                        }
+                        const parsed = parsePosterCSV(csvText);
+                        postersData = parsed;
+                        renderPostersTable(parsed);
+                    })
+                    .catch(err => {
+                        console.warn('Poster Google Sheet load failed, using LocalStorage:', err);
+                        loadPostersFromLocalStorage();
+                    });
+            } else {
+                loadPostersFromLocalStorage();
+            }
+        }
+
+        function loadPostersFromLocalStorage() {
+            const badge = document.getElementById('posters-source-badge');
+            if (badge) {
+                badge.innerText = 'Local Submissions';
+                badge.style.background = 'rgba(16, 185, 129, 0.12)';
+                badge.style.color = 'var(--coral)';
+            }
+            const data = JSON.parse(localStorage.getItem('poster_submissions') || '[]');
+            postersData = data;
+            renderPostersTable(data);
+        }
+
+        function parsePosterCSV(text) {
+            const lines = text.split('\n');
+            if (lines.length <= 1) return [];
+            const list = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                const cols = parseCSVLine(line);
+                if (cols.length >= 3) {
+                    list.push({
+                        submitted_at: cols[0] || '',
+                        name: cols[1] || '',
+                        email: cols[2] || '',
+                        affil: cols[3] || '',
+                        topic: cols[4] || '',
+                        title: cols[5] || '',
+                        abstract: cols[6] || ''
+                    });
+                }
+            }
+            return list.reverse();
+        }
+
+        function renderPostersTable(data) {
+            const tbody = document.getElementById('posters-table-body');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                            No poster abstracts submitted yet.<br>
+                            <span style="font-size: 0.85rem; color: #64748B;">If you use Google Forms, paste your published CSV link in the box above and click Save & Sync.</span>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            data.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+
+                const tdIdx = document.createElement('td');
+                tdIdx.innerText = idx + 1;
+                tr.appendChild(tdIdx);
+
+                const tdName = document.createElement('td');
+                tdName.innerHTML = `<strong>${escapeHtml(r.name || '')}</strong>`;
+                tr.appendChild(tdName);
+
+                const tdEmail = document.createElement('td');
+                tdEmail.innerText = r.email || '';
+                tr.appendChild(tdEmail);
+
+                const tdAffil = document.createElement('td');
+                tdAffil.innerText = r.affil || '-';
+                tr.appendChild(tdAffil);
+
+                const tdTopic = document.createElement('td');
+                tdTopic.innerHTML = `<span class="ws-tag" style="background: rgba(168,85,247,0.15); border-color: rgba(168,85,247,0.4); color: #E9D5FF;">${escapeHtml(r.topic || 'General Nanoscience')}</span>`;
+                tr.appendChild(tdTopic);
+
+                const tdTitle = document.createElement('td');
+                tdTitle.innerHTML = `<strong style="color: #00F0FF; display: block; margin-bottom: 0.2rem;">${escapeHtml(r.title || '')}</strong><span style="font-size: 0.8rem; color: #94A3B8; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${escapeHtml(r.abstract || '')}</span>`;
+                tr.appendChild(tdTitle);
+
+                const tdDate = document.createElement('td');
+                tdDate.innerText = formatDate(r.submitted_at || r.timestamp || new Date().toISOString().split('T')[0]);
+                tr.appendChild(tdDate);
+
+                const tdAct = document.createElement('td');
+                tdAct.style.textAlign = 'center';
+                const delBtn = document.createElement('button');
+                delBtn.className = 'action-btn delete-btn';
+                delBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                delBtn.onclick = () => deletePoster(idx);
+                tdAct.appendChild(delBtn);
+                tr.appendChild(tdAct);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function deletePoster(idx) {
+            if (!confirm('Delete this poster submission record from the table?')) return;
+            postersData.splice(idx, 1);
+            localStorage.setItem('poster_submissions', JSON.stringify(postersData));
+            renderPostersTable(postersData);
+        }
+
+        function filterPostersTable() {
+            const query = document.getElementById('posters-search-box').value.toLowerCase();
+            const filtered = postersData.filter(r => {
+                return (r.name || '').toLowerCase().includes(query) ||
+                    (r.email || '').toLowerCase().includes(query) ||
+                    (r.title || '').toLowerCase().includes(query) ||
+                    (r.topic || '').toLowerCase().includes(query) ||
+                    (r.affil || '').toLowerCase().includes(query);
+            });
+            renderPostersTable(filtered);
+        }
+
+        // Load registrations & posters on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadRegistrations();
+            loadPosterSubmissions();
+        });
 
         // Animated Background
         const canvas = document.getElementById('quantum-canvas');

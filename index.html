@@ -4,9 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nano: Is the future hidden at the nanoscale? | Sapienza Conference 2026</title>
+    <title>Nanos: Is the future hidden at the nanoscale? | Sapienza Conference 2026</title>
     <meta name="description"
-        content="Join international pioneers and researchers at Sapienza University of Rome for 'Nano: Is the future hidden at the nanoscale?' - September 17-18, 2026.">
+        content="Join international pioneers and researchers at Sapienza University of Rome for 'Nanos: Is the future hidden at the nanoscale?' - September 17-18, 2026.">
+
+    <!-- OpenGraph / Social Media Preview Cards -->
+    <meta property="og:title" content="Nanos: Is the future hidden at the nanoscale? | Sapienza 2026">
+    <meta property="og:description" content="Interdisciplinary Conference on Nanotechnology, Materials Science & Advanced Engineering organized by SSAS. September 17-18, 2026 in Rome.">
+    <meta property="og:image" content="https://lupicuti.github.io/Nanotechnology-Conference/images/ssas-logo.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nanos: Is the future hidden at the nanoscale?">
+    <meta name="twitter:description" content="Join international pioneers at Sapienza University of Rome. September 17-18, 2026.">
+    <meta name="twitter:image" content="https://lupicuti.github.io/Nanotechnology-Conference/images/ssas-logo.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +28,9 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- HTML2PDF Library for Digital Ticket Pass Generation -->
+    <!-- HTML2PDF & QRCode Libraries for Digital Ticket Pass Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <!-- Automatic Image Format Support (.jpg -> .png -> .webp -> fallback) -->
     <script>
@@ -1644,10 +1655,12 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#" class="brand">
-                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
-                <div>
-                    <span class="brand-text" style="line-height: 1.15; display: block;">NANO - Sapienza School<br>of Advanced Studies</span>
+            <a href="#" class="brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 52px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
+                <span style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); line-height: 1.15; padding: 2px 10px 2px 0; display: inline-block;">Νάνος</span>
+                <span style="width: 1.5px; height: 34px; background: rgba(0, 240, 255, 0.35); display: block; flex-shrink: 0;"></span>
+                <div style="margin-left: 2px;">
+                    <span class="brand-text" style="line-height: 1.15; display: block; font-size: 0.95rem;">Sapienza School<br><span style="font-size: 0.82rem; color: #94A3B8; font-weight: 500;">of Advanced Studies</span></span>
                 </div>
             </a>
 
@@ -1658,8 +1671,8 @@
                 <li><a href="#workshops" data-i18n="nav_workshops">Workshops</a></li>
                 <li><a href="workshops.html" style="color: var(--violet); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-vials"></i> <span
                             data-i18n="nav_lab_signup">Lab<br>Sign up</span></a></li>
-                <li><a href="posters.html" style="color: var(--coral); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-file-circle-plus"></i> <span
-                            data-i18n="nav_poster_call">Call for<br>Posters</span></a></li>
+                <li><a href="posters.html" style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i class="fa-solid fa-file-arrow-up"></i> <span
+                            data-i18n="nav_poster_submit">Call for<br>Posters</span></a></li>
                 <li><a href="#secretary" data-i18n="nav_secretary">Organizers</a></li>
                 <li><a href="#committee" data-i18n="nav_committee">Committee</a></li>
                 <li><a href="#venue">Venue</a></li>
@@ -1693,13 +1706,16 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <!-- SSAS Institutional Logo Container -->
-        <div class="ssas-hero-logo-container">
+        <!-- SSAS Institutional Logo & Greek Nanos Lockup -->
+        <div class="ssas-hero-lockup" style="display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: wrap; margin: 15px auto 28px auto;">
             <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer"
-                title="Scuola Superiore di Studi Avanzati (SSAS) - Sapienza Università di Roma">
+                title="Scuola Superiore di Studi Avanzati (SSAS) - Sapienza Università di Roma" style="display: inline-flex; align-items: center; transition: transform 0.3s ease;">
                 <img src="images/ssas-logo.png" alt="Scuola Superiore di Studi Avanzati (SSAS) Logo"
-                    class="ssas-hero-logo" onerror="handleSpeakerImgError(this)">
+                    class="ssas-hero-logo" style="height: 115px; width: auto; filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.45)); margin: 0;" onerror="handleSpeakerImgError(this)">
             </a>
+            <div style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: clamp(3.2rem, 6.5vw, 5.2rem); font-weight: 800; letter-spacing: 4px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.45)); line-height: 1.15; padding: 10px 18px 10px 4px; display: inline-block; margin: 0;">
+                Νάνος
+            </div>
         </div>
 
         <div class="badge-organizer">
@@ -1708,7 +1724,7 @@
         </div>
 
         <h1>
-            <span class="text-gradient" data-i18n="hero_title" style="letter-spacing: 1.5px; font-size: 1.05em; line-height: 1.25; display: inline-block;">Nano: Is the future hidden at the nanoscale?</span>
+            <span class="text-gradient" data-i18n="hero_title" style="letter-spacing: 1.5px; font-size: 1.05em; line-height: 1.25; display: inline-block;">Nanos: Is the future hidden at the nanoscale?</span>
         </h1>
 
         <p data-i18n="hero_desc">
@@ -1858,7 +1874,6 @@
                     <h4>Registration, Welcome & Institutional Greetings</h4>
                     <div class="affil">Aula Amaldi Foyer, Sapienza University of Rome</div>
                 </div>
-                <div><span class="slot-tag tag-social">General</span></div>
             </div>
 
             <div class="session-header">
@@ -1866,7 +1881,6 @@
                     <h3>Morning Session: 2D Materials, Optics & Quantum Electrodynamics</h3>
                     <p>The frontiers of atomic investigation and the control of light and matter.</p>
                 </div>
-                <span class="slot-tag tag-keynote" style="padding: 0.4rem 1rem;">Speech Track</span>
             </div>
 
             <div class="timeline-card">
@@ -1878,7 +1892,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Recipient of the Wolf Prize in Physics
                         (2011) for the realization of aberration-corrected electron microscopy.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card">
@@ -1890,7 +1903,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in single-atom imaging and
                         spectroscopy in low-dimensional nanomaterials.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card" style="background: rgba(0, 240, 255, 0.03); border-color: rgba(0,240,255,0.2);">
@@ -1899,7 +1911,6 @@
                     <h4 style="color: var(--cyan);">Coffee Break and Networking</h4>
                     <div class="affil">Connect with speakers and attendees over refreshments</div>
                 </div>
-                <div><span class="slot-tag tag-social">Networking</span></div>
             </div>
 
             <div class="timeline-card">
@@ -1911,7 +1922,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in terahertz photonics and
                         polaritonics, and inventor of the first Terahertz Quantum Cascade Laser.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card">
@@ -1923,7 +1933,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in mesoscopic physics and
                         topological quantum computing (Majorana fermions), Spinoza Prize Laureate (1999).</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card" style="background: rgba(0, 240, 255, 0.03); border-color: rgba(0,240,255,0.2);">
@@ -1932,7 +1941,6 @@
                     <h4 style="color: var(--cyan);">Lunch Break</h4>
                     <div class="affil">Organized lunch & discussion intervals</div>
                 </div>
-                <div><span class="slot-tag tag-social">Break</span></div>
             </div>
 
             <div class="session-header">
@@ -1940,7 +1948,6 @@
                     <h3>Afternoon Session: Creating and Preserving (Synthesis & Nanorestoration)</h3>
                     <p>How we design new materials and how nanotechnology saves our past.</p>
                 </div>
-                <span class="slot-tag tag-keynote" style="padding: 0.4rem 1rem;">Speech Track</span>
             </div>
 
             <div class="timeline-card"
@@ -1951,7 +1958,6 @@
                     <div class="affil">Interactive poster presentations and scientific networking across all conference
                         topics</div>
                 </div>
-                <div><span class="slot-tag tag-social" style="background: rgba(16,185,129,0.3);">Posters</span></div>
             </div>
 
             <div class="timeline-card">
@@ -1965,7 +1971,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in the synthesis of highly
                         crystalline 2D materials (graphene) via CVD, and coordinator of IIT Graphene Labs.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card">
@@ -1979,7 +1984,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Expert in surface chemistry,
                         nanostructured materials, and eco-friendly coatings for cultural heritage conservation.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card">
@@ -1988,7 +1992,6 @@
                     <h4>Conclusions of the First Day</h4>
                     <div class="affil">Summary of scientific highlights and 10-minute wrap-up discussions</div>
                 </div>
-                <div><span class="slot-tag tag-social">Plenary</span></div>
             </div>
 
             <div class="timeline-card"
@@ -1998,7 +2001,6 @@
                     <h4 style="color: #DDD6FE;">Scientific Aperitif</h4>
                     <div class="affil">Informal networking, refreshments, and scientific exchange over aperitifs</div>
                 </div>
-                <div><span class="slot-tag tag-social" style="background: rgba(168,85,247,0.3);">Social</span></div>
             </div>
         </div>
 
@@ -2009,7 +2011,6 @@
                     <h3>Morning Session: New Medical Frontiers & Molecular Structures</h3>
                     <p>From fluid control on a nanometric scale to applications for human health.</p>
                 </div>
-                <span class="slot-tag tag-keynote" style="padding: 0.4rem 1rem;">Speech Track</span>
             </div>
 
             <div class="timeline-card">
@@ -2022,7 +2023,6 @@
                         nanophotonics and plasmonics. Pioneer in 3D nanostructures, advanced biosensors, and neural
                         interfaces.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card">
@@ -2033,7 +2033,6 @@
                     <div class="slot-highlight"><strong>Key Highlight:</strong> Expert in surface science and molecular
                         magnetism, driving key advancements in molecular spintronics and quantum technologies.</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card" style="background: rgba(0, 240, 255, 0.03); border-color: rgba(0,240,255,0.2);">
@@ -2042,7 +2041,6 @@
                     <h4 style="color: var(--cyan);">Coffee Break</h4>
                     <div class="affil">Morning networking and discussion interval</div>
                 </div>
-                <div><span class="slot-tag tag-social">Networking</span></div>
             </div>
 
             <div class="timeline-card">
@@ -2057,7 +2055,6 @@
                     <div class="affil">[International Expert Speaker — To Be Confirmed]</div>
                     <div class="slot-highlight">Focus: Advanced Reticular Chemistry & Nanoscale Frameworks</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card">
@@ -2072,7 +2069,6 @@
                     <div class="affil">[International Expert Speaker — To Be Confirmed]</div>
                     <div class="slot-highlight">Focus: Nanofluidics & Nanomedicine Frontiers</div>
                 </div>
-                <div><span class="slot-tag tag-keynote">Speech</span></div>
             </div>
 
             <div class="timeline-card" style="background: rgba(0, 240, 255, 0.03); border-color: rgba(0,240,255,0.2);">
@@ -2081,7 +2077,6 @@
                     <h4 style="color: var(--cyan);">Lunch Break</h4>
                     <div class="affil">Preparation for afternoon practical workshops</div>
                 </div>
-                <div><span class="slot-tag tag-social">Break</span></div>
             </div>
 
             <div class="session-header" style="border-left-color: var(--violet);">
@@ -2090,7 +2085,6 @@
                     <p style="color: #E9D5FF;">Parallel practical sessions and in-depth technical seminars running
                         simultaneously (15:00 - 18:00).</p>
                 </div>
-                <span class="slot-tag tag-workshop" style="padding: 0.4rem 1rem;">Interactive Labs</span>
             </div>
 
             <div class="timeline-card" style="border-color: rgba(168, 85, 247, 0.3);">
@@ -2529,7 +2523,7 @@
                         </div>
                         <div>
                             <h4 style="color: #FFF; font-size: 1.05rem; margin-bottom: 0.2rem;">Direct Scientific Networking</h4>
-                            <p style="color: var(--text-muted); font-size: 0.9rem;">Engage directly during the dedicated coffee & networking sessions with plenary speakers including Prof. Beenakker, Prof. Suenaga, Prof. Haider, and top Italian researchers.</p>
+                            <p style="color: var(--text-muted); font-size: 0.9rem;">Engage directly during the dedicated coffee & networking sessions with international plenary speakers and top Italian researchers.</p>
                         </div>
                     </div>
 
@@ -2613,11 +2607,8 @@
                 <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #FFF; margin-bottom: 0.3rem;">
                     Francesco Lupicuti</h3>
                 <p
-                    style="color: var(--cyan); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.8rem;">
+                    style="color: var(--cyan); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 1.5rem;">
                     Lead Organizer</p>
-                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.6;">Main
-                    organizer and primary contact for campus logistics, laboratory workshops, venue guidance, delegate
-                    hospitality, and physical setups.</p>
                 <a href="mailto:lupicuti.2141621@studenti.uniroma1.it" class="btn btn-glow"
                     style="width: 100%; justify-content: center; font-size: 0.85rem; padding: 0.75rem;">
                     <i class="fa-solid fa-envelope"></i> Contact
@@ -2633,11 +2624,8 @@
                 <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: #FFF; margin-bottom: 0.3rem;">
                     Leonardo Perrini</h3>
                 <p
-                    style="color: var(--indigo); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 0.8rem;">
+                    style="color: var(--indigo); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 1.5rem;">
                     Lead Organizer</p>
-                <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.6;">Main
-                    organizer and primary contact for institutional relations, registration secretariat, abstract
-                    submissions, and plenary coordination.</p>
                 <a href="mailto:perrini.2065029@studenti.uniroma1.it" class="btn btn-outline"
                     style="width: 100%; justify-content: center; font-size: 0.85rem; border-color: var(--indigo); color: #C7D2FE; padding: 0.75rem;">
                     <i class="fa-solid fa-envelope"></i> Contact
@@ -2831,7 +2819,7 @@
             <div class="footer-col">
                 <div class="brand" style="margin-bottom: 1.2rem;">
                     <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 58px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
-                    <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
+                    <span class="brand-text">Nanos - Sapienza School of Advanced Studies</span>
                 </div>
                 <p style="max-width: 400px; margin-bottom: 1.5rem;">
                     Interdisciplinary Conference on Quantum Technology, Materials Science, and Nanoscale Engineering
@@ -3193,7 +3181,7 @@
             container.innerHTML = `
                 <div style="text-align: center; margin-bottom: 30px;">
                     <div style="font-size: 44px; font-weight: 800; color: #00F0FF; margin-bottom: 6px;">Ψ</div>
-                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: 1.5px; color: #FFF; margin: 0;">SAPIENZA NANO & TECH 2026</h2>
+                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: 1.5px; color: #FFF; margin: 0;">SAPIENZA NANOS & TECH 2026</h2>
                     <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 2px; margin-top: 6px;">Sapienza School of Advanced Studies • Rome, Italy</div>
                 </div>
 
@@ -3223,8 +3211,8 @@
                                 <div style="font-size: 14px; font-weight: 600; color: #00F0FF;">Aula Amaldi, Physics Dept (Edificio Marconi)<br>Piazzale Aldo Moro 5, Rome</div>
                             </div>
                         </div>
-                        <div style="background: #FFF; padding: 10px; border-radius: 12px; border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="${qrSrc}" alt="QR Verification" style="width: 130px; height: 130px; display: block;">
+                        <div id="pass-local-qr" style="width: 130px; height: 130px; background: #FFF; padding: 6px; border-radius: 12px; border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;">
+                            <!-- QR generated dynamically below without CORS issues -->
                         </div>
                     </div>
 
@@ -3248,6 +3236,25 @@
             wrapper.style.cssText = 'position: fixed !important; top: 0px !important; left: 0px !important; width: 794px !important; height: 1123px !important; z-index: 9999999 !important; background: #070b14 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; align-self: flex-start !important;';
             wrapper.appendChild(container);
             document.body.appendChild(wrapper);
+
+            // Render 100% local QR Code directly into the DOM to guarantee zero CORS tainting
+            const qrTarget = container.querySelector('#pass-local-qr');
+            if (qrTarget && typeof QRCode !== 'undefined') {
+                try {
+                    new QRCode(qrTarget, {
+                        text: passId + '|' + name,
+                        width: 114,
+                        height: 114,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } catch (e) {
+                    qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+                }
+            } else if (qrTarget) {
+                qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+            }
 
             const opt = {
                 margin: 0,
@@ -3273,21 +3280,24 @@
                 }
             };
 
-            html2pdf().set(opt).from(container).save().then(() => {
-                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                window.scrollTo(origScrollX, origScrollY);
-            }).catch(() => {
-                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                window.scrollTo(origScrollX, origScrollY);
-            });
+            // Allow 400ms for browser layout & canvas rendering to ensure high-fidelity export
+            setTimeout(() => {
+                html2pdf().set(opt).from(container).save().then(() => {
+                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                    window.scrollTo(origScrollX, origScrollY);
+                }).catch(() => {
+                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                    window.scrollTo(origScrollX, origScrollY);
+                });
+            }, 400);
         }
 
         // Add to Google Calendar integration
         function addToGoogleCalendar() {
-            const title = "Nano: Is the future hidden at the nanoscale? (Sapienza 2026)";
+            const title = "Nanos: Is the future hidden at the nanoscale? (Sapienza 2026)";
             const startUtc = "20260917T070000Z"; // 09:00 CEST = 07:00 UTC
             const endUtc = "20260918T160000Z";   // 18:00 CEST = 16:00 UTC
-            const details = "Nano: Is the future hidden at the nanoscale? - Interdisciplinary Conference on Nanotechnology, Materials Science, and Advanced Engineering.\n\nOrganized by the Sapienza School of Advanced Studies (SSAS).\nVenue: Aula Amaldi, Physics Dept (Edificio Marconi), Piazzale Aldo Moro 5, Rome.\nCheck-in: Show your digital pass (.PDF or QR code) at the registration secretariat desk on the ground floor.";
+            const details = "Nanos: Is the future hidden at the nanoscale? - Interdisciplinary Conference on Nanotechnology, Materials Science, and Advanced Engineering.\n\nOrganized by the Sapienza School of Advanced Studies (SSAS).\nVenue: Aula Amaldi, Physics Dept (Edificio Marconi), Piazzale Aldo Moro 5, Rome.\nCheck-in: Show your digital pass (.PDF or QR code) at the registration secretariat desk on the ground floor.";
             const location = "Aula Amaldi, Department of Physics (Edificio Marconi), Piazzale Aldo Moro 5, 00185 Rome, Italy";
 
             const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startUtc}/${endUtc}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(location)}`;
@@ -3299,11 +3309,11 @@
             const icsContent = [
                 "BEGIN:VCALENDAR",
                 "VERSION:2.0",
-                "PRODID:-//Sapienza School of Advanced Studies//Nano Conference 2026//EN",
+                "PRODID:-//Sapienza School of Advanced Studies//Nanos Conference 2026//EN",
                 "CALSCALE:GREGORIAN",
                 "METHOD:PUBLISH",
                 "BEGIN:VEVENT",
-                "SUMMARY:Nano: Is the future hidden at the nanoscale? (Sapienza 2026)",
+                "SUMMARY:Nanos: Is the future hidden at the nanoscale? (Sapienza 2026)",
                 "UID:sapienza-nano-2026-plenary@" + (Date.now()) + ".uniroma1.it",
                 "SEQUENCE:0",
                 "STATUS:CONFIRMED",
@@ -3312,7 +3322,7 @@
                 "DTEND:20260918T160000Z",
                 "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + "Z",
                 "LOCATION:Aula Amaldi, Department of Physics (Edificio Marconi), Piazzale Aldo Moro 5, 00185 Rome, Italy",
-                "DESCRIPTION:Nano: Is the future hidden at the nanoscale? - Interdisciplinary Conference on Nanotechnology\\, Materials Science\\, and Advanced Engineering.\\n\\nOrganized by the Sapienza School of Advanced Studies (SSAS).\\nVenue: Aula Amaldi\\, Physics Dept (Edificio Marconi)\\, Piazzale Aldo Moro 5\\, Rome.\\nCheck-in: Show your digital pass (.PDF or QR code) at the registration secretariat desk on the ground floor.",
+                "DESCRIPTION:Nanos: Is the future hidden at the nanoscale? - Interdisciplinary Conference on Nanotechnology\\, Materials Science\\, and Advanced Engineering.\\n\\nOrganized by the Sapienza School of Advanced Studies (SSAS).\\nVenue: Aula Amaldi\\, Physics Dept (Edificio Marconi)\\, Piazzale Aldo Moro 5\\, Rome.\\nCheck-in: Show your digital pass (.PDF or QR code) at the registration secretariat desk on the ground floor.",
                 "END:VEVENT",
                 "END:VCALENDAR"
             ].join("\r\n");
@@ -3482,7 +3492,7 @@
                 nav_committee: "Committee",
                 nav_register_free: "Register Free",
                 hero_subtitle: 'Organized by the <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: underline;">Sapienza School of Advanced Studies (SSAS)</a>',
-                hero_title: "Nano: Is the future hidden at the nanoscale?",
+                hero_title: "Nanos: Is the future hidden at the nanoscale?",
                 hero_grad: "",
                 hero_desc: "Bridging fundamental sciences and advanced cross-disciplinary applications—from 2D materials and single-atom microscopy to reticular chemistry, nanofluidics, and nanomedicine.",
                 hero_btn_secure: "Secure Your Pass Now",
@@ -3499,7 +3509,7 @@
                 nav_committee: "Comitato",
                 nav_register_free: "Registrati Gratis",
                 hero_subtitle: 'Organizzato dalla <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: underline;">Scuola Superiore di Studi Avanzati Sapienza (SSAS)</a>',
-                hero_title: "Nano: Il futuro è nascosto su scala nanometrica?",
+                hero_title: "Nanos: Il futuro è nascosto su scala nanometrica?",
                 hero_grad: "",
                 hero_desc: "Un ponte tra scienze fondamentali e applicazioni interdisciplinari avanzate: dai materiali 2D e microscopia a singolo atomo alla chimica reticolare, nanofluidica e nanomedicina.",
                 hero_btn_secure: "Richiedi Ora il Pass",
@@ -3516,7 +3526,7 @@
                 nav_committee: "Komitee",
                 nav_register_free: "Kostenlos Registrieren",
                 hero_subtitle: 'Organisiert von der <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: underline;">Sapienza School of Advanced Studies (SSAS)</a>',
-                hero_title: "Nano: Liegt die Zukunft auf der Nanoskala verborgen?",
+                hero_title: "Nanos: Liegt die Zukunft auf der Nanoskala verborgen?",
                 hero_grad: "",
                 hero_desc: "Verbindung von Grundlagenwissenschaften und interdisziplinären Anwendungen – von 2D-Materialien und Einzelatom-Mikroskopie bis hin zu Netzchemie, Nanofluidik und Nanomedizin.",
                 hero_btn_secure: "Sichern Sie sich Ihren Pass",
@@ -3533,7 +3543,7 @@
                 nav_committee: "Comité",
                 nav_register_free: "S'inscrire Gratuitement",
                 hero_subtitle: 'Organisé par l\'<a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: underline;">École Supérieure d\'Études Avancées Sapienza (SSAS)</a>',
-                hero_title: "Nano : L'avenir est-il caché à l'échelle nanométrique ?",
+                hero_title: "Nanos : L'avenir est-il caché à l'échelle nanométrique ?",
                 hero_grad: "",
                 hero_desc: "Rapprocher les sciences fondamentales et les applications interdisciplinaires — des matériaux 2D et de la microscopie atomique à la chimie réticulaire, la nanofluidique et la nanomédecine.",
                 hero_btn_secure: "Réservez Votre Pass",
@@ -3550,7 +3560,7 @@
                 nav_committee: "Comité",
                 nav_register_free: "Registro Gratuito",
                 hero_subtitle: 'Organizado por la <a href="https://ssas.web.uniroma1.it/" target="_blank" rel="noopener noreferrer" style="color: var(--cyan); text-decoration: underline;">Escuela Superior de Estudios Avanzados Sapienza (SSAS)</a>',
-                hero_title: "Nano: ¿Está el futuro oculto a escala nanométrica?",
+                hero_title: "Nanos: ¿Está el futuro oculto a escala nanométrica?",
                 hero_grad: "",
                 hero_desc: "Conectando ciencias fundamentales y aplicaciones interdisciplinarias avanzadas: desde materiales 2D y microscopía atómica hasta química reticular, nanofluidica y nanomedicina.",
                 hero_btn_secure: "Asegura tu Pase Ahora",

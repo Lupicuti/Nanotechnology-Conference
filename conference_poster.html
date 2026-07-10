@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nano: Is the future hidden at the nanoscale? | Printable 1-Page Conference Flyer</title>
+    <title>Nanos: Is the future hidden at the nanoscale? | Printable 1-Page Conference Flyer</title>
     <!-- Google Fonts -->
+    <!-- OpenGraph / Social Media Preview Cards -->
+    <meta property="og:title" content="Conference Poster | Nanos 2026">
+    <meta property="og:description" content="Official conference poster and promotional flyer for Sapienza Nanos & Tech 2026 Conference in Rome.">
+    <meta property="og:image" content="https://lupicuti.github.io/Nanotechnology-Conference/images/ssas-logo.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <!-- HTML2PDF Library -->
+    <!-- HTML2PDF & QRCode Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
             --bg-color: #070b14;
@@ -488,27 +496,24 @@
     <div class="poster-sheet" id="poster-canvas">
         <div class="poster-content">
             
-            <!-- Top Header Bar -->
-            <div class="header-bar">
-                <div class="header-brand">
-                    <div class="header-logo">Ψ</div>
-                    <div class="header-titles">
-                        <div class="top-line">NANO - Sapienza School of Advanced Studies</div>
-                        <div class="sub-line">International Interdisciplinary Conference on Quantum Technology & Nanoscale Engineering</div>
-                    </div>
+            <!-- Unified Top Brand & Title Bar -->
+            <div class="header-bar" style="border-bottom: 1.5px solid rgba(0, 240, 255, 0.25); padding-bottom: 12px; margin-bottom: 12px;">
+                <div class="header-brand" style="display: flex; align-items: center; gap: 18px;">
+                    <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 58px; width: auto; filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.55));">
+                    <span style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: 3px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45)); line-height: 1.15; padding: 4px 14px 4px 0; display: inline-block;">Νάνος</span>
                 </div>
-                <div class="header-date-badge">
+                <div class="header-date-badge" style="font-size: 13px; padding: 7px 15px;">
                     SEPT 17–18, 2026 • ROME
                 </div>
             </div>
 
-            <!-- Hero Banner -->
-            <div class="hero-banner">
-                <h1>Nano: Is the future hidden at the nanoscale?</h1>
-                <div class="theme-box">SAPIENZA NANO & TECH 2026</div>
-                <div class="subtitle">
-                    A 2-Day Scientific Immersion Organized by the Sapienza School of Advanced Studies (SSAS)<br>
-                    <strong>Plenary Speeches • Hands-On Laboratory Workshops</strong>
+            <!-- Hero Banner / Main Title -->
+            <div class="hero-banner" style="margin: 6px 0 14px; padding: 12px 16px; background: linear-gradient(135deg, rgba(18, 26, 45, 0.7), rgba(15, 23, 42, 0.5)); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; box-shadow: 0 0 25px rgba(0, 240, 255, 0.08);">
+                <h1 style="font-size: 28px; margin-bottom: 6px; color: #FFF; line-height: 1.2;">
+                    Nanos: Is the future hidden at the nanoscale?
+                </h1>
+                <div class="subtitle" style="font-size: 13px; color: #E2E8F0; margin-top: 4px;">
+                    A 2-Day Scientific Immersion • <strong style="color: #00F0FF;">Plenary Speeches</strong> & <strong style="color: #6366F1;">Hands-On Laboratory Workshops</strong>
                 </div>
             </div>
 
@@ -519,7 +524,6 @@
                 <div class="section-box highlight">
                     <div class="section-title">
                         <span>Distinguished Speeches</span>
-                        <span class="tag">Global Leaders</span>
                     </div>
                     <div class="vertical-list">
                         <div class="list-card speaker" style="--item-color: #10B981;">
@@ -578,7 +582,6 @@
                 <div class="section-box">
                     <div class="section-title">
                         <span>Practical Workshops</span>
-                        <span class="tag pink">Experimental Training</span>
                     </div>
                     <div class="vertical-list">
                         <div class="list-card workshop" style="--item-color: #10B981;">
@@ -659,7 +662,9 @@
                 </div>
 
                 <div class="qr-box">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https%3A%2F%2Flupicuti.github.io%2FNanotechnology-Conference%2F&color=000000&bgcolor=FFFFFF" alt="QR Code" class="qr-img">
+                    <div id="poster-local-qr" class="qr-img" style="width: 120px; height: 120px; background: #FFF; padding: 6px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;">
+                        <!-- QR generated locally -->
+                    </div>
                     <div class="qr-text">
                         <strong>FREE ENTRY</strong>
                         Scan QR Code or visit website to register & secure your pass!
@@ -671,6 +676,26 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const qrEl = document.getElementById('poster-local-qr');
+            if (qrEl && typeof QRCode !== 'undefined') {
+                try {
+                    new QRCode(qrEl, {
+                        text: "https://lupicuti.github.io/Nanotechnology-Conference/",
+                        width: 106,
+                        height: 106,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } catch (e) {
+                    qrEl.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Flupicuti.github.io%2FNanotechnology-Conference%2F" alt="QR" style="width:106px;height:106px;">';
+                }
+            } else if (qrEl) {
+                qrEl.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=https%3A%2F%2Flupicuti.github.io%2FNanotechnology-Conference%2F" alt="QR" style="width:106px;height:106px;">';
+            }
+        });
+
         function downloadPosterPdf() {
             const element = document.getElementById('poster-canvas');
             const toolbar = document.getElementById('action-toolbar');
@@ -687,7 +712,7 @@
 
             const opt = {
                 margin:       0,
-                filename:     'Nano_Is_the_future_hidden_at_the_nanoscale_Poster.pdf',
+                filename:     'Nanos_Is_the_future_hidden_at_the_nanoscale_Poster.pdf',
                 image:        { type: 'jpeg', quality: 1.0 },
                 html2canvas:  { 
                     scale: 2, 
@@ -706,15 +731,17 @@
                 jsPDF:        { unit: 'px', format: [794, 1123], orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(clone).save().then(() => {
-                if (clone.parentNode) clone.parentNode.removeChild(clone);
-                window.scrollTo(origScrollX, origScrollY);
-                if (toolbar) toolbar.style.display = 'flex';
-            }).catch(() => {
-                if (clone.parentNode) clone.parentNode.removeChild(clone);
-                window.scrollTo(origScrollX, origScrollY);
-                if (toolbar) toolbar.style.display = 'flex';
-            });
+            setTimeout(() => {
+                html2pdf().set(opt).from(clone).save().then(() => {
+                    if (clone.parentNode) clone.parentNode.removeChild(clone);
+                    window.scrollTo(origScrollX, origScrollY);
+                    if (toolbar) toolbar.style.display = 'flex';
+                }).catch(() => {
+                    if (clone.parentNode) clone.parentNode.removeChild(clone);
+                    window.scrollTo(origScrollX, origScrollY);
+                    if (toolbar) toolbar.style.display = 'flex';
+                });
+            }, 400);
         }
     </script>
 </body>

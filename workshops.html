@@ -8,6 +8,16 @@
     <meta name="description"
         content="Register for parallel hands-on laboratory workshops at the Sapienza Conference. Choose from AFM, Nanomedicine, Quantum Well Spectroscopy, Semiconductor Nanowires, and more.">
 
+    <!-- OpenGraph / Social Media Preview Cards -->
+    <meta property="og:title" content="Laboratory Workshops | Nanos Conference 2026">
+    <meta property="og:description" content="Register for parallel hands-on laboratory workshops at Sapienza University of Rome. Choose from AFM, Nanomedicine, Quantum Well Spectroscopy, and more.">
+    <meta property="og:image" content="https://lupicuti.github.io/Nanotechnology-Conference/images/ssas-logo.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Laboratory Workshops | Nanos Conference 2026">
+    <meta name="twitter:description" content="Parallel hands-on laboratory workshops at Sapienza University of Rome.">
+    <meta name="twitter:image" content="https://lupicuti.github.io/Nanotechnology-Conference/images/ssas-logo.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,8 +28,9 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- HTML2PDF Library for Digital Ticket Pass Generation -->
+    <!-- HTML2PDF & QRCode Libraries for Digital Ticket Pass Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
     <!-- Automatic Image Format Support (.jpg -> .png -> .webp -> fallback) -->
     <script>
@@ -894,10 +905,12 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="brand">
-                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 54px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
-                <div>
-                    <span class="brand-text" style="line-height: 1.15; display: block;">NANO - Sapienza School<br>of Advanced Studies</span>
+            <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+                <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 52px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
+                <span style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); line-height: 1.15; padding: 2px 10px 2px 0; display: inline-block;">Νάνος</span>
+                <span style="width: 1.5px; height: 34px; background: rgba(0, 240, 255, 0.35); display: block; flex-shrink: 0;"></span>
+                <div style="margin-left: 2px;">
+                    <span class="brand-text" style="line-height: 1.15; display: block; font-size: 0.95rem;">Sapienza School<br><span style="font-size: 0.82rem; color: #94A3B8; font-weight: 500;">of Advanced Studies</span></span>
                 </div>
             </a>
 
@@ -1313,7 +1326,7 @@
             <div class="footer-col">
                 <div class="brand" style="margin-bottom: 1.2rem;">
                     <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 58px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
-                    <span class="brand-text">NANO - Sapienza School of Advanced Studies</span>
+                    <span class="brand-text">Nanos - Sapienza School of Advanced Studies</span>
                 </div>
                 <p style="max-width: 400px; margin-bottom: 1.5rem;">
                     Interdisciplinary Conference on Quantum Technology, Materials Science, and Nanoscale Engineering
@@ -1856,7 +1869,7 @@
             container.innerHTML = `
                 <div style="text-align: center; margin-bottom: 30px;">
                     <div style="font-size: 44px; font-weight: 800; color: #6366F1; margin-bottom: 6px;">Ψ</div>
-                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: 1.5px; color: #FFF; margin: 0;">SAPIENZA NANO & TECH 2026</h2>
+                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: 1.5px; color: #FFF; margin: 0;">SAPIENZA NANOS & TECH 2026</h2>
                     <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 2px; margin-top: 6px;">Sapienza School of Advanced Studies • Rome, Italy</div>
                 </div>
 
@@ -1886,8 +1899,8 @@
                                 <div style="font-size: 14px; font-weight: 600; color: #F8FAFC;">${location}</div>
                             </div>
                         </div>
-                        <div style="background: #FFF; padding: 10px; border-radius: 12px; border: 2px solid #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="${qrSrc}" alt="QR Verification" style="width: 130px; height: 130px; display: block;">
+                        <div id="pass-local-qr" style="width: 130px; height: 130px; background: #FFF; padding: 6px; border-radius: 12px; border: 2px solid #6366F1; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;">
+                            <!-- QR generated dynamically below without CORS issues -->
                         </div>
                     </div>
 
@@ -1911,6 +1924,25 @@
             wrapper.style.cssText = 'position: fixed !important; top: 0px !important; left: 0px !important; width: 794px !important; height: 1123px !important; z-index: 9999999 !important; background: #070b14 !important; margin: 0 !important; padding: 0 !important; overflow: hidden !important; align-self: flex-start !important;';
             wrapper.appendChild(container);
             document.body.appendChild(wrapper);
+
+            // Render 100% local QR Code directly into the DOM to guarantee zero CORS tainting
+            const qrTarget = container.querySelector('#pass-local-qr');
+            if (qrTarget && typeof QRCode !== 'undefined') {
+                try {
+                    new QRCode(qrTarget, {
+                        text: passId + '|' + name + '|' + workshop,
+                        width: 114,
+                        height: 114,
+                        colorDark: "#000000",
+                        colorLight: "#ffffff",
+                        correctLevel: QRCode.CorrectLevel.H
+                    });
+                } catch (e) {
+                    qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+                }
+            } else if (qrTarget) {
+                qrTarget.innerHTML = `<img src="${qrSrc}" crossorigin="anonymous" style="width: 114px; height: 114px; display: block;">`;
+            }
 
             const opt = {
                 margin: 0,
@@ -1936,13 +1968,16 @@
                 }
             };
 
-            html2pdf().set(opt).from(container).save().then(() => {
-                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                window.scrollTo(origScrollX, origScrollY);
-            }).catch(() => {
-                if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
-                window.scrollTo(origScrollX, origScrollY);
-            });
+            // Allow 400ms for browser layout & canvas rendering to ensure high-fidelity export
+            setTimeout(() => {
+                html2pdf().set(opt).from(container).save().then(() => {
+                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                    window.scrollTo(origScrollX, origScrollY);
+                }).catch(() => {
+                    if (wrapper.parentNode) wrapper.parentNode.removeChild(wrapper);
+                    window.scrollTo(origScrollX, origScrollY);
+                });
+            }, 400);
         }
 
         // Add Reserved Workshop to Google Calendar
@@ -1953,7 +1988,7 @@
             // Workshop session specifically runs Day 2 Afternoon (Friday Sept 18, 2026, 15:00 - 18:00 CEST -> 13:00 - 16:00 UTC)
             const startUtc = "20260918T130000Z";
             const endUtc = "20260918T160000Z";
-            const details = `Sapienza Nano & Tech 2026 - Hands-on Laboratory Workshop.\n\nReserved Session: ${wsTitle}\nVenue: ${wsLoc}\nNote: Please arrive 15 minutes early with your delegate pass (.PDF or QR code) for laboratory safety check-in.`;
+            const details = `Sapienza Nanos & Tech 2026 - Hands-on Laboratory Workshop.\n\nReserved Session: ${wsTitle}\nVenue: ${wsLoc}\nNote: Please arrive 15 minutes early with your delegate pass (.PDF or QR code) for laboratory safety check-in.`;
 
             const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startUtc}/${endUtc}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(wsLoc)}`;
             window.open(url, '_blank');
@@ -1967,7 +2002,7 @@
             const icsContent = [
                 "BEGIN:VCALENDAR",
                 "VERSION:2.0",
-                "PRODID:-//Sapienza School of Advanced Studies//Sapienza Nano & Tech 2026 Workshops//EN",
+                "PRODID:-//Sapienza School of Advanced Studies//Sapienza Nanos & Tech 2026 Workshops//EN",
                 "CALSCALE:GREGORIAN",
                 "METHOD:PUBLISH",
                 "BEGIN:VEVENT",
@@ -1980,7 +2015,7 @@
                 "DTEND:20260918T160000Z",
                 "DTSTAMP:" + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + "Z",
                 "LOCATION:" + wsLoc + "\\, Piazzale Aldo Moro 5\\, Rome\\, Italy",
-                "DESCRIPTION:Sapienza Nano & Tech 2026 - Hands-on Laboratory Workshop.\\n\\nReserved Session: " + wsTitle.replace(/,/g, '\\,') + "\\nVenue: " + wsLoc.replace(/,/g, '\\,') + "\\nNote: Please arrive 15 minutes early with your delegate pass (.PDF or QR code) for laboratory safety check-in.",
+                "DESCRIPTION:Sapienza Nanos & Tech 2026 - Hands-on Laboratory Workshop.\\n\\nReserved Session: " + wsTitle.replace(/,/g, '\\,') + "\\nVenue: " + wsLoc.replace(/,/g, '\\,') + "\\nNote: Please arrive 15 minutes early with your delegate pass (.PDF or QR code) for laboratory safety check-in.",
                 "END:VEVENT",
                 "END:VCALENDAR"
             ].join("\r\n");

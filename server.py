@@ -278,11 +278,13 @@ class ConferenceHandler(http.server.BaseHTTPRequestHandler):
         
         # Serve API registrations
         if path == "/api/registrations":
+            sync_db_and_csv()
             self.send_json_response(200, self.get_all_registrations())
             return
             
         # Serve API workshop counts
         if path == "/api/workshop-counts":
+            sync_db_and_csv()
             self.send_json_response(200, self.get_workshop_counts())
             return
             
