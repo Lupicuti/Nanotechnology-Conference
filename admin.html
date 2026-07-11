@@ -15,6 +15,8 @@
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- HTML5 QR Code Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
     <style>
         :root {
@@ -605,6 +607,9 @@
                 databases.</p>
         </div>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+            <button onclick="openCameraScannerModal()" class="btn btn-glow" style="background: linear-gradient(135deg, #10B981, #059669); border-color: #10B981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);">
+                <i class="fa-solid fa-camera"></i> 📸 Open Camera Scanner
+            </button>
             <button onclick="exportCSVClientSide()" class="btn btn-outline">
                 <i class="fa-solid fa-file-excel" style="color: var(--cyan);"></i> Export Excel (CSV)
             </button>
@@ -1588,6 +1593,14 @@
             if (email && email.trim()) checkedInList[email.trim()] = nowStr;
             localStorage.setItem('checked_in_delegates', JSON.stringify(checkedInList));
 
+            // Real-Time Google Apps Script Cloud Sync
+            const webhookUrl = localStorage.getItem('apps_script_webhook') || '';
+            if (webhookUrl && webhookUrl.includes('script.google.com')) {
+                try {
+                    fetch(webhookUrl + '?action=checkin&passId=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name) + '&time=' + encodeURIComponent(nowStr), { mode: 'no-cors' }).catch(e => {});
+                } catch(e) {}
+            }
+
             const statusBox = document.getElementById('checkin-status-box');
             if (statusBox) {
                 statusBox.style.background = 'rgba(16, 185, 129, 0.2)';
@@ -1595,12 +1608,15 @@
                 statusBox.innerHTML = `🎉 <strong>ADMITTED SUCCESSFULLY!</strong><br><span style="color: #34D399; font-size: 13.5px;">Checked in at ${nowStr}</span>`;
             }
 
-            // Also mark status in table if row exists right away
+            // Also mark status in table right away
             renderTable(registrantsData);
 
             setTimeout(() => {
                 closeCheckInModal();
-            }, 1800);
+                if (window.wasOpenedByCameraScanner) {
+                    setTimeout(() => { openCameraScannerModal(); }, 200);
+                }
+            }, 1500);
         }
 
         function closeCheckInModal() {
@@ -1613,6 +1629,105 @@
             url.searchParams.delete('order');
             url.searchParams.delete('ws');
             window.history.replaceState({}, document.title, url.pathname + url.search);
+            if (!document.getElementById('camera-scanner-modal-overlay')) {
+                window.wasOpenedByCameraScanner = false;
+            }
+        }
+
+        // Live In-Browser Camera Scanner Flow
+        let html5QrCodeScannerInstance = null;
+        window.wasOpenedByCameraScanner = false;
+
+        function openCameraScannerModal() {
+            window.wasOpenedByCameraScanner = true;
+            const existing = document.getElementById('camera-scanner-modal-overlay');
+            if (existing) existing.remove();
+
+            const modalHtml = `
+                <div id="camera-scanner-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(7, 11, 20, 0.94); backdrop-filter: blur(18px); z-index: 9999999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                    <div style="background: linear-gradient(145deg, #121A2D, #0D1322); border: 2px solid #10B981; border-radius: 24px; padding: 32px; max-width: 500px; width: 100%; box-shadow: 0 0 60px rgba(16, 185, 129, 0.35); text-align: center; position: relative; animation: popIn 0.3s ease;">
+                        <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(16, 185, 129, 0.15); border: 2px solid #10B981; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 30px; color: #10B981; box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: #FFF; margin-bottom: 8px;">Live Camera Scanner</h2>
+                        <p style="color: #A855F7; font-size: 13.5px; margin-bottom: 18px; font-weight: 600;">Point device camera at delegate pass or smartphone screen</p>
+                        
+                        <div id="qr-reader" style="width: 100%; border-radius: 16px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); margin-bottom: 20px; background: #000; min-height: 280px; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: #64748B;">Initializing Camera...</span>
+                        </div>
+
+                        <button onclick="closeCameraScannerModal()" style="background: rgba(255, 255, 255, 0.1); color: #FFF; border: 1px solid rgba(255, 255, 255, 0.2); padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background 0.2s; width: 100%;">
+                            Close Camera
+                        </button>
+                    </div>
+                </div>
+            `;
+            const div = document.createElement('div');
+            div.innerHTML = modalHtml;
+            document.body.appendChild(div);
+
+            setTimeout(() => {
+                try {
+                    if (typeof Html5Qrcode === 'undefined') {
+                        document.getElementById('qr-reader').innerHTML = `<p style="color:#EF4444; padding:20px;">Camera library loading or blocked. Please refresh or check camera permissions.</p>`;
+                        return;
+                    }
+                    html5QrCodeScannerInstance = new Html5Qrcode("qr-reader");
+                    html5QrCodeScannerInstance.start(
+                        { facingMode: "environment" },
+                        { fps: 10, qrbox: { width: 240, height: 240 } },
+                        (decodedText, decodedResult) => {
+                            console.log("Scanned QR:", decodedText);
+                            closeCameraScannerModal();
+
+                            let targetId = decodedText;
+                            let targetName = '';
+                            if (decodedText.includes('checkin=')) {
+                                try {
+                                    const parsedUrl = new URL(decodedText);
+                                    targetId = parsedUrl.searchParams.get('checkin') || targetId;
+                                    targetName = parsedUrl.searchParams.get('name') || '';
+                                } catch(e) {}
+                            }
+
+                            const url = new URL(window.location);
+                            url.searchParams.set('checkin', targetId);
+                            if (targetName) url.searchParams.set('name', targetName);
+                            window.history.replaceState({}, document.title, url.pathname + url.search);
+                            window.wasOpenedByCameraScanner = true;
+                            handleQRCheckIn();
+                        },
+                        (errorMessage) => {}
+                    ).catch(err => {
+                        console.warn("Camera start failed:", err);
+                        document.getElementById('qr-reader').innerHTML = `<p style="color:#EF4444; padding:20px;">Could not access camera: ${escapeHtml(String(err))}<br>Make sure camera permissions are enabled on this device.</p>`;
+                    });
+                } catch(e) {
+                    console.error(e);
+                }
+            }, 200);
+        }
+
+        function closeCameraScannerModal() {
+            if (html5QrCodeScannerInstance) {
+                try {
+                    html5QrCodeScannerInstance.stop().then(() => {
+                        html5QrCodeScannerInstance.clear();
+                        html5QrCodeScannerInstance = null;
+                    }).catch(e => {});
+                } catch(e) {}
+            }
+            const overlay = document.getElementById('camera-scanner-modal-overlay');
+            if (overlay) overlay.remove();
+        }
+
+        function configureCloudWebhook() {
+            const current = localStorage.getItem('apps_script_webhook') || '';
+            const entered = prompt("Enter your Google Apps Script Webhook URL for Real-Time Cloud Check-in Sync across all tablets:\n(Or leave blank if not using)", current);
+            if (entered !== null) {
+                localStorage.setItem('apps_script_webhook', entered.trim());
+                alert(entered.trim() ? "✅ Webhook URL Saved! Every admittance will now instantly sync with Google Sheets." : "Webhook URL cleared.");
+            }
         }
 
         // Animated Background
