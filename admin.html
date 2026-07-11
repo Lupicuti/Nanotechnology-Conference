@@ -610,6 +610,9 @@
             <button onclick="openCameraScannerModal()" class="btn btn-glow" style="background: linear-gradient(135deg, #10B981, #059669); border-color: #10B981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);">
                 <i class="fa-solid fa-camera"></i> 📸 Open Camera Scanner
             </button>
+            <button onclick="configureCloudWebhook()" class="btn btn-outline" style="border-color: #A855F7; color: #A855F7;">
+                <i class="fa-solid fa-cloud-arrow-up"></i> ☁️ Connect Cloud Sync
+            </button>
             <button onclick="exportCSVClientSide()" class="btn btn-outline">
                 <i class="fa-solid fa-file-excel" style="color: var(--cyan);"></i> Export Excel (CSV)
             </button>
@@ -837,6 +840,7 @@
         // If your Google Sheet uses a different column order, adjust the mapping values
         // inside the parseCSV(text) function (located around line 720).
         const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTY1N1vilUxyzzstHkI3JvTkcqPT-TKT1JpTfuIWyMWOE86-ms5_65XyZpmFWbNxBPZN5vPc81dEHLx/pub?gid=18440154&single=true&output=csv';
+        const MASTER_CLOUD_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbybMqKcSc5RtqpCiFhxI10z6veL1cPX97XULtRrb9omTuwHWiuTFRXBINejLqmaLMHUIA/exec';
 
         // Registrants Cache
         let registrantsData = [];
@@ -1594,7 +1598,7 @@
             localStorage.setItem('checked_in_delegates', JSON.stringify(checkedInList));
 
             // Real-Time Google Apps Script Cloud Sync
-            const webhookUrl = localStorage.getItem('apps_script_webhook') || '';
+            const webhookUrl = MASTER_CLOUD_WEBHOOK_URL || localStorage.getItem('apps_script_webhook') || '';
             if (webhookUrl && webhookUrl.includes('script.google.com')) {
                 try {
                     fetch(webhookUrl + '?action=checkin&passId=' + encodeURIComponent(id) + '&name=' + encodeURIComponent(name) + '&time=' + encodeURIComponent(nowStr), { mode: 'no-cors' }).catch(e => {});
