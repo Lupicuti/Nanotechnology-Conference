@@ -115,74 +115,88 @@ def create_pdf(filename="preventivo_logistica_relatori_ssas.pdf"):
     story.append(Paragraph("Conferenza sulle Nanotecnologie, Scienza dei Materiali e Ingegneria (NANOCONVERGENCE)<br/>17 - 18 Settembre 2026 • Aula Amaldi, Città Universitaria Sapienza", subtitle_style))
     story.append(Spacer(1, 8))
     
-    # Sezione 1: Premessa e Obiettivo
-    story.append(Paragraph("1. Contatti e Quadro Logistico dei 7 Relatori Plenari Confermati", h1_style))
+    # Sezione 1: Premessa e Obiettivo (Quadro Strettamente Necessario)
+    story.append(Paragraph("1. Contatti e Quadro Logistico dei Relatori Plenari Confermati (Quadro Strettamente Necessario)", h1_style))
     story.append(Paragraph(
-        "Il presente documento è stato predisposto al fine di offrire "
-        "al Direttore, alle Fellows, ai Fellows e alla Segreteria della SSAS un quadro trasparente e immediato delle necessità organizzative, dei contatti e dei costi stimati "
-        "per l'accoglienza dei 7 relatori confermati. Per garantire standard di accoglienza elevati e congrui con il prestigio dell'istituzione, le stime di costo "
-        "sono state elaborate prendendo come riferimento <b>hotel 4 stelle in zona Sapienza</b> e tariffe verificate delle <b>principali compagnie aeree di linea (top tier)</b> "
-        "e dell'Alta Velocità ferroviaria. Inoltre, al fine di disporre di un ragionevole margine di sicurezza sulle fluttuazioni di prezzo, si è applicato un "
+        "Il presente documento è stato predisposto al fine di offrire al Direttore, alle Fellows, ai Fellows e alla Segreteria della SSAS un quadro trasparente "
+        "e immediato delle necessità organizzative, dei contatti e dei costi stimati per l'accoglienza dei relatori confermati.<br/>"
+        "<b>Si evidenzia che il quadro logistico illustrato in questa prima sezione rappresenta esclusivamente le spese di base strettamente necessarie</b> "
+        "(copertura dei soli viaggi e dei pernottamenti minimi indispensabili per lo svolgimento delle relazioni). Nelle sezioni successive del documento verranno invece "
+        "presentate le ulteriori opzioni e possibilità di arricchimento dell'evento (come l'estensione del pernottamento a 2 notti per tutti i relatori e l'invito di "
+        "speaker supplementari).",
+        body_style
+    ))
+    story.append(Spacer(1, 6))
+    story.append(Paragraph(
+        "Per garantire standard di accoglienza elevati e congrui con il prestigio dell'istituzione, le stime di costo sono state elaborate prendendo come riferimento "
+        "<b>hotel 4 stelle in zona Sapienza</b> e tariffe verificate delle <b>principali compagnie aeree di linea (top tier)</b> e dell'Alta Velocità ferroviaria. "
+        "Inoltre, al fine di disporre di un ragionevole margine di sicurezza sulle fluttuazioni di prezzo, si è applicato un "
         "<b>margine prudenziale di 20-30 € in più su ciascuna voce di spesa</b> (voli, treni e pernottamenti).",
         body_style
     ))
     story.append(Spacer(1, 10))
     
-    # Tabella 7 Relatori Confermati
+    # Tabella Relatori Confermati
     headers = [
         Paragraph("Relatore, Afferenza e Email", table_header),
         Paragraph("Mezzo e Tratta", table_header),
-        Paragraph("Pernottamento", table_header),
+        Paragraph("Pernottamento (Base Necessaria)", table_header),
         Paragraph("Stima Costo (€)", table_header)
     ]
     
     data = [headers,
         [
-            Paragraph("<b>Prof. Carlo Beenakker</b><br/>Leiden University (Paesi Bassi)<br/><i>beenakker@lorentz.leidenuniv.nl</i>", table_cell),
+            Paragraph("<b> Carlo Beenakker</b><br/>Leiden University (Paesi Bassi)<br/><i>beenakker@lorentz.leidenuniv.nl</i>", table_cell),
             Paragraph("Volo A/R<br/>Amsterdam Schiphol ↔ Roma FCO", table_cell),
             Paragraph("1 Notte (17 sett.)<br/>Hotel in zona Sapienza", table_cell),
             Paragraph("Volo: ~250-320 €<br/>Hotel: ~160-185 €<br/><b>Tot: ~410-505 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>Prof. Kazu Suenaga</b><br/>Osaka University / AIST (Giappone)<br/><i>suenaga@sanken.osaka-u.ac.jp</i>", table_cell),
-            Paragraph("Già in Europa/Italia<br/><i>(Nessun volo richiesto)</i>", table_cell),
+            Paragraph("<b> Kazu Suenaga</b><br/>Osaka University / AIST (Giappone)<br/><i>suenaga@sanken.osaka-u.ac.jp</i>", table_cell),
+            Paragraph("Già in Italia per conferenza<br/><i>(Nessun volo richiesto)</i>", table_cell),
             Paragraph("1 Notte (17 sett.)<br/>Hotel in zona Sapienza", table_cell),
             Paragraph("Volo: 0 €<br/>Hotel: ~160-185 €<br/><b>Tot: ~160-185 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>Prof. Maximilian Haider</b><br/>CEOS GmbH / KIT (Germania)<br/><i>haider@ceos-gmbh.de</i>", table_cell),
-            Paragraph("Già in Italia per tour<br/><i>(Nessun volo richiesto)</i>", table_cell),
+            Paragraph("<b> Maximilian Haider</b><br/>CEOS GmbH / KIT (Germania)<br/><i>haider@ceos-gmbh.de</i>", table_cell),
+            Paragraph("Già in Italia per conferenza<br/><i>(Nessun volo richiesto)</i>", table_cell),
             Paragraph("1 Notte (17 sett.)<br/>Hotel in zona Sapienza", table_cell),
             Paragraph("Volo: 0 €<br/>Hotel: ~160-185 €<br/><b>Tot: ~160-185 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>Prof. Francesco De Angelis</b><br/>Istituto Italiano di Tecnologia (IIT)<br/><i>francesco.deangelis@iit.it</i>", table_cell),
+            Paragraph("<b> Francesco De Angelis</b><br/>Istituto Italiano di Tecnologia (IIT)<br/><i>francesco.deangelis@iit.it</i>", table_cell),
             Paragraph("Volo A/R<br/><b>Da Sicilia (Palermo/Catania)</b> ↔ FCO<br/><i>(Non da Genova sede abituale)</i>", table_cell),
-            Paragraph("Nessun pernottamento<br/><i>(Non necessariamente in giornata in quanto dispone di casa a Roma)</i>", table_cell),
+            Paragraph("Non necessita di pernottamento<br/><i>(Dispone di alloggio/casa a Roma)</i>", table_cell),
             Paragraph("Volo A/R: ~120-170 €<br/>Hotel: 0 €<br/><b>Tot: ~120-170 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>Prof.ssa Camilla Coletti</b><br/>IIT & CNI@NEST, Pisa<br/><i>camilla.coletti@iit.it</i>", table_cell),
+            Paragraph("<b> Gabriella Di Carlo</b><br/>CNR-ISMN, Roma<br/><i>gabriella.dicarlo@cnr.it</i>", table_cell),
+            Paragraph("Sede di ricerca a Roma<br/><i>(Nessun viaggio richiesto)</i>", table_cell),
+            Paragraph("Non necessita di pernottamento<br/><i>(Sede lavorativa/residenza a Roma)</i>", table_cell),
+            Paragraph("Viaggio: 0 €<br/>Hotel: 0 €<br/><b>Tot: 0 €</b>", table_cell)
+        ],
+        [
+            Paragraph("<b> Camilla Coletti</b><br/>IIT & CNI@NEST, Pisa<br/><i>camilla.coletti@iit.it</i>", table_cell),
             Paragraph("Treno Alta Velocità A/R<br/>Pisa Centrale ↔ Roma Termini", table_cell),
             Paragraph("Nessun pernottamento<br/><i>(Rientro in giornata)</i>", table_cell),
             Paragraph("Treno: ~80-100 €<br/>Hotel: 0 €<br/><b>Tot: ~80-100 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>Prof.ssa Giulia Serrano</b><br/>Università di Firenze<br/><i>giulia.serrano@unifi.it</i>", table_cell),
+            Paragraph("<b> Giulia Serrano</b><br/>Università di Firenze<br/><i>giulia.serrano@unifi.it</i>", table_cell),
             Paragraph("Treno Alta Velocità A/R<br/>Firenze S.M.N. ↔ Roma Termini", table_cell),
             Paragraph("Nessun pernottamento<br/><i>(Rientro in giornata)</i>", table_cell),
             Paragraph("Treno: ~70-90 €<br/>Hotel: 0 €<br/><b>Tot: ~70-90 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>Prof. Alessandro Tredicucci</b><br/>Univ. Pisa / NEST - CNR-NANO<br/><i>alessandro.tredicucci@unipi.it</i>", table_cell),
+            Paragraph("<b> Alessandro Tredicucci</b><br/>Univ. Pisa / NEST - CNR-NANO<br/><i>alessandro.tredicucci@unipi.it</i>", table_cell),
             Paragraph("Treno Alta Velocità A/R<br/>Pisa Centrale ↔ Roma Termini", table_cell),
             Paragraph("Nessun pernottamento<br/><i>(Rientro in giornata)</i>", table_cell),
             Paragraph("Treno: ~80-100 €<br/>Hotel: 0 €<br/><b>Tot: ~80-100 €</b>", table_cell)
         ],
         [
-            Paragraph("<b>TOTALE 7 RELATORI CONFERMATI</b>", table_cell_bold),
+            Paragraph("<b>TOTALE RELATORI CONFERMATI (8)</b>", table_cell_bold),
             Paragraph("2 Voli + 4 Treni AV (con margine)", table_cell_bold),
-            Paragraph("3 Notti Hotel tot.", table_cell_bold),
+            Paragraph("3 Notti Hotel tot. (Quadro Strettamente Necessario)", table_cell_bold),
             Paragraph("<b>~ 1.080 € - 1.335 €</b>", table_cell_bold)
         ]
     ]
@@ -267,42 +281,85 @@ def create_pdf(filename="preventivo_logistica_relatori_ssas.pdf"):
         "sul numero esatto di sessioni che avranno necessità di usufruire di spazi al di fuori dei rispettivi dipartimenti di ricerca.",
         bullet_style
     ))
-    story.append(Spacer(1, 14))
+    story.append(Spacer(1, 12))
     
-    # Sezione 4: Riepilogo Budget Consuntivabile
-    story.append(Paragraph("4. Sintesi e Scenari del Preventivo Logistico Generale", h1_style))
+    # Sezione 4: Spese Tipografiche, Materiale Promozionale e Ristorazione (Coffee & Lunch Break)
+    story.append(Paragraph("4. Spese Tipografiche, Materiali Organizzativi e Servizi di Catering", h1_style))
+    story.append(Paragraph(
+        "Oltre all'accoglienza e ai viaggi dei relatori, il budget complessivo dovrà tenere conto delle spese organizzative di supporto visivo, "
+        "tipografico e della ristorazione per delegati e relatori durante le due giornate:",
+        body_style
+    ))
+    story.append(Spacer(1, 4))
+    story.append(Paragraph(
+        "• <b>Materiale Tipografico e Allestimento (Posters, Banners, Badges e Locandine):</b> Sarà necessario prevedere una copertura per la stampa di "
+        "locandine promozionali e flyer da distribuire nelle facoltà, roll-up e banners da posizionare nell'atrio dell'Aula Amaldi, stampa dei poster scientifici "
+        "per la sessione poster dei giovani ricercatori e realizzazione dei badge/pass di accreditamento (stima complessiva: <b>~250 - 400 €</b>).",
+        bullet_style
+    ))
+    story.append(Paragraph(
+        "• <b>Servizio di Catering (Coffee Breaks & Lunch Break):</b> Per garantire un'ospitalità all'altezza dell'evento, sono previsti buffet per i coffee break "
+        "di mattina e pomeriggio per entrambe le giornate. Per quanto concerne invece il <b>Lunch Break (pranzo a buffet)</b>, la scelta operativa dipenderà dalla "
+        "disponibilità finanziaria residua:",
+        bullet_style
+    ))
+    story.append(Paragraph(
+        "  - <i>Opzione Lunch Ristretto (Budget Limitato):</i> Pranzo a buffet riservato esclusivamente ai relatori plenari, ai membri del comitato scientifico, "
+        "agli organizzatori e allo staff di supporto.<br/>"
+        "  - <i>Opzione Lunch Completo (Fondi Disponibili):</i> Pranzo a buffet esteso a <b>tutti i delegati e studenti registrati</b> alla conferenza.",
+        ParagraphStyle('SubBullet', parent=bullet_style, leftIndent=30, fontSize=8.5, leading=12)
+    ))
+    story.append(Spacer(1, 12))
+    
+    # Sezione 5: Riepilogo Budget Consuntivabile
+    story.append(Paragraph("5. Sintesi e Scenari del Preventivo Generale (Opzioni 1 Notte vs 2 Notti)", h1_style))
+    story.append(Paragraph(
+        "Per consentire alla Direzione e alla Segreteria di valutare le diverse possibilità, si presentano gli scenari riepilogativi confrontando il "
+        "quadro strettamente necessario (Scenario 1) con l'opzione di fornire a tutti 2 notti garantite.<br/>"
+        "<b>Nota importante sui pernottamenti:</b> si specifica che sia nel caso base che nell'ipotesi in cui si offrano 2 notti a tutti i relatori plenari, "
+        "il <b> Francesco De Angelis e la  Gabriella Di Carlo non necessitano di pernottamento alberghiero</b> in quanto dispongono già di "
+        "abitazione o sede lavorativa a Roma. Di conseguenza, l'opzione 2 notti per tutti copre esattamente i rimanenti 6 relatori (Beenakker, Suenaga, Haider, "
+        "Coletti, Serrano, Tredicucci per 2 notti ciascuno, ossia 12 notti totali invece delle 3 notti del quadro base).",
+        body_style
+    ))
+    story.append(Spacer(1, 6))
     
     summary_headers = [
-        Paragraph("Scenario di Programma Scientifico", table_header),
+        Paragraph("Scenario e Modalità Pernottamenti", table_header),
         Paragraph("Voci Logistiche Incluse (con margini prudenziali +20-30€)", table_header),
-        Paragraph("Totale Preventivato (€)", table_header)
+        Paragraph("Stima Costo (€)", table_header)
     ]
     summary_data = [
         summary_headers,
         [
-            Paragraph("<b>Scenario Base</b><br/>(7 Relatori Plenari Confermati)", table_cell),
-            Paragraph("Voli e treni dei 7 relatori confermati + 3 notti Hotel tot. (Beenakker 1n, Suenaga 1n, Haider 1n) + Navetta per San Pietro in Vincoli.", table_cell),
-            Paragraph("<b>~ 1.250 € - 1.585 €</b>", table_cell_bold)
+            Paragraph("<b>Scenario 1: Base (Strettamente Necessario)</b><br/>(8 Relatori Plenari Confermati)", table_cell),
+            Paragraph("Voli/treni per tutti gli 8 confermati + 3 notti Hotel tot. (Beenakker 1n, Suenaga 1n, Haider 1n; De Angelis e Di Carlo 0n) + Navetta SPV + Spese Tipografiche base.", table_cell),
+            Paragraph("<b>~ 1.500 € - 1.985 €</b>", table_cell_bold)
         ],
         [
-            Paragraph("<b>Scenario con Opzione Low Budget</b><br/>(7 Confermati + 2 Extra Italia)", table_cell),
-            Paragraph("Scenario Base + 2 Relatori supplementari italiani (treno Alta Velocità A/R senza pernottamento).", table_cell),
-            Paragraph("<b>~ 1.410 € - 1.785 €</b>", table_cell_bold)
+            Paragraph("<b>Scenario 2: Full Conference (2 Notti)</b><br/>(8 Relatori Plenari Confermati)", table_cell),
+            Paragraph("Voli/treni per gli 8 confermati + <b>2 notti in Hotel garantite ai 6 relatori che ne necessitano</b> (Beenakker, Suenaga, Haider, Coletti, Serrano, Tredicucci; De Angelis e Di Carlo 0n) per 12 notti tot. + Navetta SPV + Spese Tipografiche/Catering.", table_cell),
+            Paragraph("<b>~ 2.550 € - 3.250 €</b>", table_cell_bold)
         ],
         [
-            Paragraph("<b>Scenario con Opzione International</b><br/>(7 Confermati + 2 Extra Estero)", table_cell),
-            Paragraph("Scenario Base + 2 Relatori supplementari esteri (voli A/R + 2 notti in Hotel aggiuntive).", table_cell),
-            Paragraph("<b>~ 2.070 € - 2.595 €</b>", table_cell_bold)
+            Paragraph("<b>Scenario 3: 2 Notti + 2 Relatori Extra (Low Budget Italia)</b>", table_cell),
+            Paragraph("Scenario 2 (2 notti ai relatori confermati) + 2 Relatori supplementari italiani (treno AV + 2 notti hotel pure per loro) + Spese Tipografiche/Catering.", table_cell),
+            Paragraph("<b>~ 3.030 € - 3.820 €</b>", table_cell_bold)
+        ],
+        [
+            Paragraph("<b>Scenario 4: 2 Notti + 2 Relatori Extra (International Estero)</b>", table_cell),
+            Paragraph("Scenario 2 (2 notti ai relatori confermati) + 2 Relatori supplementari esteri (voli A/R + 2 notti hotel pure per loro) + Spese Tipografiche/Catering.", table_cell),
+            Paragraph("<b>~ 3.690 € - 4.630 €</b>", table_cell_bold)
         ]
     ]
     
-    t_summary = Table(summary_data, colWidths=[5.6*cm, 7.8*cm, 4.6*cm])
+    t_summary = Table(summary_data, colWidths=[5.4*cm, 8.0*cm, 4.6*cm])
     t_summary.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#0F172A')),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#CBD5E1')),
-        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#FEF9C3')]),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#F8FAFC')]),
         ('TOPPADDING', (0, 0), (-1, -1), 6),
         ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
         ('LEFTPADDING', (0, 0), (-1, -1), 6),
@@ -310,9 +367,7 @@ def create_pdf(filename="preventivo_logistica_relatori_ssas.pdf"):
     ]))
     
     story.append(t_summary)
-    story.append(Spacer(1, 16))
-    story.append(HRFlowable(width="100%", thickness=0.5, color=colors.HexColor('#CBD5E1'), spaceBefore=8, spaceAfter=8))
-    story.append(Paragraph("Documento predisposto dal Comitato Organizzatore per conto degli studenti della Scuola Superiore di Studi Avanzati Sapienza.", ParagraphStyle('Footer', parent=body_style, fontSize=8, textColor=colors.HexColor('#64748B'), alignment=1)))
+    story.append(Spacer(1, 14))
     
     doc.build(story)
     print(f"PDF generato con successo: {os.path.abspath(filename)}")
