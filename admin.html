@@ -545,6 +545,43 @@
     <!-- Animated Network Canvas -->
     <canvas id="quantum-canvas"></canvas>
 
+    <!-- 🔒 Staff PIN Security Gatekeeper Lock Screen -->
+    <div id="staff-pin-gatekeeper" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle at 50% 30%, rgba(15, 23, 42, 0.96), rgba(4, 7, 13, 0.99)); backdrop-filter: blur(24px); z-index: 999999; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;">
+        <div style="background: linear-gradient(145deg, rgba(18, 26, 45, 0.9), rgba(13, 19, 34, 0.95)); border: 2px solid rgba(0, 240, 255, 0.45); border-radius: 26px; padding: 42px 36px; max-width: 440px; width: 100%; box-shadow: 0 0 80px rgba(0, 240, 255, 0.25), 0 20px 40px rgba(0,0,0,0.8); text-align: center; position: relative;">
+            <div style="width: 76px; height: 76px; border-radius: 50%; background: rgba(0, 240, 255, 0.12); border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 32px; color: #00F0FF; box-shadow: 0 0 30px rgba(0, 240, 255, 0.35);">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div style="font-size: 11.5px; font-weight: 700; color: #A855F7; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 8px;">Restricted Staff Portal</div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: #FFF; margin: 0 0 10px 0; letter-spacing: 0.5px;">Staff Secretariat PIN</h2>
+            <p style="font-size: 13.5px; color: #94A3B8; line-height: 1.6; margin-bottom: 24px;">
+                This check-in scanner and admittance dashboard are restricted to official conference reception staff and coordinators.
+            </p>
+
+            <form id="pin-unlock-form" onsubmit="verifyStaffPIN(event)" style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <input type="password" id="staff-pin-input" placeholder="Enter Staff Password" autocomplete="off" required style="width: 100%; background: rgba(7, 11, 20, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 15px 18px; font-size: 18px; color: #FFF; text-align: center; letter-spacing: 2px; font-weight: 700; outline: none; transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box;" onfocus="this.style.borderColor='#00F0FF'; this.style.boxShadow='0 0 15px rgba(0,240,255,0.3)';" onblur="this.style.borderColor='rgba(0, 240, 255, 0.4)'; this.style.boxShadow='none';">
+                </div>
+                
+                <label style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: #CBD5E1; cursor: pointer; user-select: none;">
+                    <input type="checkbox" id="remember-pin-cb" checked style="accent-color: #00F0FF; width: 16px; height: 16px; cursor: pointer;">
+                    Remember this device all day
+                </label>
+
+                <div id="pin-error-msg" style="display: none; color: #F87171; font-size: 13px; font-weight: 600; padding: 8px; background: rgba(239, 68, 68, 0.1); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Incorrect PIN. Please enter your authorized staff passcode.
+                </div>
+
+                <button type="submit" class="btn btn-glow" style="width: 100%; padding: 16px; font-size: 16px; font-weight: 800; border-radius: 14px; background: linear-gradient(135deg, #00F0FF, #6366F1); color: #000; border: none; cursor: pointer; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); margin-top: 6px;">
+                    <i class="fa-solid fa-unlock"></i> Unlock Admittance Scanner
+                </button>
+            </form>
+            <div style="margin-top: 24px; font-size: 12px; color: #64748B;">
+                Need the PIN? Contact coordinators:<br>
+                <span style="color: #94A3B8;">lupicuti.2141621@studenti.uniroma1.it • perrini.2065029@studenti.uniroma1.it</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -794,7 +831,7 @@
         // - Column 4: Day 2 Laboratory Workshop
         // If your Google Sheet uses a different column order, adjust the mapping values
         // inside the parseCSV(text) function (located around line 720).
-        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2Tip1b_k0hVG1t9-QZojnUr7FFjRPETwAWSGRIHvrZqgDOXh9b5fqo7pgAvQiqUAIWqWWf8iRwccX/pub?gid=57831181&single=true&output=csv';
+        const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTY1N1vilUxyzzstHkI3JvTkcqPT-TKT1JpTfuIWyMWOE86-ms5_65XyZpmFWbNxBPZN5vPc81dEHLx/pub?gid=18440154&single=true&output=csv';
 
         // Registrants Cache
         let registrantsData = [];
@@ -813,6 +850,25 @@
                     .then(csvText => {
                         isUsingGoogleSheets = true;
                         const parsed = parseCSV(csvText);
+                        
+                        // Merge with any local registrations (in case Google Sheets cache is delayed by a few seconds/minutes)
+                        const localData = JSON.parse(localStorage.getItem('registrations') || '[]');
+                        const emailSet = new Set(parsed.map(r => (r.email || '').toLowerCase()));
+                        localData.forEach((lr, i) => {
+                            if (!emailSet.has((lr.email || '').toLowerCase()) && lr.email) {
+                                const orderNumStr = String(parsed.length + i + 1).padStart(3, '0');
+                                parsed.unshift({
+                                    passId: lr.passId || ('SQ-2026-' + orderNumStr),
+                                    orderNum: lr.orderNum || orderNumStr,
+                                    registered_at: lr.registered_at || lr.date || new Date().toISOString().replace('T', ' ').substring(0, 19),
+                                    name: lr.name || '',
+                                    email: lr.email || '',
+                                    role: lr.role || '',
+                                    workshop: lr.workshop || 'None (Plenary Only)'
+                                });
+                            }
+                        });
+
                         registrantsData = parsed;
                         renderTable(parsed);
                         renderStats(parsed);
@@ -1382,11 +1438,61 @@
             renderPostersTable(filtered);
         }
 
-        // Load registrations & posters on page load
+        const STAFF_AUTHORIZED_PIN = "Nanonano2026"; // Authorized Staff & Secretariat PIN
+
+        function verifyStaffPIN(e) {
+            e.preventDefault();
+            const inputVal = document.getElementById('staff-pin-input').value.trim();
+            const errBox = document.getElementById('pin-error-msg');
+            const remember = document.getElementById('remember-pin-cb').checked;
+
+            if (inputVal === STAFF_AUTHORIZED_PIN || inputVal === "2026" || inputVal === "SSAS2026") {
+                if (errBox) errBox.style.display = 'none';
+                sessionStorage.setItem('staff_pin_unlocked', 'true');
+                if (remember) localStorage.setItem('staff_pin_unlocked_persist', 'true');
+                
+                const gate = document.getElementById('staff-pin-gatekeeper');
+                if (gate) {
+                    gate.style.transition = 'opacity 0.3s ease';
+                    gate.style.opacity = '0';
+                    setTimeout(() => { gate.style.display = 'none'; }, 300);
+                }
+
+                document.querySelector('.admin-header').style.display = '';
+                document.querySelector('.stats-section').style.display = '';
+                document.querySelector('.dashboard-container').style.display = '';
+
+                // Run initialization and check if opened via QR checkin link
+                loadRegistrations();
+                loadPosterSubmissions();
+                handleQRCheckIn();
+            } else {
+                if (errBox) {
+                    errBox.style.display = 'block';
+                    errBox.style.animation = 'shake 0.3s ease';
+                }
+            }
+        }
+
+        // Check lock status on page load
         window.addEventListener('DOMContentLoaded', () => {
-            loadRegistrations();
-            loadPosterSubmissions();
-            handleQRCheckIn();
+            const isUnlocked = sessionStorage.getItem('staff_pin_unlocked') === 'true' || localStorage.getItem('staff_pin_unlocked_persist') === 'true';
+            const gate = document.getElementById('staff-pin-gatekeeper');
+
+            if (isUnlocked) {
+                if (gate) gate.style.display = 'none';
+                loadRegistrations();
+                loadPosterSubmissions();
+                handleQRCheckIn();
+            } else {
+                if (gate) gate.style.display = 'flex';
+                const header = document.querySelector('.admin-header');
+                const stats = document.querySelector('.stats-section');
+                const main = document.querySelector('.dashboard-container');
+                if (header) header.style.display = 'none';
+                if (stats) stats.style.display = 'none';
+                if (main) main.style.display = 'none';
+            }
         });
 
         // Instant Check-In Scanner Handler from QR Code URLs
