@@ -1465,7 +1465,7 @@
                 // Run initialization and check if opened via QR checkin link
                 loadRegistrations();
                 loadPosterSubmissions();
-                handleQRCheckIn();
+                setTimeout(() => { handleQRCheckIn(); }, 150);
             } else {
                 if (errBox) {
                     errBox.style.display = 'block';
@@ -1483,7 +1483,7 @@
                 if (gate) gate.style.display = 'none';
                 loadRegistrations();
                 loadPosterSubmissions();
-                handleQRCheckIn();
+                setTimeout(() => { handleQRCheckIn(); }, 150);
             } else {
                 if (gate) gate.style.display = 'flex';
                 const header = document.querySelector('.admin-header');
@@ -1501,10 +1501,21 @@
             const checkinId = params.get('checkin');
             if (!checkinId) return;
 
-            const name = params.get('name') || 'Registered Delegate';
-            const email = params.get('email') || '';
-            const order = params.get('order') || '';
-            const ws = params.get('ws') || 'None / Plenary Sessions Only';
+            let name = params.get('name') || 'Registered Delegate';
+            let email = params.get('email') || '';
+            let order = params.get('order') || '';
+            let ws = params.get('ws') || 'Assigned Conference Track';
+
+            // Automatic lookup from registrantsData if exists to fill in full info from short URL
+            if (typeof registrantsData !== 'undefined' && Array.isArray(registrantsData)) {
+                const found = registrantsData.find(r => r.id === checkinId || (r.order && String(r.order).padStart(3,'0') === checkinId.split('-').pop()));
+                if (found) {
+                    if (!name || name === 'Registered Delegate') name = found.name || name;
+                    if (!email) email = found.email || '';
+                    if (!ws || ws === 'Assigned Conference Track') ws = found.ws || found.topic || ws;
+                    if (!order) order = found.order || '';
+                }
+            }
 
             // Auto-search for this ID in the search box
             const searchBox = document.getElementById('search-box');
@@ -1518,7 +1529,7 @@
             const checkInTimestamp = checkedInList[checkinId] || '';
 
             const modalHtml = `
-                <div id="checkin-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(7, 11, 20, 0.94); backdrop-filter: blur(18px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                <div id="checkin-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(7, 11, 20, 0.94); backdrop-filter: blur(18px); z-index: 9999999; display: flex; align-items: center; justify-content: center; padding: 20px;">
                     <div style="background: linear-gradient(145deg, #121A2D, #0D1322); border: 2px solid #00F0FF; border-radius: 24px; padding: 36px; max-width: 520px; width: 100%; box-shadow: 0 0 60px rgba(0, 240, 255, 0.35); text-align: center; position: relative; animation: popIn 0.3s ease;">
                         <div style="width: 76px; height: 76px; border-radius: 50%; background: rgba(0, 240, 255, 0.15); border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 34px; color: #00F0FF; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);">
                             <i class="fa-solid fa-qrcode"></i>

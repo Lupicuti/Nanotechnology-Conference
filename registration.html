@@ -831,8 +831,8 @@
                 orderEl.setAttribute('data-order-num', orderNumStr);
                 orderEl.setAttribute('data-pass-id', confId);
             }
-            const checkinUrlStep = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(confId) + '&name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email || '') + '&ws=' + encodeURIComponent(workshopSelected || '') + '&order=' + encodeURIComponent(orderNumStr || '');
-            document.getElementById('conf-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=' + encodeURIComponent(checkinUrlStep);
+            const checkinUrlStep = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(confId) + '&name=' + encodeURIComponent(name);
+            document.getElementById('conf-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=' + encodeURIComponent(checkinUrlStep);
 
             document.getElementById('reg-form-step-1').style.display = 'none';
             document.getElementById('reg-form-step-2').style.display = 'block';
@@ -1057,14 +1057,14 @@
             const qrTarget = wrapper.querySelector('#pdf-direct-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
-                    const checkinUrlPdf = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(passId) + '&name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email || '') + '&ws=' + encodeURIComponent(wsText || '') + '&order=' + encodeURIComponent(orderNum || '');
+                    const checkinUrlPdf = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(passId) + '&name=' + encodeURIComponent(name);
                     new QRCode(qrTarget, {
                         text: checkinUrlPdf,
-                        width: 114,
-                        height: 114,
+                        width: 136,
+                        height: 136,
                         colorDark: "#000000",
                         colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
+                        correctLevel: QRCode.CorrectLevel.M
                     });
                 } catch (e) {
                     console.warn('QRCode error:', e);

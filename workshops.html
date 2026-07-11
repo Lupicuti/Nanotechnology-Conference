@@ -2044,14 +2044,14 @@
             const qrTarget = wrapper.querySelector('#pdf-direct-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
-                    const checkinUrlPdf = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(passId) + '&name=' + encodeURIComponent(name) + '&email=' + encodeURIComponent(email || '') + '&ws=' + encodeURIComponent(wsText || '') + '&order=' + encodeURIComponent(orderNum || '');
+                    const checkinUrlPdf = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(passId) + '&name=' + encodeURIComponent(name);
                     new QRCode(qrTarget, {
                         text: checkinUrlPdf,
-                        width: 114,
-                        height: 114,
+                        width: 136,
+                        height: 136,
                         colorDark: "#000000",
                         colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.H
+                        correctLevel: QRCode.CorrectLevel.M
                     });
                 } catch (e) {
                     console.warn('QRCode error:', e);
