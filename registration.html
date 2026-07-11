@@ -952,7 +952,7 @@
 
             let wsTitleFinal = 'None / Plenary Sessions Only';
             let wsLocFinal = '📍 Location: Aula Amaldi, Physics Dept (Edificio Marconi), Piazzale Aldo Moro 5, Rome';
-            let wsDateFinal = 'Schedule: General Plenary Pass (No Laboratory Reserved)';
+            let wsDateFinal = '';
             let wsColorFinal = 'rgba(255, 255, 255, 0.2)';
 
             if (wsText && !wsText.includes('None') && !wsText.includes('Plenary Sessions Only') && !wsText.includes('Plenary Only')) {
@@ -1027,20 +1027,20 @@
                         <div style="font-size: 11px; color: #00F0FF; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; margin-bottom: 4px;">Assigned Laboratory Workshop</div>
                         <div style="font-size: 16px; font-weight: 800; color: #FFF;">${wsTitleFinal}</div>
                         <div style="font-size: 13px; color: #E2E8F0; font-weight: 600; margin-top: 3px;">${wsLocFinal}</div>
-                        <div style="font-size: 12.5px; color: #94A3B8; margin-top: 3px;">${wsDateFinal}</div>
+                        ${wsDateFinal ? `<div style="font-size: 12.5px; color: #94A3B8; margin-top: 3px;">${wsDateFinal}</div>` : ''}
                     </div>
 
                     <!-- Venue Summary Footnote inside card -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #94A3B8;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #E2E8F0; font-weight: 600; margin-top: 6px;">
                         <div><span>🏛️ Main Venue: Aula Amaldi, Department of Physics (Edificio Marconi), Piazzale Aldo Moro 5, Rome</span></div>
-                        <div style="color: #00F0FF; font-weight: 700;">★ FREE ADMISSION</div>
+                        <div style="color: #00F0FF; font-weight: 800;">★ FREE ADMISSION</div>
                     </div>
                 </div>
 
                 <!-- Footer Block: Contacts & SSAS -->
                 <div style="border-top: 1.5px solid rgba(0, 240, 255, 0.25); padding-top: 16px; margin-top: auto; font-size: 11.5px; color: #94A3B8; line-height: 1.5; display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <strong style="color: #FFF; font-size: 12.5px; text-transform: uppercase; letter-spacing: 1px;">Workshop Registration Contacts:</strong><br>
+                        <strong style="color: #FFF; font-size: 12.5px; text-transform: uppercase; letter-spacing: 1px;">Contacts:</strong><br>
                         Francesco Lupicuti: <span style="color: #00F0FF; font-weight: 600;">lupicuti.2141621@studenti.uniroma1.it</span><br>
                         Leonardo Perrini: <span style="color: #00F0FF; font-weight: 600;">perrini.2065029@studenti.uniroma1.it</span>
                     </div>
