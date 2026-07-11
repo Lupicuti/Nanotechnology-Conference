@@ -861,7 +861,10 @@
 
                 const cols = parseCSVLine(line);
                 if (cols.length >= 4) {
+                    const orderNumStr = String(i).padStart(3, '0');
                     list.push({
+                        passId: 'SQ-2026-' + orderNumStr,
+                        orderNum: orderNumStr,
                         registered_at: cols[0] || '',
                         name: cols[1] || '',
                         email: cols[2] || '',
@@ -901,16 +904,22 @@
             }
 
             let csvContent = "\ufeff"; // BOM for Excel UTF-8
-            csvContent += ["Attendee ID", "Full Name", "Email Address", "Academic Status / Role", "Day 2 Workshop", "Registration Date"].join(",") + "\r\n";
+            csvContent += ["Pass ID", "Order Number", "Full Name", "Email Address", "Academic Status / Role", "Day 2 Workshop", "Check-In Status", "Registration Date"].join(",") + "\r\n";
 
+            const checkedInMap = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
             registrantsData.forEach((r, idx) => {
+                const passIdStr = r.passId || ('SQ-2026-' + String(idx + 1).padStart(3, '0'));
+                const orderStr = r.orderNum || String(idx + 1).padStart(3, '0');
+                const checkStatus = (checkedInMap[passIdStr] || checkedInMap[r.email] || checkedInMap[r.name]) ? `Checked In: ${checkedInMap[passIdStr] || checkedInMap[r.email] || checkedInMap[r.name]}` : 'Not Checked In';
                 const row = [
-                    idx + 1,
-                    `"${r.name.replace(/"/g, '""')}"`,
-                    `"${r.email.replace(/"/g, '""')}"`,
-                    `"${r.role.replace(/"/g, '""')}"`,
-                    `"${r.workshop.replace(/"/g, '""')}"`,
-                    `"${r.registered_at.replace(/"/g, '""')}"`
+                    `"${passIdStr}"`,
+                    `"${orderStr}"`,
+                    `"${(r.name || '').replace(/"/g, '""')}"`,
+                    `"${(r.email || '').replace(/"/g, '""')}"`,
+                    `"${(r.role || '').replace(/"/g, '""')}"`,
+                    `"${(r.workshop || '').replace(/"/g, '""')}"`,
+                    `"${checkStatus.replace(/"/g, '""')}"`,
+                    `"${(r.registered_at || '').replace(/"/g, '""')}"`
                 ];
                 csvContent += row.join(",") + "\r\n";
             });
@@ -959,7 +968,9 @@
                 tr.appendChild(tdIndex);
 
                 const tdName = document.createElement('td');
-                tdName.innerHTML = `<strong>${escapeHtml(r.name)}</strong>`;
+                const checkedInMap = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
+                const checkedInTime = checkedInMap[r.passId] || checkedInMap[r.email] || checkedInMap[r.name];
+                tdName.innerHTML = `<strong>${escapeHtml(r.name)}</strong> ${checkedInTime ? `<span style="background: rgba(16,185,129,0.18); border: 1px solid #10B981; color: #34D399; font-size: 11px; padding: 2px 7px; border-radius: 12px; margin-left: 8px; font-weight: 700;" title="Checked in at ${escapeHtml(checkedInTime)}"><i class="fa-solid fa-check" style="margin-right: 3px;"></i>Checked In</span>` : ''}`;
                 tr.appendChild(tdName);
 
                 const tdEmail = document.createElement('td');
@@ -1375,7 +1386,117 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadRegistrations();
             loadPosterSubmissions();
+            handleQRCheckIn();
         });
+
+        // Instant Check-In Scanner Handler from QR Code URLs
+        function handleQRCheckIn() {
+            const params = new URLSearchParams(window.location.search);
+            const checkinId = params.get('checkin');
+            if (!checkinId) return;
+
+            const name = params.get('name') || 'Registered Delegate';
+            const email = params.get('email') || '';
+            const order = params.get('order') || '';
+            const ws = params.get('ws') || 'None / Plenary Sessions Only';
+
+            // Auto-search for this ID in the search box
+            const searchBox = document.getElementById('search-box');
+            if (searchBox) {
+                searchBox.value = checkinId;
+                filterTable();
+            }
+
+            let checkedInList = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
+            const isAlreadyCheckedIn = !!checkedInList[checkinId];
+            const checkInTimestamp = checkedInList[checkinId] || '';
+
+            const modalHtml = `
+                <div id="checkin-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(7, 11, 20, 0.94); backdrop-filter: blur(18px); z-index: 99999; display: flex; align-items: center; justify-content: center; padding: 20px;">
+                    <div style="background: linear-gradient(145deg, #121A2D, #0D1322); border: 2px solid #00F0FF; border-radius: 24px; padding: 36px; max-width: 520px; width: 100%; box-shadow: 0 0 60px rgba(0, 240, 255, 0.35); text-align: center; position: relative; animation: popIn 0.3s ease;">
+                        <div style="width: 76px; height: 76px; border-radius: 50%; background: rgba(0, 240, 255, 0.15); border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 34px; color: #00F0FF; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);">
+                            <i class="fa-solid fa-qrcode"></i>
+                        </div>
+                        <div style="font-size: 12px; font-weight: 700; color: #A855F7; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 6px;">Live Badge Check-In Scanner</div>
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: #FFF; margin-bottom: 18px;">Delegate Admittance</h2>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 20px; text-align: left; margin-bottom: 24px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                                <span style="color: #94A3B8; font-size: 13px;">Pass ID / Order:</span>
+                                <span style="font-family: 'Space Grotesk', monospace; font-weight: 800; color: #00F0FF; font-size: 16px;">#${escapeHtml(checkinId)} ${order ? `(#${escapeHtml(order)})` : ''}</span>
+                            </div>
+                            <div style="margin-bottom: 12px; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 10px;">
+                                <span style="color: #94A3B8; font-size: 13px; display: block;">Delegate Name:</span>
+                                <span style="font-weight: 800; color: #FFF; font-size: 21px;">${escapeHtml(name)}</span>
+                                ${email ? `<span style="color: #9CA3AF; font-size: 13px; display: block; margin-top: 2px;">${escapeHtml(email)}</span>` : ''}
+                            </div>
+                            <div>
+                                <span style="color: #94A3B8; font-size: 13px; display: block;">Assigned Workshop / Track:</span>
+                                <span style="font-weight: 700; color: #6366F1; font-size: 14.5px;">${escapeHtml(ws)}</span>
+                            </div>
+                        </div>
+
+                        ${isAlreadyCheckedIn ? `
+                            <div style="background: rgba(16, 185, 129, 0.15); border: 1.5px solid #10B981; border-radius: 14px; padding: 14px; color: #34D399; font-weight: 700; margin-bottom: 20px; font-size: 15px;">
+                                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i> ALREADY CHECKED IN<br>
+                                <span style="font-size: 12.5px; font-weight: 400; color: #A7F3D0;">Delegate admitted on ${checkInTimestamp}</span>
+                            </div>
+                        ` : `
+                            <div id="checkin-status-box" style="background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 14px; color: #00F0FF; font-weight: 600; margin-bottom: 20px; font-size: 14.5px;">
+                                <i class="fa-solid fa-id-badge" style="margin-right: 6px;"></i> Status: <span style="color: #FBBF24;">Verified Pass • Ready for Admittance</span>
+                            </div>
+                        `}
+
+                        <div style="display: flex; gap: 12px;">
+                            <button onclick="confirmDelegateCheckIn('${escapeHtml(checkinId)}', '${escapeHtml(name)}', '${escapeHtml(email)}')" style="flex: 1; background: linear-gradient(135deg, #00F0FF, #6366F1); color: #000; border: none; padding: 16px; border-radius: 14px; font-weight: 800; font-size: 16px; cursor: pointer; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); transition: transform 0.2s;">
+                                ✅ ADMIT & CHECK IN
+                            </button>
+                            <button onclick="closeCheckInModal()" style="background: rgba(255, 255, 255, 0.1); color: #FFF; border: 1px solid rgba(255, 255, 255, 0.2); padding: 16px 22px; border-radius: 14px; font-weight: 700; font-size: 15px; cursor: pointer; transition: background 0.2s;">
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const div = document.createElement('div');
+            div.innerHTML = modalHtml;
+            document.body.appendChild(div);
+        }
+
+        function confirmDelegateCheckIn(id, name, email) {
+            let checkedInList = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
+            const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' (' + new Date().toLocaleDateString() + ')';
+            if (id) checkedInList[id] = nowStr;
+            if (name) checkedInList[name] = nowStr;
+            if (email && email.trim()) checkedInList[email.trim()] = nowStr;
+            localStorage.setItem('checked_in_delegates', JSON.stringify(checkedInList));
+
+            const statusBox = document.getElementById('checkin-status-box');
+            if (statusBox) {
+                statusBox.style.background = 'rgba(16, 185, 129, 0.2)';
+                statusBox.style.borderColor = '#10B981';
+                statusBox.innerHTML = `🎉 <strong>ADMITTED SUCCESSFULLY!</strong><br><span style="color: #34D399; font-size: 13.5px;">Checked in at ${nowStr}</span>`;
+            }
+
+            // Also mark status in table if row exists right away
+            renderTable(registrantsData);
+
+            setTimeout(() => {
+                closeCheckInModal();
+            }, 1800);
+        }
+
+        function closeCheckInModal() {
+            const overlay = document.getElementById('checkin-modal-overlay');
+            if (overlay) overlay.remove();
+            const url = new URL(window.location);
+            url.searchParams.delete('checkin');
+            url.searchParams.delete('name');
+            url.searchParams.delete('email');
+            url.searchParams.delete('order');
+            url.searchParams.delete('ws');
+            window.history.replaceState({}, document.title, url.pathname + url.search);
+        }
 
         // Animated Background
         const canvas = document.getElementById('quantum-canvas');

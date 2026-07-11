@@ -1023,8 +1023,9 @@
             const qrTarget = container.querySelector('#pass-local-qr');
             if (qrTarget && typeof QRCode !== 'undefined') {
                 try {
+                    const checkinUrlPdf = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(passId) + '&name=' + encodeURIComponent(name) + '&ws=' + encodeURIComponent('Poster Presenter Track') + '&order=' + encodeURIComponent(orderNum || '');
                     new QRCode(qrTarget, {
-                        text: passId + '|' + name,
+                        text: checkinUrlPdf,
                         width: 96,
                         height: 96,
                         colorDark: "#000000",
