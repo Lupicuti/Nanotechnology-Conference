@@ -550,7 +550,7 @@
         <div class="nav-container">
             <a href="index.html" class="brand" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
                 <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 52px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
-                <span style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); line-height: 1.15; padding: 2px 10px 2px 0; display: inline-block;">Νάνος</span>
+                <span style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); line-height: 1.15; padding: 2px 10px 2px 0; display: inline-block;">Ν<span style="position:relative;display:inline-block;">α<span style="position:absolute;top:-0.45em;left:50%;transform:translateX(-50%);font-size:0.65em;line-height:1;">ˆ</span></span>νος</span>
                 <span style="width: 1.5px; height: 34px; background: rgba(0, 240, 255, 0.35); display: block; flex-shrink: 0;"></span>
                 <div style="margin-left: 2px;">
                     <span class="brand-text" style="line-height: 1.15; display: block; font-size: 0.95rem;">Sapienza School<br><span style="font-size: 0.82rem; color: #94A3B8; font-weight: 500;">of Advanced Studies</span></span>
@@ -961,7 +961,7 @@
                 <div style="text-align: center; width: 100%; border-bottom: 2px solid rgba(0, 240, 255, 0.3); padding-bottom: 20px;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px;">
                         <img src="images/ssas-logo.png" alt="SSAS Logo" style="height: 64px; width: auto; object-fit: contain;">
-                        <span style="font-family: 'Outfit', 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 800; letter-spacing: 5px; color: #00F0FF; line-height: 1;">Νανος</span>
+                        <span style="font-family: 'Outfit', 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 800; letter-spacing: 5px; color: #00F0FF; line-height: 1.15; padding: 2px 14px 2px 0; display: inline-block;">Ν<span style="position:relative;display:inline-block;">α<span style="position:absolute;top:-0.45em;left:50%;transform:translateX(-50%);font-size:0.65em;line-height:1;">ˆ</span></span>νος</span>
                     </div>
                     <h1 style="font-family: 'Outfit', sans-serif; font-size: 25px; font-weight: 800; letter-spacing: 1.2px; color: #FFF; margin: 0 0 6px 0; line-height: 1.25;">Nanos: Can the invisible reshape our future?</h1>
                     <div style="font-size: 12px; color: #C084FC; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600;">Interdisciplinary Conference on Quantum Technology, Materials Science, and Nanoscale Engineering</div>
@@ -989,7 +989,7 @@
                                 <div style="font-size: 17px; font-weight: 600; color: #F8FAFC;">${affil}</div>
                             </div>
                         </div>
-                        <div id="pass-local-qr" style="width: 110px; height: 110px; background: #FFF; padding: 5px; border-radius: 12px; border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;"></div>
+                        <div id="pass-local-qr" style="width: 154px; height: 154px; background: #FFF; padding: 14px; border-radius: 14px; border: 2px solid #00F0FF; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-sizing: border-box;"></div>
                     </div>
 
                     <div style="margin-bottom: 25px;">
@@ -1026,11 +1026,11 @@
                     const checkinUrlPdf = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(passId) + '&name=' + encodeURIComponent(name);
                     new QRCode(qrTarget, {
                         text: checkinUrlPdf,
-                        width: 136,
-                        height: 136,
+                        width: 126,
+                        height: 126,
                         colorDark: "#000000",
                         colorLight: "#ffffff",
-                        correctLevel: QRCode.CorrectLevel.M
+                        correctLevel: QRCode.CorrectLevel.L
                     });
                 } catch (e) {}
             }

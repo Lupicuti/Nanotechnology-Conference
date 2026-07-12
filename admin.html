@@ -919,7 +919,12 @@
             const lines = text.split('\n');
             if (lines.length <= 1) return [];
 
+            const headers = parseCSVLine(lines[0]);
+            const checkInColIdx = headers.findIndex(h => h && h.toLowerCase().includes('check'));
+
             const list = [];
+            const newCheckins = {};
+            
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
                 if (!line) continue;
@@ -927,8 +932,15 @@
                 const cols = parseCSVLine(line);
                 if (cols.length >= 4) {
                     const orderNumStr = String(i).padStart(3, '0');
+                    const passId = 'SQ-2026-' + orderNumStr;
+                    
+                    if (checkInColIdx !== -1 && cols[checkInColIdx] && cols[checkInColIdx].trim() !== '') {
+                        newCheckins[passId] = cols[checkInColIdx].trim();
+                        newCheckins[cols[1] || ''] = cols[checkInColIdx].trim();
+                    }
+
                     list.push({
-                        passId: 'SQ-2026-' + orderNumStr,
+                        passId: passId,
                         orderNum: orderNumStr,
                         registered_at: cols[0] || '',
                         name: cols[1] || '',
@@ -938,6 +950,13 @@
                     });
                 }
             }
+            
+            if (Object.keys(newCheckins).length > 0) {
+                const existingCheckins = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
+                Object.assign(existingCheckins, newCheckins);
+                localStorage.setItem('checked_in_delegates', JSON.stringify(existingCheckins));
+            }
+            
             return list.reverse(); // Show recent registrations first
         }
 
@@ -1230,7 +1249,14 @@
                 registrantsData = registrantsData.filter(r => r.email.toLowerCase() !== email.toLowerCase());
                 renderTable(registrantsData);
                 renderStats(registrantsData);
-                alert('Success: Registrant removed from dashboard preview.\n\nNote: Since your dashboard is linked to Google Sheets, to delete this registrant permanently you must open your Google Sheets spreadsheet and remove the corresponding row.');
+                
+                const webhookUrl = MASTER_CLOUD_WEBHOOK_URL || localStorage.getItem('apps_script_webhook') || '';
+                if (webhookUrl && webhookUrl.includes('script.google.com')) {
+                    fetch(webhookUrl + '?action=delete&email=' + encodeURIComponent(email), { mode: 'no-cors' }).catch(e => console.warn(e));
+                    alert('Success: Registrant removed from dashboard.\n\nA delete request was sent to Google Sheets to keep it synced.');
+                } else {
+                    alert('Success: Registrant removed from dashboard preview.\n\nNote: Since your dashboard is linked to Google Sheets, to delete this registrant permanently you must open your Google Sheets spreadsheet and remove the corresponding row.');
+                }
             } else {
                 loadRegistrations();
             }
@@ -1676,33 +1702,59 @@
                         document.getElementById('qr-reader').innerHTML = `<p style="color:#EF4444; padding:20px;">Camera library loading or blocked. Please refresh or check camera permissions.</p>`;
                         return;
                     }
-                    html5QrCodeScannerInstance = new Html5Qrcode("qr-reader");
-                    html5QrCodeScannerInstance.start(
-                        { facingMode: "environment" },
-                        { fps: 10, qrbox: { width: 240, height: 240 } },
-                        (decodedText, decodedResult) => {
-                            console.log("Scanned QR:", decodedText);
-                            closeCameraScannerModal();
+                    html5QrCodeScannerInstance = new Html5Qrcode("qr-reader", {
+                        experimentalFeatures: {
+                            useBarCodeDetectorIfSupported: true
+                        }
+                    });
 
-                            let targetId = decodedText;
-                            let targetName = '';
-                            if (decodedText.includes('checkin=')) {
-                                try {
-                                    const parsedUrl = new URL(decodedText);
-                                    targetId = parsedUrl.searchParams.get('checkin') || targetId;
-                                    targetName = parsedUrl.searchParams.get('name') || '';
-                                } catch(e) {}
-                            }
-
-                            const url = new URL(window.location);
-                            url.searchParams.set('checkin', targetId);
-                            if (targetName) url.searchParams.set('name', targetName);
-                            window.history.replaceState({}, document.title, url.pathname + url.search);
-                            window.wasOpenedByCameraScanner = true;
-                            handleQRCheckIn();
+                    const cameraConfig = {
+                        fps: 20,
+                        qrbox: function(viewfinderWidth, viewfinderHeight) {
+                            const minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+                            const qrboxSize = Math.floor(minEdgeSize * 0.75);
+                            return { width: qrboxSize, height: qrboxSize };
                         },
+                        aspectRatio: 1.0,
+                        disableFlip: false
+                    };
+
+                    const onSuccess = (decodedText, decodedResult) => {
+                        console.log("Scanned QR:", decodedText);
+                        closeCameraScannerModal();
+
+                        let targetId = decodedText;
+                        let targetName = '';
+                        if (decodedText.includes('checkin=')) {
+                            try {
+                                const parsedUrl = new URL(decodedText);
+                                targetId = parsedUrl.searchParams.get('checkin') || targetId;
+                                targetName = parsedUrl.searchParams.get('name') || '';
+                            } catch(e) {}
+                        }
+
+                        const url = new URL(window.location);
+                        url.searchParams.set('checkin', targetId);
+                        if (targetName) url.searchParams.set('name', targetName);
+                        window.history.replaceState({}, document.title, url.pathname + url.search);
+                        window.wasOpenedByCameraScanner = true;
+                        handleQRCheckIn();
+                    };
+
+                    html5QrCodeScannerInstance.start(
+                        { facingMode: "environment", width: { min: 640, ideal: 1280, max: 1920 }, height: { min: 480, ideal: 720, max: 1080 } },
+                        cameraConfig,
+                        onSuccess,
                         (errorMessage) => {}
                     ).catch(err => {
+                        console.warn("High-res camera start failed, retrying with default environment facing mode:", err);
+                        return html5QrCodeScannerInstance.start(
+                            { facingMode: "environment" },
+                            cameraConfig,
+                            onSuccess,
+                            (errorMessage) => {}
+                        );
+                    }).catch(err => {
                         console.warn("Camera start failed:", err);
                         document.getElementById('qr-reader').innerHTML = `<p style="color:#EF4444; padding:20px;">Could not access camera: ${escapeHtml(String(err))}<br>Make sure camera permissions are enabled on this device.</p>`;
                     });
