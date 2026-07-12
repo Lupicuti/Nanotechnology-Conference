@@ -603,8 +603,7 @@
     <header class="admin-header">
         <div class="header-title">
             <h1>Registrations Control Panel</h1>
-            <p>Monitor registrations, manually insert new delegates, remove participants, and export attendees
-                databases.</p>
+            <p>Monitor registrations, remove participants, and export attendees databases.</p>
         </div>
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
             <button onclick="openCameraScannerModal()" class="btn btn-glow" style="background: linear-gradient(135deg, #10B981, #059669); border-color: #10B981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);">
@@ -612,9 +611,6 @@
             </button>
             <button onclick="exportCSVClientSide()" class="btn btn-outline">
                 <i class="fa-solid fa-file-excel" style="color: var(--cyan);"></i> Export Excel (CSV)
-            </button>
-            <button onclick="openAddModal()" class="btn btn-glow">
-                <i class="fa-solid fa-user-plus"></i> Add Attendee Manually
             </button>
         </div>
     </header>
