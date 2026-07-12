@@ -686,13 +686,14 @@
                             <th>Email Address</th>
                             <th>Role / Status</th>
                             <th>Workshop Booking</th>
+                            <th style="width: 120px;">Check-In</th>
                             <th style="width: 140px;">Reg Date</th>
                             <th style="width: 100px; text-align: center;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="table-body">
                         <tr>
-                            <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                            <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 3rem;">
                                 <i class="fa-solid fa-spinner fa-spin"
                                     style="font-size: 2rem; margin-bottom: 1rem; display: block; color: var(--cyan);"></i>
                                 Loading registrations from database...
@@ -1023,7 +1024,7 @@
             if (data.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 3rem;">
+                        <td colspan="8" style="text-align: center; color: var(--text-muted); padding: 3rem;">
                             No registered attendees found.
                         </td>
                     </tr>
@@ -1048,10 +1049,9 @@
                 tdIndex.innerText = idx + 1;
                 tr.appendChild(tdIndex);
 
+                // Name — plain, no badge mixed in
                 const tdName = document.createElement('td');
-                const checkedInMap = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
-                const checkedInTime = checkedInMap[r.passId] || checkedInMap[r.email] || checkedInMap[r.name];
-                tdName.innerHTML = `<strong>${escapeHtml(r.name)}</strong> ${checkedInTime ? `<span style="background: rgba(16,185,129,0.18); border: 1px solid #10B981; color: #34D399; font-size: 11px; padding: 2px 7px; border-radius: 12px; margin-left: 8px; font-weight: 700;" title="Checked in at ${escapeHtml(checkedInTime)}"><i class="fa-solid fa-check" style="margin-right: 3px;"></i>Checked In</span>` : ''}`;
+                tdName.innerHTML = `<strong>${escapeHtml(r.name)}</strong>`;
                 tr.appendChild(tdName);
 
                 const tdEmail = document.createElement('td');
@@ -1072,18 +1072,33 @@
                 }
                 tr.appendChild(tdWs);
 
+                // Dedicated Check-In column
+                const checkedInMap = JSON.parse(localStorage.getItem('checked_in_delegates') || '{}');
+                const checkedInTime = checkedInMap[r.passId] || checkedInMap[r.email] || checkedInMap[r.name];
+                const tdCheckin = document.createElement('td');
+                if (checkedInTime) {
+                    tdCheckin.innerHTML = `<span style="background:rgba(16,185,129,0.18);border:1px solid #10B981;color:#34D399;font-size:11px;padding:3px 8px;border-radius:12px;font-weight:700;white-space:nowrap;" title="Checked in at ${escapeHtml(checkedInTime)}"><i class="fa-solid fa-check" style="margin-right:3px;"></i>Checked In</span>`;
+                } else {
+                    tdCheckin.innerHTML = `<span style="color:var(--text-dim);font-size:12px;">—</span>`;
+                }
+                tr.appendChild(tdCheckin);
+
                 const tdDate = document.createElement('td');
                 tdDate.className = 'date-col';
                 tdDate.innerText = formatDate(r.registered_at);
                 tr.appendChild(tdDate);
 
+                // Delete button — uses dataset to avoid JS injection from email strings
                 const tdActions = document.createElement('td');
                 tdActions.style.textAlign = 'center';
-                tdActions.innerHTML = `
-                    <button onclick="deleteAttendee('${r.email}')" class="btn btn-danger">
-                        <i class="fa-solid fa-trash-can"></i> Delete
-                    </button>
-                `;
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn btn-danger';
+                delBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Delete';
+                delBtn.dataset.email = r.email;
+                delBtn.addEventListener('click', function() {
+                    deleteAttendee(this.dataset.email);
+                });
+                tdActions.appendChild(delBtn);
                 tr.appendChild(tdActions);
 
                 tbody.appendChild(tr);
@@ -1532,6 +1547,12 @@
             const params = new URLSearchParams(window.location.search);
             const checkinId = params.get('checkin');
             if (!checkinId) return;
+
+            // If the camera scanner modal is currently open, this check-in came from
+            // the in-browser scanner — mark it so the scanner reopens after admission
+            if (document.getElementById('camera-scanner-modal-overlay')) {
+                window.wasOpenedByCameraScanner = true;
+            }
 
             let name = params.get('name') || 'Registered Delegate';
             let email = params.get('email') || '';
