@@ -610,9 +610,6 @@
             <button onclick="openCameraScannerModal()" class="btn btn-glow" style="background: linear-gradient(135deg, #10B981, #059669); border-color: #10B981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);">
                 <i class="fa-solid fa-camera"></i> 📸 Open Camera Scanner
             </button>
-            <button onclick="configureCloudWebhook()" class="btn btn-outline" style="border-color: #A855F7; color: #A855F7;">
-                <i class="fa-solid fa-cloud-arrow-up"></i> ☁️ Connect Cloud Sync
-            </button>
             <button onclick="exportCSVClientSide()" class="btn btn-outline">
                 <i class="fa-solid fa-file-excel" style="color: var(--cyan);"></i> Export Excel (CSV)
             </button>
@@ -1623,7 +1620,7 @@
             if (email && email.trim()) checkedInList[email.trim()] = nowStr;
             localStorage.setItem('checked_in_delegates', JSON.stringify(checkedInList));
 
-            // Real-Time Google Apps Script Cloud Sync
+            // Real-Time Google Apps Script Cloud Sync — write check-in to sheet
             const webhookUrl = MASTER_CLOUD_WEBHOOK_URL || localStorage.getItem('apps_script_webhook') || '';
             if (webhookUrl && webhookUrl.includes('script.google.com')) {
                 try {
@@ -1638,7 +1635,7 @@
                 statusBox.innerHTML = `🎉 <strong>ADMITTED SUCCESSFULLY!</strong><br><span style="color: #34D399; font-size: 13.5px;">Checked in at ${nowStr}</span>`;
             }
 
-            // Also mark status in table right away
+            // Mark status in table right away from localStorage
             renderTable(registrantsData);
 
             setTimeout(() => {
@@ -1646,6 +1643,8 @@
                 if (window.wasOpenedByCameraScanner) {
                     setTimeout(() => { openCameraScannerModal(); }, 200);
                 }
+                // Re-fetch from Google Sheets after a short delay so the table reflects the check-in
+                setTimeout(() => { loadRegistrations(); }, 3000);
             }, 1500);
         }
 
@@ -1696,11 +1695,18 @@
             div.innerHTML = modalHtml;
             document.body.appendChild(div);
 
+            // Wait for DOM to fully render the #qr-reader element before initializing
             setTimeout(() => {
                 try {
                     if (typeof Html5Qrcode === 'undefined') {
-                        document.getElementById('qr-reader').innerHTML = `<p style="color:#EF4444; padding:20px;">Camera library loading or blocked. Please refresh or check camera permissions.</p>`;
+                        const el = document.getElementById('qr-reader');
+                        if (el) el.innerHTML = `<p style="color:#EF4444; padding:20px;">Camera library loading or blocked. Please refresh or check camera permissions.</p>`;
                         return;
+                    }
+                    // Destroy any stale instance
+                    if (html5QrCodeScannerInstance) {
+                        try { html5QrCodeScannerInstance.stop().catch(()=>{}); } catch(e) {}
+                        html5QrCodeScannerInstance = null;
                     }
                     html5QrCodeScannerInstance = new Html5Qrcode("qr-reader", {
                         experimentalFeatures: {
@@ -1741,27 +1747,40 @@
                         handleQRCheckIn();
                     };
 
+                    // Try with explicit resolution first, fall back to plain environment mode
                     html5QrCodeScannerInstance.start(
-                        { facingMode: "environment", width: { min: 640, ideal: 1280, max: 1920 }, height: { min: 480, ideal: 720, max: 1080 } },
+                        { facingMode: { exact: "environment" } },
                         cameraConfig,
                         onSuccess,
-                        (errorMessage) => {}
+                        () => {}
                     ).catch(err => {
-                        console.warn("High-res camera start failed, retrying with default environment facing mode:", err);
+                        console.warn("Exact environment camera failed, trying any back camera:", err);
                         return html5QrCodeScannerInstance.start(
                             { facingMode: "environment" },
                             cameraConfig,
                             onSuccess,
-                            (errorMessage) => {}
+                            () => {}
                         );
                     }).catch(err => {
+                        console.warn("Back camera unavailable, trying any camera:", err);
+                        return Html5Qrcode.getCameras().then(cameras => {
+                            if (!cameras || cameras.length === 0) throw new Error('No cameras found');
+                            return html5QrCodeScannerInstance.start(
+                                cameras[cameras.length - 1].id,
+                                cameraConfig,
+                                onSuccess,
+                                () => {}
+                            );
+                        });
+                    }).catch(err => {
                         console.warn("Camera start failed:", err);
-                        document.getElementById('qr-reader').innerHTML = `<p style="color:#EF4444; padding:20px;">Could not access camera: ${escapeHtml(String(err))}<br>Make sure camera permissions are enabled on this device.</p>`;
+                        const el = document.getElementById('qr-reader');
+                        if (el) el.innerHTML = `<p style="color:#EF4444; padding:20px;">Could not access camera: ${escapeHtml(String(err))}<br>Make sure camera permissions are enabled on this device.</p>`;
                     });
                 } catch(e) {
                     console.error(e);
                 }
-            }, 200);
+            }, 400);
         }
 
         function closeCameraScannerModal() {
