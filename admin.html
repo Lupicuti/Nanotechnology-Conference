@@ -1639,9 +1639,11 @@
             renderTable(registrantsData);
 
             setTimeout(() => {
+                // Capture the flag BEFORE closeCheckInModal() resets it
+                const reopenCamera = window.wasOpenedByCameraScanner;
                 closeCheckInModal();
-                if (window.wasOpenedByCameraScanner) {
-                    setTimeout(() => { openCameraScannerModal(); }, 200);
+                if (reopenCamera) {
+                    setTimeout(() => { openCameraScannerModal(); }, 300);
                 }
                 // Re-fetch from Google Sheets after a short delay so the table reflects the check-in
                 setTimeout(() => { loadRegistrations(); }, 3000);

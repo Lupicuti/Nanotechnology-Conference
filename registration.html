@@ -797,16 +797,7 @@
             try { tempForm.submit(); } catch (err) {}
             setTimeout(() => tempForm.remove(), 2000);
 
-            // Generate Pass Number & UI Update (Connected directly to Excel / Google Sheet row count)
-            let globalCount = Number(localStorage.getItem('globalTotalRegistrants') || 0);
-            let regList = [];
-            try { regList = JSON.parse(localStorage.getItem('registrations') || '[]'); } catch(e){}
-            globalCount = Math.max(globalCount + 1, globalTotalRegistrants + 1, regList.length + 1);
-            globalTotalRegistrants = globalCount;
-            localStorage.setItem('globalTotalRegistrants', globalCount);
-            const orderNumStr = String(globalCount).padStart(3, '0');
-            const confId = 'SQ-2026-' + orderNumStr;
-
+            // Show step 2 immediately with a loading state
             document.getElementById('conf-name-display').innerText = name;
             document.getElementById('conf-role-display').innerText = role;
             document.getElementById('conf-email-display').innerText = email;
@@ -815,7 +806,7 @@
                 sessionsDisplayEl.innerText = checkedSessions;
                 sessionsDisplayEl.setAttribute('data-raw-sessions', checkedSessionElements.map(cb => cb.value).join('||'));
             }
-            
+
             const wsBox = document.getElementById('conf-ws-box');
             if (workshopSelected && workshopSelected !== 'None (Plenary Only)') {
                 wsBox.style.display = 'block';
@@ -825,22 +816,85 @@
                 wsBox.innerHTML = '';
             }
 
+            // Show loading state for pass number while we fetch the authoritative row count
             const orderEl = document.getElementById('conf-order-num');
             if (orderEl) {
-                orderEl.innerText = `Registration #${orderNumStr} (Pass #${confId})`;
-                orderEl.setAttribute('data-order-num', orderNumStr);
-                orderEl.setAttribute('data-pass-id', confId);
+                orderEl.innerText = 'Assigning your pass number…';
+                orderEl.removeAttribute('data-order-num');
+                orderEl.removeAttribute('data-pass-id');
             }
-            const checkinUrlStep = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(confId) + '&name=' + encodeURIComponent(name);
-            document.getElementById('conf-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=10&ecc=L&data=' + encodeURIComponent(checkinUrlStep);
-
+            document.getElementById('conf-qr-img').src = '';
             document.getElementById('reg-form-step-1').style.display = 'none';
             document.getElementById('reg-form-step-2').style.display = 'block';
 
-            try {
+            // Helper that finalises the pass number once the row count is known
+            function finalisePassNumber(rowCount) {
+                // rowCount = number of data rows currently in the sheet (before this submission lands)
+                // This person's row will be rowCount + 1, so pass = rowCount + 1
+                // ("row number − 1" because row 1 is the header)
+                const newPassNum = rowCount + 1;
+                const orderNumStr = String(newPassNum).padStart(3, '0');
+                const confId = 'SQ-2026-' + orderNumStr;
+
+                globalTotalRegistrants = newPassNum;
+                localStorage.setItem('globalTotalRegistrants', newPassNum);
+
+                if (orderEl) {
+                    orderEl.innerText = `Registration #${orderNumStr} (Pass #${confId})`;
+                    orderEl.setAttribute('data-order-num', orderNumStr);
+                    orderEl.setAttribute('data-pass-id', confId);
+                }
+
+                const checkinUrlStep = 'https://lupicuti.github.io/Nanotechnology-Conference/admin.html?checkin=' + encodeURIComponent(confId) + '&name=' + encodeURIComponent(name);
+                document.getElementById('conf-qr-img').src = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=10&ecc=L&data=' + encodeURIComponent(checkinUrlStep);
+
+                let regList = [];
+                try { regList = JSON.parse(localStorage.getItem('registrations') || '[]'); } catch(e) {}
                 regList.push({ name, email, role, workshop: workshopSelected, passId: confId, orderNum: orderNumStr, date: new Date().toISOString() });
-                localStorage.setItem('registrations', JSON.stringify(regList));
-            } catch (err) {}
+                try { localStorage.setItem('registrations', JSON.stringify(regList)); } catch(err) {}
+            }
+
+            // Fetch the authoritative row count from Google Sheets
+            // We use a 3-second timeout fallback in case the network is slow
+            let passAssigned = false;
+            const fallbackTimer = setTimeout(() => {
+                if (!passAssigned) {
+                    passAssigned = true;
+                    // Fallback: use the best local estimate
+                    let localCount = Math.max(
+                        Number(localStorage.getItem('globalTotalRegistrants') || 0),
+                        globalTotalRegistrants
+                    );
+                    finalisePassNumber(localCount);
+                }
+            }, 3000);
+
+            fetch(GOOGLE_SHEET_CSV_URL + '&cachebust=' + Date.now())
+                .then(res => res.ok ? res.text() : Promise.reject('Sheet fetch failed'))
+                .then(csvText => {
+                    if (passAssigned) return; // fallback already fired
+                    passAssigned = true;
+                    clearTimeout(fallbackTimer);
+                    const lines = csvText.split('\n');
+                    // Count valid data rows (exclude header and empty lines)
+                    const dataRows = lines.filter(l =>
+                        l.trim().length > 5 &&
+                        !l.toLowerCase().includes('informazioni cronologiche') &&
+                        !l.toLowerCase().includes('timestamp')
+                    );
+                    finalisePassNumber(dataRows.length);
+                })
+                .catch(err => {
+                    if (passAssigned) return;
+                    passAssigned = true;
+                    clearTimeout(fallbackTimer);
+                    console.warn('Sheet fetch for pass number failed, using local count:', err);
+                    let localCount = Math.max(
+                        Number(localStorage.getItem('globalTotalRegistrants') || 0),
+                        globalTotalRegistrants
+                    );
+                    finalisePassNumber(localCount);
+                });
         }
 
         function downloadTicketPDF() {
