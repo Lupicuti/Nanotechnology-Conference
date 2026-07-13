@@ -794,6 +794,184 @@
             gap: 2rem;
         }
 
+        /* Nav dropdown */
+        .nav-dropdown-item {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 16, 32, 0.97);
+            border: 1px solid rgba(0, 240, 255, 0.18);
+            border-radius: 12px;
+            padding: 0.5rem 0;
+            min-width: 190px;
+            display: none;
+            flex-direction: column;
+            z-index: 200;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(14px);
+        }
+
+        .nav-dropdown li {
+            list-style: none;
+        }
+
+        .nav-dropdown li a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            color: var(--text-main);
+            font-size: 0.88rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s, background 0.2s;
+            border-radius: 8px;
+            margin: 2px 4px;
+        }
+
+        .nav-dropdown li a:hover {
+            color: var(--cyan);
+            background: rgba(0, 240, 255, 0.08);
+        }
+
+        .nav-dropdown-item:hover .nav-dropdown {
+            display: flex;
+        }
+
+        /* Schematic Programme */
+        .schematic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 800px) {
+            .schematic-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .schematic-day {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 2rem 1.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schematic-day::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .schematic-day.day1::before {
+            background: linear-gradient(90deg, #00F0FF, #6366F1);
+        }
+
+        .schematic-day.day2::before {
+            background: linear-gradient(90deg, #A855F7, #38BDF8);
+        }
+
+        .schematic-day-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 0.3rem;
+        }
+
+        .schematic-day-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 1.4rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .sch-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .sch-time {
+            font-size: 0.78rem;
+            font-family: var(--font-mono);
+            color: var(--cyan);
+            min-width: 95px;
+            padding-top: 0.05rem;
+            flex-shrink: 0;
+        }
+
+        .sch-time.violet {
+            color: #C4B5FD;
+        }
+
+        .sch-time.muted {
+            color: var(--text-dim);
+        }
+
+        .sch-label {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            line-height: 1.35;
+        }
+
+        .sch-label small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .sch-break {
+            background: rgba(0, 240, 255, 0.04);
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .sch-poster {
+            background: rgba(16, 185, 129, 0.08);
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            color: #A7F3D0;
+        }
+
+        .sch-aperitif {
+            background: rgba(168, 85, 247, 0.08);
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            color: #DDD6FE;
+        }
+
+        .sch-workshop {
+            background: rgba(168, 85, 247, 0.08);
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+            color: #C4B5FD;
+        }
+
         .speaker-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -803,7 +981,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             position: relative;
             overflow: hidden;
         }
@@ -918,15 +1096,16 @@
         }
 
         .award-badge {
-            background: rgba(56, 189, 248, 0.15);
-            border: 1px solid rgba(56, 189, 248, 0.4);
-            color: #7DD3FC;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 0.3rem 0.8rem;
+            background: rgba(56, 189, 248, 0.10);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            color: #94A3B8;
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.25rem 0.7rem;
             border-radius: 20px;
             display: inline-block;
-            margin-bottom: 1rem;
+            margin-top: 0.6rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Workshops Section */
@@ -1685,7 +1864,9 @@
                 <img src="images/ssas-logo.png" alt="SSAS Logo"
                     style="height: 52px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));">
                 <span
-                    style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); line-height: 1.15; padding: 2px 10px 2px 0; display: inline-block;">Ν<span style="position:relative;display:inline-block;">α<span style="position:absolute;top:-0.005em;left:50%;transform:translateX(-50%);font-size:0.65em;line-height:1;color:#00F0FF;-webkit-text-fill-color:#00F0FF;">ˆ</span></span>νος</span>
+                    style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 2px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.4)); line-height: 1.15; padding: 2px 10px 2px 0; display: inline-block;">Ν<span
+                        style="position:relative;display:inline-block;">α<span
+                            style="position:absolute;top:-0.005em;left:50%;transform:translateX(-50%);font-size:0.65em;line-height:1;color:#00F0FF;-webkit-text-fill-color:#00F0FF;">ˆ</span></span>νος</span>
                 <span
                     style="width: 1.5px; height: 34px; background: rgba(0, 240, 255, 0.35); display: block; flex-shrink: 0;"></span>
                 <div style="margin-left: 2px;">
@@ -1697,8 +1878,15 @@
 
             <ul class="nav-links">
                 <li><a href="#about" data-i18n="nav_about">About</a></li>
-                <li><a href="#program" data-i18n="nav_program">Scientific Program</a></li>
-                <li><a href="#speakers" data-i18n="nav_keynotes">Speeches</a></li>
+                <li class="nav-dropdown-item">
+                    <a href="#schematic-program" class="nav-dropdown-trigger">Programme <i
+                            class="fa-solid fa-chevron-down" style="font-size:0.7em;"></i></a>
+                    <ul class="nav-dropdown">
+                        <li><a href="#schematic-program">Schematic Programme</a></li>
+                        <li><a href="#program">Specific Programme</a></li>
+                    </ul>
+                </li>
+                <li><a href="#speakers" data-i18n="nav_keynotes">Speakers</a></li>
                 <li><a href="#workshops" data-i18n="nav_workshops">Workshops</a></li>
                 <li><a href="workshops.html"
                         style="color: var(--violet); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i
@@ -1754,7 +1942,8 @@
             </a>
             <div
                 style="font-family: 'Space Grotesk', 'Outfit', sans-serif; font-size: clamp(3.2rem, 6.5vw, 5.2rem); font-weight: 800; letter-spacing: 4px; background: linear-gradient(135deg, #00F0FF 0%, #6366F1 50%, #3B82F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.45)); line-height: 1.15; padding: 10px 18px 10px 4px; display: inline-block; margin: 0;">
-                Ν<span style="position:relative;display:inline-block;">α<span style="position:absolute;top:-0.005em;left:50%;transform:translateX(-50%);font-size:0.65em;line-height:1;color:#00F0FF;-webkit-text-fill-color:#00F0FF;">ˆ</span></span>νος
+                Ν<span style="position:relative;display:inline-block;">α<span
+                        style="position:absolute;top:-0.005em;left:50%;transform:translateX(-50%);font-size:0.65em;line-height:1;color:#00F0FF;-webkit-text-fill-color:#00F0FF;">ˆ</span></span>νος
             </div>
         </div>
 
@@ -1836,7 +2025,7 @@
                     across physics, chemistry, and engineering.
                 </p>
                 <p>
-                    Our distinguished speeches explore the frontiers of modern nanoscience: from <strong>sub-Angstrom
+                    Our distinguished seminars explore the frontiers of modern nanoscience: from <strong>sub-Angstrom
                         single-atom imaging</strong> and <strong>topological quantum computation with Majorana
                         fermions</strong>, to <strong>CVD graphene & terahertz polaritonics</strong>, <strong>3D
                         plasmonic neuro-biosensors</strong>, and <strong>eco-friendly nanorestoration of cultural
@@ -1889,12 +2078,117 @@
         </div>
     </section>
 
+    <!-- Schematic Programme Section -->
+    <section id="schematic-program">
+        <div class="section-header">
+            <span class="section-badge"><i class="fa-solid fa-table-columns"></i> Overview</span>
+            <h2>Schematic Programme</h2>
+            <p>A concise two-day overview — from morning seminars to afternoon workshops and labs.</p>
+        </div>
+
+        <div class="schematic-grid">
+            <!-- Day 1 -->
+            <div class="schematic-day day1">
+                <div class="schematic-day-title">Day 1 &mdash; Wednesday, September 17, 2026</div>
+                <div class="schematic-day-subtitle">Advanced Physics &amp; Nanomaterials</div>
+
+                <div class="sch-row">
+                    <span class="sch-time muted">08:00 – 09:00</span>
+                    <span class="sch-label sch-break">Registration &amp; Welcome</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">09:00 – 09:50</span>
+                    <span class="sch-label">Maximilian Haider<small>CEOS GmbH &amp; KIT, Germany</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">09:50 – 10:40</span>
+                    <span class="sch-label">Kazu Suenaga<small>Osaka University &amp; AIST, Japan</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time muted">10:40 – 11:10</span>
+                    <span class="sch-label sch-break">Coffee Break &amp; Networking</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">11:10 – 12:00</span>
+                    <span class="sch-label">Alessandro Tredicucci<small>Università di Pisa &amp; NEST-CNR,
+                            Italy</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">12:00 – 12:50</span>
+                    <span class="sch-label">Carlo Beenakker<small>Leiden University, The Netherlands</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time muted">12:50 – 14:30</span>
+                    <span class="sch-label sch-break">Lunch Break</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">14:30 – 15:20</span>
+                    <span class="sch-label sch-poster">Poster Session</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">15:20 – 16:10</span>
+                    <span class="sch-label">Camilla Coletti<small>IIT &amp; CNI@NEST, Italy</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">16:10 – 17:00</span>
+                    <span class="sch-label">Gabriella Di Carlo<small>ISMN-CNR / Sapienza, Italy</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time muted">17:00 – 17:10</span>
+                    <span class="sch-label sch-break">Conclusions of Day 1</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time violet">17:10 – 18:00</span>
+                    <span class="sch-label sch-aperitif">Scientific Aperitif</span>
+                </div>
+            </div>
+
+            <!-- Day 2 -->
+            <div class="schematic-day day2">
+                <div class="schematic-day-title">Day 2 &mdash; Thursday, September 18, 2026</div>
+                <div class="schematic-day-subtitle">Reticular Chemistry &amp; Nanomedicine</div>
+
+                <div class="sch-row">
+                    <span class="sch-time">09:00 – 09:50</span>
+                    <span class="sch-label">Francesco De Angelis<small>IIT, Italy</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">09:50 – 10:40</span>
+                    <span class="sch-label">Giulia Serrano<small>University of Florence, Italy</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time muted">10:40 – 11:10</span>
+                    <span class="sch-label sch-break">Coffee Break</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">11:10 – 12:00</span>
+                    <span class="sch-label">Invited Speaker (TBC)<small>Advanced Reticular Chemistry &amp; Nanoscale
+                            Frameworks</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time">12:00 – 12:50</span>
+                    <span class="sch-label">Invited Speaker (TBC)<small>Nanofluidics &amp; Nanomedicine
+                            Frontiers</small></span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time muted">12:50 – 14:30</span>
+                    <span class="sch-label sch-break">Lunch Break</span>
+                </div>
+                <div class="sch-row">
+                    <span class="sch-time violet">15:00 – 18:00</span>
+                    <span class="sch-label sch-workshop">Parallel Hands-on Workshops &amp; Labs<small>AFM · Nanomedicine
+                            · THz · Nanowires · Heritage · Simulation</small></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Program Timeline Section -->
     <section id="program">
         <div class="section-header">
             <span class="section-badge"><i class="fa-solid fa-clock"></i> Schedule</span>
-            <h2>Conference Program</h2>
-            <p>Alternating comprehensive speeches (40-min talk + 10-min Q&A) with practical hands-on sessions.</p>
+            <h2>Detailed Program</h2>
+            <p>Alternating comprehensive seminars (40-min talk + 10-min Q&A) with practical hands-on sessions.</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
                 <button onclick="addToGoogleCalendar()" class="btn btn-outline"
                     style="border-color: rgba(0, 240, 255, 0.4); color: var(--cyan); padding: 0.6rem 1.4rem; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 0.6rem;">
@@ -1940,10 +2234,27 @@
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <img src="images/speakers/haider.png" class="slot-speaker-avatar" alt="Maximilian Haider">
-                        <a href="https://www.ceos-gmbh.de/en/about/max-haider" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Maximilian Haider</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">CEOS GmbH & Karlsruhe Institute of Technology (KIT), Germany</span>
+                        <a href="https://www.ceos-gmbh.de/en/about/max-haider" target="_blank" rel="noopener noreferrer"
+                            title="View Profile / More Info">Maximilian Haider</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">CEOS
+                            GmbH & Karlsruhe Institute of Technology (KIT), Germany</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> Recipient of the Wolf Prize in Physics (2011) for the realization of aberration-corrected electron microscopy.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -1951,11 +2262,28 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 09:50 - 10:40</div>
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <img src="images/speakers/suenaga.jpg" class="slot-speaker-avatar" alt="Kazu Suenaga"> 
-                        <a href="https://scholar.google.com/citations?user=Nf9cn1IAAAAJ&hl=ja" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Kazu Suenaga</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Osaka University & AIST, Japan</span>
+                        <img src="images/speakers/suenaga.jpg" class="slot-speaker-avatar" alt="Kazu Suenaga">
+                        <a href="https://scholar.google.com/citations?user=Nf9cn1IAAAAJ&hl=ja" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Kazu Suenaga</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Osaka
+                            University & AIST, Japan</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in single-atom imaging and spectroscopy in low-dimensional nanomaterials.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -1971,11 +2299,29 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 11:10 - 12:00</div>
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <img src="images/speakers/tredicucci.jpg" class="slot-speaker-avatar" alt="Alessandro Tredicucci"> 
-                        <a href="https://scholar.google.com/citations?user=ipxoIdgAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Alessandro Tredicucci</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Università di Pisa & NEST - CNR-NANO, Italy</span>
+                        <img src="images/speakers/tredicucci.jpg" class="slot-speaker-avatar"
+                            alt="Alessandro Tredicucci">
+                        <a href="https://scholar.google.com/citations?user=ipxoIdgAAAAJ&hl=it" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Alessandro Tredicucci</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Università
+                            di Pisa & NEST - CNR-NANO, Italy</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in terahertz photonics and polaritonics, and inventor of the first Terahertz Quantum Cascade Laser.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -1984,16 +2330,30 @@
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <img src="images/speakers/beenakker.jpg" class="slot-speaker-avatar" alt="Carlo Beenakker">
-                        <a href="https://scholar.google.com/citations?user=IuwLtbgAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Carlo Beenakker</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Leiden University, The Netherlands</span>
+                        <a href="https://scholar.google.com/citations?user=IuwLtbgAAAAJ&hl=en" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Carlo Beenakker</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Leiden
+                            University, The Netherlands</span>
                     </h4>
-                    <details class="slot-highlight" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
-                        <summary style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                            <div><strong>Title:</strong> <span style="color: #00F0FF;">Quantum computers and Majorana fermions</span></div>
-                            <span style="font-size: 0.8em; opacity: 0.6; background: rgba(0,240,255,0.1); padding: 4px 8px; border-radius: 4px; color: var(--cyan);">View Abstract ▾</span>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #00F0FF;">Quantum computers and Majorana
+                                    fermions</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.6; background: rgba(0,240,255,0.1); padding: 4px 8px; border-radius: 4px; color: var(--cyan);">
+                                Details ▾</span>
                         </summary>
-                        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
-                            <strong>Abstract:</strong> Quantum physics has been with us for a century, but it is only now that we are learning to apply its strange logic to computations. A quantum computer promises solution for problems in drug design and materials science that are intractable on an ordinary computer. In this lecture it will be given an introduction to quantum computers, with particular attention to the role played by an elusive particle predicted by Ettore Majorana in the 1920's.
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> Quantum physics has been with us for a century, but it is only
+                            now that we are learning to apply its strange logic to computations. A quantum computer
+                            promises solution for problems in drug design and materials science that are intractable on
+                            an ordinary computer. In this lecture it will be given an introduction to quantum computers,
+                            with particular attention to the role played by an elusive particle predicted by Ettore
+                            Majorana in the 1920's.
                         </div>
                     </details>
                 </div>
@@ -2029,10 +2389,27 @@
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <img src="images/speakers/coletti.jpg" class="slot-speaker-avatar" alt="Camilla Coletti">
-                        <a href="https://scholar.google.com/citations?user=0tZ-4xQAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Camilla Coletti</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Istituto Italiano di Tecnologia & CNI@NEST, Italy</span>
+                        <a href="https://scholar.google.com/citations?user=0tZ-4xQAAAAJ&hl=it" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Camilla Coletti</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Istituto
+                            Italiano di Tecnologia & CNI@NEST, Italy</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> Pioneer in scalable synthesis of graphene and 2D materials for advanced photonics and electronics.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -2041,10 +2418,27 @@
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <img src="images/speakers/dicarlo.png" class="slot-speaker-avatar" alt="Gabriella Di Carlo">
-                        <a href="https://scholar.google.com/citations?user=0tZ-4xQAAAAJ&hl=it" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Gabriella Di Carlo</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">ISMN-CNR / Sapienza University of Rome, Italy</span>
+                        <a href="https://scholar.google.com/citations?user=0tZ-4xQAAAAJ&hl=it" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Gabriella Di Carlo</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">ISMN-CNR
+                            / Sapienza University of Rome, Italy</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> Expert in surface science, advanced spectroscopic techniques, and nanostructured materials for cultural heritage conservation.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -2080,10 +2474,27 @@
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                         <img src="images/speakers/deangelis.jpg" class="slot-speaker-avatar" alt="Francesco De Angelis">
-                        <a href="https://scholar.google.com/citations?user=1PqjNfMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Francesco De Angelis</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Istituto Italiano di Tecnologia (IIT), Italy</span>
+                        <a href="https://scholar.google.com/citations?user=1PqjNfMAAAAJ&hl=en" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Francesco De Angelis</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">Istituto
+                            Italiano di Tecnologia (IIT), Italy</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> World leader in plasmonics, nanopore technologies, and nanodevices for neuroscience and genomics.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -2091,11 +2502,28 @@
                 <div class="time-badge"><i class="fa-regular fa-clock"></i> 09:50 - 10:40</div>
                 <div class="slot-content">
                     <h4 style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                        <img src="images/speakers/serrano.jpg" class="slot-speaker-avatar" alt="Giulia Serrano"> 
-                        <a href="https://scholar.google.com/citations?user=Y9OQcQQAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Giulia Serrano</a>
-                        <span style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">University of Florence, Italy</span>
+                        <img src="images/speakers/serrano.jpg" class="slot-speaker-avatar" alt="Giulia Serrano">
+                        <a href="https://scholar.google.com/citations?user=Y9OQcQQAAAAJ&hl=en" target="_blank"
+                            rel="noopener noreferrer" title="View Profile / More Info">Giulia Serrano</a>
+                        <span
+                            style="font-size: 0.85em; font-weight: 500; color: #94A3B8; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 12px; line-height: 1.2;">University
+                            of Florence, Italy</span>
                     </h4>
-                    <div class="slot-highlight"><strong>Key Highlight:</strong> Emerging leader in molecular magnetism and the integration of Single-Molecule Magnets (SMMs) on functional surfaces.</div>
+                    <details class="slot-highlight"
+                        style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px 14px; margin-top: 12px; cursor: pointer;">
+                        <summary
+                            style="font-weight: 500; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                            <div><strong>Title:</strong> <span style="color: #94A3B8; font-style: italic;">To be
+                                    confirmed</span></div>
+                            <span
+                                style="font-size: 0.8em; opacity: 0.5; background: rgba(148,163,184,0.1); padding: 4px 8px; border-radius: 4px; color: #94A3B8;">Details
+                                ▾</span>
+                        </summary>
+                        <div
+                            style="margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.95em; line-height: 1.5; cursor: text;">
+                            <strong>Abstract:</strong> <em style="color: #6B7280;">To be confirmed</em>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -2173,169 +2601,144 @@
     <!-- Featured Speakers Grid -->
     <section id="speakers">
         <div class="section-header">
-            <span class="section-badge"><i class="fa-solid fa-microphone-lines"></i> Invited Speeches</span>
+            <span class="section-badge"><i class="fa-solid fa-microphone-lines"></i> Invited Speakers</span>
             <h2>Distinguished International Faculty</h2>
             <p>Renowned pioneers, inventors, and prize laureates shaping the future of matter and light.</p>
         </div>
 
-        <!-- ==========================================================================
-             BEGINNER'S GUIDE TO HTML: SPEAKER CARDS GRID
-             Each <div class="speaker-card"> represents a box displaying a keynote speaker.
-             Note: As requested by the user, the "Attend Talk" buttons have been removed
-             from under the speakers for a cleaner, more aesthetic profile view!
-             ========================================================================== -->
         <div class="speakers-grid">
             <!-- Speaker 1 -->
             <div class="speaker-card" style="--card-color: #10B981;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(16, 185, 129, 0.15); border-color: #10B981; color: #6EE7B7;"><i
-                            class="fa-solid fa-trophy"></i> Wolf Prize Winner (2011)</span>
-                    <div class="speaker-avatar"><img src="images/speakers/haider.png" alt="Maximilian Haider"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-microscope"></i></div>
-                    <h3><a href="https://www.ceos-gmbh.de/en/about/max-haider" target="_blank" rel="noopener noreferrer"
-                            class="speaker-name-link" title="More info on Prof. Haider">Maximilian Haider</a></h3>
-                    <div class="speaker-inst">CEOS GmbH & KIT, Germany</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/haider.png" alt="Maximilian Haider"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-microscope"></i></div>
+                <h3><a href="https://www.ceos-gmbh.de/en/about/max-haider" target="_blank" rel="noopener noreferrer"
+                        class="speaker-name-link" title="More info on Prof. Haider">Maximilian Haider</a></h3>
+                <div class="speaker-inst">CEOS GmbH & KIT, Germany</div>
+                <span class="award-badge" style="border-color: rgba(16,185,129,0.3); color: #6EE7B7;"><i
+                        class="fa-solid fa-microscope" style="font-size:0.8em;"></i> Aberration-Corrected
+                    Microscopy</span>
                 <p class="speaker-desc">
-                    Realized the first aberration-corrected electron microscope, revolutionizing our ability to
-                    visualize atomic lattices with sub-Angstrom precision. Principal Investigator of the <a
-                        href="https://www.ceos-gmbh.de/en/research/more-tem" target="_blank" rel="noopener noreferrer"
-                        style="color: #10B981; text-decoration: underline; font-weight: 600;">MORE-TEM</a> project.
+                    Pioneered aberration-corrected electron microscopy, enabling atomic-scale visualization of
+                    materials. Principal Investigator of the <a href="https://www.ceos-gmbh.de/en/research/more-tem"
+                        target="_blank" rel="noopener noreferrer"
+                        style="color: #10B981; text-decoration: underline;">MORE-TEM</a> project.
                 </p>
             </div>
 
             <!-- Speaker 2 -->
             <div class="speaker-card" style="--card-color: #14B8A6;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(20, 184, 166, 0.15); border-color: #14B8A6; color: #5EEAD4;"><i
-                            class="fa-solid fa-star"></i> Single-Atom Imaging</span>
-                    <div class="speaker-avatar"><img src="images/speakers/suenaga.jpg" alt="Kazu Suenaga"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-eye"></i></div>
-                    <h3><a href="https://scholar.google.com/citations?user=Nf9cn1IAAAAJ&hl=ja" target="_blank"
-                            rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Suenaga">Kazu
-                            Suenaga</a></h3>
-                    <div class="speaker-inst">Osaka University & AIST, Japan</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/suenaga.jpg" alt="Kazu Suenaga"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-eye"></i></div>
+                <h3><a href="https://scholar.google.com/citations?user=Nf9cn1IAAAAJ&hl=ja" target="_blank"
+                        rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Suenaga">Kazu
+                        Suenaga</a></h3>
+                <div class="speaker-inst">Osaka University & AIST, Japan</div>
+                <span class="award-badge" style="border-color: rgba(20,184,166,0.3); color: #5EEAD4;"><i
+                        class="fa-solid fa-atom" style="font-size:0.8em;"></i> Single-Atom Imaging & Spectroscopy</span>
                 <p class="speaker-desc">
-                    World pioneer in single-atom imaging and electron energy-loss spectroscopy (EELS) in low-dimensional
-                    nanomaterials and nanotubes. Principal Investigator of the <a
-                        href="https://www.ceos-gmbh.de/en/research/more-tem" target="_blank" rel="noopener noreferrer"
-                        style="color: #14B8A6; text-decoration: underline; font-weight: 600;">MORE-TEM</a> project.
+                    Pioneer in single-atom imaging and electron energy-loss spectroscopy in low-dimensional
+                    nanomaterials. Co-investigator of the <a href="https://www.ceos-gmbh.de/en/research/more-tem"
+                        target="_blank" rel="noopener noreferrer"
+                        style="color: #14B8A6; text-decoration: underline;">MORE-TEM</a> project.
                 </p>
             </div>
 
             <!-- Speaker 3 -->
             <div class="speaker-card" style="--card-color: #00F0FF;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(0, 240, 255, 0.15); border-color: #00F0FF; color: #67E8F9;"><i
-                            class="fa-solid fa-bolt"></i> THz Laser Inventor</span>
-                    <div class="speaker-avatar"><img src="images/speakers/tredicucci.jpg" alt="Alessandro Tredicucci"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-wave-square"></i></div>
-                    <h3><a href="https://scholar.google.com/citations?user=ipxoIdgAAAAJ&hl=it" target="_blank"
-                            rel="noopener noreferrer" class="speaker-name-link"
-                            title="More info on Prof. Tredicucci">Alessandro Tredicucci</a></h3>
-                    <div class="speaker-inst">Università di Pisa & NEST - CNR-NANO, Italy</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/tredicucci.jpg" alt="Alessandro Tredicucci"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-wave-square"></i></div>
+                <h3><a href="https://scholar.google.com/citations?user=ipxoIdgAAAAJ&hl=it" target="_blank"
+                        rel="noopener noreferrer" class="speaker-name-link"
+                        title="More info on Prof. Tredicucci">Alessandro Tredicucci</a></h3>
+                <div class="speaker-inst">Università di Pisa & NEST - CNR-NANO, Italy</div>
+                <span class="award-badge" style="border-color: rgba(0,240,255,0.3); color: #67E8F9;"><i
+                        class="fa-solid fa-bolt" style="font-size:0.8em;"></i> Terahertz Photonics & Polaritonics</span>
                 <p class="speaker-desc">
-                    Pioneer in terahertz photonics and polaritonics; inventor of the first Terahertz Quantum Cascade
-                    Laser opening new spectral horizons.
+                    Works at the intersection of terahertz physics and quantum optics. Contributed to the development
+                    of the first Terahertz Quantum Cascade Laser.
                 </p>
             </div>
 
             <!-- Speaker 4 -->
             <div class="speaker-card" style="--card-color: #38BDF8;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(56, 189, 248, 0.15); border-color: #38BDF8; color: #7DD3FC;"><i
-                            class="fa-solid fa-award"></i> Spinoza Prize Winner (1999)</span>
-                    <div class="speaker-avatar"><img src="images/speakers/beenakker.jpg" alt="Carlo Beenakker"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-atom"></i></div>
-                    <h3><a href="https://scholar.google.com/citations?user=IuwLtbgAAAAJ&hl=en" target="_blank"
-                            rel="noopener noreferrer" class="speaker-name-link"
-                            title="More info on Prof. Beenakker">Carlo Beenakker</a></h3>
-                    <div class="speaker-inst">Leiden University, The Netherlands</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/beenakker.jpg" alt="Carlo Beenakker"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-atom"></i></div>
+                <h3><a href="https://scholar.google.com/citations?user=IuwLtbgAAAAJ&hl=en" target="_blank"
+                        rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof. Beenakker">Carlo
+                        Beenakker</a></h3>
+                <div class="speaker-inst">Leiden University, The Netherlands</div>
+                <span class="award-badge" style="border-color: rgba(56,189,248,0.3); color: #7DD3FC;"><i
+                        class="fa-solid fa-wave-square" style="font-size:0.8em;"></i> Mesoscopic Physics & Quantum
+                    Transport</span>
                 <p class="speaker-desc">
-                    Legendary theoretical physicist leading seminal discoveries in mesoscopic physics, quantum
-                    transport, and Majorana fermions for quantum computing.
+                    Theoretical physicist with broad contributions to mesoscopic physics, quantum transport, and
+                    topological superconductors hosting Majorana fermions.
                 </p>
             </div>
 
             <!-- Speaker 5 -->
             <div class="speaker-card" style="--card-color: #3B82F6;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(59, 130, 246, 0.15); border-color: #3B82F6; color: #93C5FD;"><i
-                            class="fa-solid fa-layer-group"></i> Graphene Pioneer</span>
-                    <div class="speaker-avatar"><img src="images/speakers/coletti.jpg" alt="Camilla Coletti"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-cube"></i></div>
-                    <h3><a href="https://www.iit.it/it/people-profile/-/people/camilla-coletti" target="_blank"
-                            rel="noopener noreferrer" class="speaker-name-link"
-                            title="More info on Prof.ssa Coletti">Camilla Coletti</a></h3>
-                    <div class="speaker-inst">IIT & CNI@NEST, Italy</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/coletti.jpg" alt="Camilla Coletti"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-cube"></i></div>
+                <h3><a href="https://www.iit.it/it/people-profile/-/people/camilla-coletti" target="_blank"
+                        rel="noopener noreferrer" class="speaker-name-link"
+                        title="More info on Prof.ssa Coletti">Camilla Coletti</a></h3>
+                <div class="speaker-inst">IIT & CNI@NEST, Italy</div>
+                <span class="award-badge" style="border-color: rgba(59,130,246,0.3); color: #93C5FD;"><i
+                        class="fa-solid fa-layer-group" style="font-size:0.8em;"></i> 2D Materials & Graphene
+                    Synthesis</span>
                 <p class="speaker-desc">
-                    Coordinator of Center for Nanotechnology Innovation & IIT Graphene Labs. Pioneer in scalable CVD
-                    synthesis of pristine 2D heterostructures.
+                    Leads research on scalable CVD synthesis of graphene and 2D heterostructures for applications
+                    in photonics and electronics. Coordinator of IIT Graphene Labs.
                 </p>
             </div>
 
             <!-- Speaker 6 -->
             <div class="speaker-card" style="--card-color: #6366F1;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(99, 102, 241, 0.15); border-color: #6366F1; color: #A5B4FC;"><i
-                            class="fa-solid fa-shield-halved"></i> Nanorestoration</span>
-                    <div class="speaker-avatar"><img src="images/speakers/dicarlo.png" alt="Gabriella Di Carlo"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-monument"></i></div>
-                    <h3><a href="https://www.ismn.cnr.it/gabriella-di-carlo/" target="_blank" rel="noopener noreferrer"
-                            class="speaker-name-link" title="More info on Prof.ssa Di Carlo">Gabriella Di Carlo</a></h3>
-                    <div class="speaker-inst">ISMN-CNR / Sapienza University, Italy</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/dicarlo.png" alt="Gabriella Di Carlo"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-monument"></i></div>
+                <h3><a href="https://www.ismn.cnr.it/gabriella-di-carlo/" target="_blank" rel="noopener noreferrer"
+                        class="speaker-name-link" title="More info on Prof.ssa Di Carlo">Gabriella Di Carlo</a></h3>
+                <div class="speaker-inst">ISMN-CNR / Sapienza University, Italy</div>
+                <span class="award-badge" style="border-color: rgba(99,102,241,0.3); color: #A5B4FC;"><i
+                        class="fa-solid fa-shield-halved" style="font-size:0.8em;"></i> Surface Science &
+                    Nanorestoration</span>
                 <p class="speaker-desc">
-                    Leading expert in surface chemistry and eco-friendly nanostructured coatings applied to cultural
-                    heritage conservation and corrosion prevention.
+                    Researches nanostructured coatings and surface chemistry with applications in the conservation
+                    and eco-friendly restoration of cultural heritage.
                 </p>
             </div>
 
             <!-- Speaker 7 -->
             <div class="speaker-card" style="--card-color: #8B5CF6;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(139, 92, 246, 0.15); border-color: #8B5CF6; color: #C4B5FD;"><i
-                            class="fa-solid fa-brain"></i> Neural Interfaces</span>
-                    <div class="speaker-avatar"><img src="images/speakers/deangelis.jpg" alt="Francesco De Angelis"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-dna"></i></div>
-                    <h3><a href="https://scholar.google.com/citations?user=-rjEmUYAAAAJ&hl=it" target="_blank"
-                            rel="noopener noreferrer" class="speaker-name-link"
-                            title="More info on Prof. De Angelis">Francesco De Angelis</a></h3>
-                    <div class="speaker-inst">Istituto Italiano di Tecnologia (IIT), Italy</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/deangelis.jpg" alt="Francesco De Angelis"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-dna"></i></div>
+                <h3><a href="https://scholar.google.com/citations?user=-rjEmUYAAAAJ&hl=it" target="_blank"
+                        rel="noopener noreferrer" class="speaker-name-link"
+                        title="More info on Prof. De Angelis">Francesco De Angelis</a></h3>
+                <div class="speaker-inst">Istituto Italiano di Tecnologia (IIT), Italy</div>
+                <span class="award-badge" style="border-color: rgba(139,92,246,0.3); color: #C4B5FD;"><i
+                        class="fa-solid fa-brain" style="font-size:0.8em;"></i> Plasmonics & Neuro-Nanotechnology</span>
                 <p class="speaker-desc">
-                    Pioneer in 3D plasmonic nanostructures, advanced optical biosensors, and single-molecule
-                    neuro-technologies for biomedical breakthroughs.
+                    Works on 3D plasmonic nanostructures, nanopore technologies, and optical biosensors with
+                    applications in neuroscience and genomics.
                 </p>
             </div>
 
             <!-- Speaker 8 -->
             <div class="speaker-card" style="--card-color: #A855F7;">
-                <div>
-                    <span class="award-badge"
-                        style="background: rgba(168, 85, 247, 0.15); border-color: #A855F7; color: #E9D5FF;"><i
-                            class="fa-solid fa-magnet"></i> Molecular Spintronics</span>
-                    <div class="speaker-avatar"><img src="images/speakers/serrano.jpg" alt="Giulia Serrano"
-                            onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-compass"></i></div>
-                    <h3><a href="https://scholar.google.com/citations?user=0gyrLMIAAAAJ&hl=it" target="_blank"
-                            rel="noopener noreferrer" class="speaker-name-link"
-                            title="More info on Prof.ssa Serrano">Giulia Serrano</a></h3>
-                    <div class="speaker-inst">University of Florence, Italy</div>
-                </div>
+                <div class="speaker-avatar"><img src="images/speakers/serrano.jpg" alt="Giulia Serrano"
+                        onerror="handleSpeakerImgError(this)"><i class="fa-solid fa-compass"></i></div>
+                <h3><a href="https://scholar.google.com/citations?user=0gyrLMIAAAAJ&hl=it" target="_blank"
+                        rel="noopener noreferrer" class="speaker-name-link" title="More info on Prof.ssa Serrano">Giulia
+                        Serrano</a></h3>
+                <div class="speaker-inst">University of Florence, Italy</div>
+                <span class="award-badge" style="border-color: rgba(168,85,247,0.3); color: #E9D5FF;"><i
+                        class="fa-solid fa-magnet" style="font-size:0.8em;"></i> Molecular Magnetism &
+                    Spintronics</span>
                 <p class="speaker-desc">
-                    Innovator in surface science and molecular magnetism, controlling quantum spin states on surfaces
-                    for next-gen quantum devices.
+                    Studies molecular magnetism and the behaviour of Single-Molecule Magnets on functional surfaces,
+                    with implications for quantum technologies.
                 </p>
             </div>
         </div>
@@ -3015,9 +3418,8 @@
                 <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
                     <li><a href="#about" style="color: var(--text-muted); text-decoration: none;">About the
                             Conference</a></li>
-                    <li><a href="#program" style="color: var(--text-muted); text-decoration: none;">Preliminary
-                            Schedule</a></li>
-                    <li><a href="#speakers" style="color: var(--text-muted); text-decoration: none;">Speeches</a></li>
+                    <li><a href="#program" style="color: var(--text-muted); text-decoration: none;">Programme</a></li>
+                    <li><a href="#speakers" style="color: var(--text-muted); text-decoration: none;">Speakers</a></li>
                     <li><a href="#workshops" style="color: var(--text-muted); text-decoration: none;">Hands-on
                             Workshops</a></li>
                     <li><a href="#committee" style="color: var(--text-muted); text-decoration: none;">Scientific
@@ -3389,7 +3791,7 @@
             const sessionsHtml = `
                 <div style="background: rgba(255, 255, 255, 0.03); border-left: 3px solid #00F0FF; padding: 10px 14px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                     <div>
-                        <div style="font-size: 13.5px; font-weight: 700; color: #FFF;">Session 1: Plenary Speeches & Quantum Optics</div>
+                        <div style="font-size: 13.5px; font-weight: 700; color: #FFF;">Session 1: Plenary Seminars & Quantum Optics</div>
                         <div style="font-size: 11px; color: #94A3B8; margin-top: 1.5px;">Keynote Lectures, Quantum Technology & Nanophotonics</div>
                     </div>
                     <div style="text-align: right;">
@@ -3735,7 +4137,7 @@
             en: {
                 nav_about: "About",
                 nav_program: "Scientific Program",
-                nav_keynotes: "Speeches",
+                nav_keynotes: "Speakers",
                 nav_workshops: "Workshops",
                 nav_lab_signup: "Lab<br>Sign up",
                 nav_poster_call: "Call for Posters",
