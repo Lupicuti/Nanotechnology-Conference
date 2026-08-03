@@ -1221,6 +1221,30 @@
                             <span class="status-dot available"></span>
                         </div>
                     </div>
+
+                    <!-- Workshop 8: The true nature of light -->
+                    <div class="ws-select-card" data-value="nature-of-light" onclick="selectWorkshop('nature-of-light')" style="--card-color: #F43F5E;">
+                        <div>
+                            <div class="ws-header-row">
+                                <div class="ws-leader-box">
+                                    <div class="ws-leader-avatars">
+                                        <img src="images/workshops/rota.jpg" alt="Michele Rota" class="ws-person-img" style="border-color: #F43F5E;" onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'">
+                                    </div>
+                                    <div class="ws-leader-info">
+                                        <div class="ws-leader-name" style="color: #F43F5E;"><a href="#" target="_blank" rel="noopener noreferrer" title="View Profile / More Info">Michele Rota</a></div>
+                                        <div class="ws-affil">Quantum Optics Lab</div>
+                                    </div>
+                                </div>
+                                <div class="ws-icon" style="color: #F43F5E; margin: 0;"><i class="fa-solid fa-wave-square"></i></div>
+                            </div>
+                            <h4>The true nature of light</h4>
+                            <p class="ws-desc">In this workshop, we will discover whether light is just a wave or if a quantum theory is necessary to describe it. I will first give a theoretical introduction to the second-order autocorrelation function, how to measure it, and how it helps to distinguish different types of light. After this, we will visit a quantum optics lab where we will measure the second-order autocorrelation function in real-time using the light emission from a semiconductor quantum dot to prove that a wave-only description fails under certain circumstances, demonstrating that light is indeed quantized.</p>
+                        </div>
+                        <div class="ws-meta">
+                            <span class="ws-seats">Seats: <b>5 / 5 remaining</b></span>
+                            <span class="status-dot available"></span>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Submit Button -->
@@ -1438,6 +1462,11 @@
             'computational-plasmonics': {
                 name: 'Computational Plasmonics',
                 leader: 'Tommaso Giovannini (Tor Vergata)',
+                location: 'Delegates will be guided by a member of the staff to the location of the laboratory'
+            },
+            'nature-of-light': {
+                name: 'The true nature of light',
+                leader: 'Michele Rota',
                 location: 'Delegates will be guided by a member of the staff to the location of the laboratory'
             }
         };
@@ -1932,7 +1961,8 @@
                 'nanowires': { name: 'Try turning a semiconductor nanowire into a nanolaser !', loc: 'Delegates will be guided by a member of the staff to the location of the laboratory', date: 'Schedule: Friday, Sept 18, 2026 • Afternoon (15:00 - 18:00 CEST)', color: '#818CF8' },
                 'heritage': { name: 'HERITAGE-LAB Nanotech', loc: 'Delegates will be guided by a member of the staff to the location of the laboratory', date: 'Schedule: Friday, Sept 18, 2026 • Afternoon (15:00 - 18:00 CEST)', color: '#3B82F6' },
                 'photonics': { name: 'Coupling light-emitting 2D materials with on-chip photonic circuits', loc: 'Delegates will be guided by a member of the staff to the location of the laboratory', date: 'Schedule: Friday, Sept 18, 2026 • Afternoon (15:00 - 18:00 CEST)', color: '#6366F1' },
-                'computational': { name: 'Computational Plasmonics', loc: 'Delegates will be guided by a member of the staff to the location of the laboratory', date: 'Schedule: Friday, Sept 18, 2026 • Afternoon (15:00 - 18:00 CEST)', color: '#A855F7' }
+                'computational': { name: 'Computational Plasmonics', loc: 'Delegates will be guided by a member of the staff to the location of the laboratory', date: 'Schedule: Friday, Sept 18, 2026 • Afternoon (15:00 - 18:00 CEST)', color: '#A855F7' },
+                'nature': { name: 'The true nature of light', loc: 'Delegates will be guided by a member of the staff to the location of the laboratory', date: 'Schedule: Friday, Sept 18, 2026 • Afternoon (15:00 - 18:00 CEST)', color: '#F43F5E' }
             };
 
             let wsTitleFinal = 'None / Plenary Sessions Only';

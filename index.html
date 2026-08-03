@@ -3003,6 +3003,40 @@
                         style="width: 100%; justify-content: center; border-color: #A855F7;">Reserve Lab Seat</a>
                 </div>
             </div>
+
+            <div class="workshop-card" data-value="nature-of-light" style="--card-color: #F43F5E;">
+                <div>
+                    <div class="ws-header-row">
+                        <div class="ws-leader-box">
+                            <div class="ws-leader-avatars">
+                                <img src="images/workshops/rota.jpg" alt="Michele Rota"
+                                    class="ws-person-img" style="border-color: #F43F5E;"
+                                    onerror="this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80'">
+                            </div>
+                            <div class="ws-leader-info">
+                                <div class="ws-leader-name" style="color: #F43F5E;"><a
+                                        href="#" target="_blank"
+                                        rel="noopener noreferrer" title="View Profile / More Info">Michele
+                                        Rota</a></div>
+                                <div class="ws-affil">Quantum Optics Lab</div>
+                            </div>
+                        </div>
+                        <div class="workshop-icon" style="color: #F43F5E; margin: 0;"><i
+                                class="fa-solid fa-wave-square"></i>
+                        </div>
+                    </div>
+                    <h3>The true nature of light</h3>
+                    <p>In this workshop, we will discover whether light is just a wave or if a quantum theory is necessary to describe it. I will first give a theoretical introduction to the second-order autocorrelation function, how to measure it, and how it helps to distinguish different types of light. After this, we will visit a quantum optics lab where we will measure the second-order autocorrelation function in real-time using the light emission from a semiconductor quantum dot to prove that a wave-only description fails under certain circumstances, demonstrating that light is indeed quantized.</p>
+                </div>
+                <div>
+                    <div class="ws-meta">
+                        <span class="ws-seats">Seats: <b>5 / 5 remaining</b></span>
+                        <span class="status-dot available"></span>
+                    </div>
+                    <a href="workshops.html?select=nature-of-light" class="btn btn-outline"
+                        style="width: 100%; justify-content: center; border-color: #F43F5E;">Reserve Lab Seat</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -4292,11 +4326,12 @@
             'nanowires': { name: 'Try turning a semiconductor nanowire into a nanolaser !', max: 10 },
             'heritage-lab': { name: 'HERITAGE-LAB Nanotech', max: 15 },
             'photonics': { name: 'Coupling light-emitting 2D materials with on-chip photonic circuits', max: 6 },
-            'computational-plasmonics': { name: 'Computational Plasmonics', max: 15 }
+            'computational-plasmonics': { name: 'Computational Plasmonics', max: 15 },
+            'nature-of-light': { name: 'The true nature of light', max: 5 }
         };
         const indexWorkshopCounts = {
             'afm': 0, 'nanomedicine': 0, 'quantum-well': 0, 'nanowires': 0,
-            'heritage-lab': 0, 'photonics': 0, 'computational-plasmonics': 0
+            'heritage-lab': 0, 'photonics': 0, 'computational-plasmonics': 0, 'nature-of-light': 0
         };
 
         async function fetchWorkshopCountsFromSheet() {
