@@ -406,12 +406,13 @@ class ConferenceHandler(http.server.BaseHTTPRequestHandler):
         # Workshop visual names data
         ws_details_map = {
             'afm': ('Atomic Force Microscopy (AFM)', 'Ernesto Placidi (Sapienza)', 'AFM Lab, Marconi Physics Building, Sapienza'),
-            'nanomedicine': ('Nanomedicine Experience', 'M. Gioia Fabiano & Eleonora D’Intino', 'Formulation Lab, Drug Technologies Dept, Sapienza'),
-            'quantum-well': ('Absorption in Quantum Well', 'Leonetta Baldassarre (Sapienza)', 'Infrared Spectroscopy Facility, Fermi Building, Sapienza'),
-            'nanowires': ('Semiconductor Nanowires', 'Marta De Luca (Sapienza)', 'Micro-Raman Lab, Physics Department, Sapienza'),
+            'nanomedicine': ('Amphiphile-Based Nanomedicines: Principles, Rational Design, and Characterization', 'M. Gioia Fabiano & Eleonora D’Intino', 'Formulation Lab, Drug Technologies Dept, Sapienza'),
+            'quantum-well': ('Exploring quantum excitations with Fourier Transform infrared spectroscopy', 'Leonetta Baldassarre (Sapienza)', 'Infrared Spectroscopy Facility, Fermi Building, Sapienza'),
+            'nanowires': ('Try turning a semiconductor nanowire into a nanolaser !', 'Marta De Luca (Sapienza)', 'Micro-Raman Lab, Physics Department, Sapienza'),
             'heritage-lab': ('HERITAGE-LAB Nanotech', 'Maria Laura Santarelli (Sapienza)', 'Cultural Heritage Lab, Chemical Engineering, Sapienza'),
-            'photonics': ('Light and Photonics', 'Marco Felici (Sapienza)', 'Integrated Photonics Lab, Physics Department, Sapienza'),
-            'computational-plasmonics': ('Computational Plasmonics', 'Tommaso Giovannini (Tor Vergata)', 'Scientific Computing Lab, Physics Dept, Sapienza')
+            'photonics': ('Coupling light-emitting 2D materials with on-chip photonic circuits', 'Marco Felici (Sapienza)', 'Integrated Photonics Lab, Physics Department, Sapienza'),
+            'computational-plasmonics': ('Computational Plasmonics', 'Tommaso Giovannini (Tor Vergata)', 'Scientific Computing Lab, Physics Dept, Sapienza'),
+            'nature-of-light': ('The true nature of light', 'Michele Rota', 'Quantum Optics Lab, Physics Dept, Sapienza')
         }
         
         ws_details = ws_details_map.get(workshop.lower(), (workshop, "", "Sapienza Laboratories"))

@@ -117,12 +117,13 @@ def create_conference_workbook():
     
     workshops = [
         ("Atomic Force Microscopy (AFM)", '*Atomic Force Microscopy*'),
-        ("Nanomedicine Experience", '*Nanomedicine*'),
-        ("Absorption in Quantum Well", '*Quantum Well*'),
-        ("Semiconductor Nanowires", '*Nanowires*'),
+        ("Amphiphile-Based Nanomedicines: Principles, Rational Design, and Characterization", '*Nanomedicine*'),
+        ("Exploring quantum excitations with Fourier Transform infrared spectroscopy", '*Fourier*'),
+        ("Try turning a semiconductor nanowire into a nanolaser !", '*Nanowires*'),
         ("HERITAGE-LAB Nanotech", '*HERITAGE*'),
-        ("Light and Photonics", '*Photonics*'),
+        ("Coupling light-emitting 2D materials with on-chip photonic circuits", '*Photonics*'),
         ("Computational Plasmonics", '*Computational*'),
+        ("The true nature of light", '*nature*'),
         ("None (Plenary Only)", '*Plenary Only*')
     ]
     
