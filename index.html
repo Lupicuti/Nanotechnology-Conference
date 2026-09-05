@@ -1896,6 +1896,7 @@
                         style="color: var(--cyan); display: inline-flex; align-items: center; gap: 0.4rem; text-align: center; line-height: 1.15;"><i
                             class="fa-solid fa-file-arrow-up"></i> <span data-i18n="nav_poster_submit">Call
                             for<br>Posters</span></a></li>
+
                 <li><a href="#secretary" data-i18n="nav_secretary">Organizers</a></li>
                 <li><a href="#committee" data-i18n="nav_committee">Committee</a></li>
                 <li><a href="#venue">Venue</a></li>
@@ -3096,6 +3097,8 @@
         </div>
     </section>
 
+
+
     <!-- PhD & Young Researchers Poster Session Section -->
     <section id="poster-submission" style="padding: 6rem 5% 4rem; position: relative;">
         <!-- Glowing background accents -->
@@ -3184,9 +3187,9 @@
 
                 <div
                     style="margin-top: 2.2rem; padding: 1.2rem 1.5rem; border-radius: 14px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); display: flex; align-items: center; gap: 1rem;">
-                    <i class="fa-solid fa-clock-rotate-left" style="color: var(--coral); font-size: 1.5rem;"></i>
+                    <i class="fa-solid fa-circle-info" style="color: var(--coral); font-size: 1.5rem;"></i>
                     <div style="font-size: 0.9rem; color: #FFF;">
-                        <b>Abstract Submission Deadline:</b> 5 September 2026<br>
+                        <b>Submissions Open:</b> Applications currently accepted<br>
                         <span style="color: var(--text-muted); font-size: 0.82rem;">Early submissions are recommended
                             due to limited exhibition panel slots.</span>
                     </div>
@@ -3799,43 +3802,7 @@
             if (regContent) regContent.style.padding = '1.2rem 1.5rem';
         }
 
-        let globalPosterSubmissions = 0;
-        function handlePosterSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('poster-name').value;
-            const email = document.getElementById('poster-email').value;
-            const affil = document.getElementById('poster-affil').value;
-            const topic = document.getElementById('poster-topic').value;
-            const title = document.getElementById('poster-title').value;
-            const abstract = document.getElementById('poster-abstract').value;
 
-            // Check if form is configured for live Google Form submission
-            const form = document.getElementById('poster-form');
-            if (form && form.action && form.action.includes('docs.google.com/forms')) {
-                // Allow background submission via iframe
-                form.submit();
-            }
-
-            globalPosterSubmissions++;
-            const passNumStr = String(globalPosterSubmissions).padStart(3, '0');
-            const confId = '#PSTR-2026-' + (Math.floor(100 + Math.random() * 900)) + '-' + passNumStr;
-
-            if (document.getElementById('poster-conf-id')) document.getElementById('poster-conf-id').innerText = confId;
-            if (document.getElementById('poster-conf-name')) document.getElementById('poster-conf-name').innerText = name;
-            if (document.getElementById('poster-conf-affil')) document.getElementById('poster-conf-affil').innerText = affil;
-            if (document.getElementById('poster-conf-topic')) document.getElementById('poster-conf-topic').innerText = topic;
-            if (document.getElementById('poster-conf-title')) document.getElementById('poster-conf-title').innerText = title;
-
-            if (document.getElementById('poster-form-step-1')) document.getElementById('poster-form-step-1').style.display = 'none';
-            if (document.getElementById('poster-form-step-2')) document.getElementById('poster-form-step-2').style.display = 'block';
-        }
-
-        function resetPosterForm() {
-            const form = document.getElementById('poster-form');
-            if (form) form.reset();
-            if (document.getElementById('poster-form-step-2')) document.getElementById('poster-form-step-2').style.display = 'none';
-            if (document.getElementById('poster-form-step-1')) document.getElementById('poster-form-step-1').style.display = 'block';
-        }
 
         // Track global registrants count for sequential numbers
         let globalTotalRegistrants = 0;
